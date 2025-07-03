@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://rajpratham1.github.io/my-portfolio/sitemap.xml
