@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('theme', body.classList.contains('light-mode') ? 'light' : 'dark');
     });
 
-    // --- NEW THREE-DOT DROPDOWN MENU LOGIC ---
+    // --- THREE-DOT DROPDOWN MENU LOGIC ---
     const menuIcon = document.getElementById('menu-icon-dots');
     const dropdownMenu = document.getElementById('dropdown-menu');
 
