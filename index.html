@@ -5,12 +5,764 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pratham Kumar | AI/ML Enthusiast & Developer</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="logo.png.jpg">
+
+    <style>
+        /* --- UNIVERSAL STYLES AND THEME VARIABLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.5s, color 0.5s;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+        :root {
+            /* Dark Mode (Default) */
+            --bg-color: #0d0d0d; /* Darker background */
+            --primary-text: #ffffff;
+            --secondary-text: #a0a0a0;
+            --card-bg: rgba(29, 29, 29, 0.7); /* Glassmorphism background */
+            --header-bg: rgba(13, 13, 13, 0.7);
+            --accent-color: #00aeff;
+            --accent-light: #00c3ff;
+            --border-color: rgba(51, 51, 51, 0.5); /* Semi-transparent border */
+            --shadow-color: rgba(0, 174, 255, 0.2);
+            --star-color: 0x00aeff; /* three.js background */
+        }
+        body.light-mode {
+            /* Light Mode */
+            --bg-color: #f4f7f6;
+            --primary-text: #1e1e1e;
+            --secondary-text: #555555;
+            --card-bg: rgba(255, 255, 255, 0.7); /* Glassmorphism background */
+            --header-bg: rgba(244, 247, 246, 0.7);
+            --accent-color: #007acc;
+            --accent-light: #0056b3;
+            --border-color: rgba(221, 221, 221, 0.8);
+            --shadow-color: rgba(0, 122, 204, 0.2);
+            --star-color: 0x007acc; /* three.js background */
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--secondary-text);
+        }
+        h1, h2, h3, .logo, strong {
+            color: var(--primary-text);
+            font-weight: 700;
+        }
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: var(--accent-light);
+        }
+
+        /* --- NEW: 3D BACKGROUND CANVAS --- */
+        #bg-3d {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Behind all content */
+        }
+
+        /* --- NEW: LOADING SCREEN --- */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.5s ease-out;
+        }
+        .loader {
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--accent-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        #loading-screen p {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: var(--secondary-text);
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- HEADER & THREE-DOT MENU (UPDATED) --- */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            /* UPDATED: Glassmorphism */
+            background-color: var(--header-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            transition: padding 0.3s ease, background-color 0.3s ease;
+        }
+        .main-header.scrolled {
+            padding: 10px 5%;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .menu-container {
+            position: relative;
+        }
+        .menu-icon-dots {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-text);
+            padding: 5px;
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 150%;
+            right: 0;
+            /* UPDATED: Glassmorphism */
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            width: 220px;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        .dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-menu a,
+        .dropdown-menu .theme-toggle {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--secondary-text);
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+        .dropdown-menu a:hover,
+        .dropdown-menu .theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--primary-text);
+        }
+        body.light-mode .dropdown-menu a:hover,
+        body.light-mode .dropdown-menu .theme-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        .dropdown-divider {
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 5px 0;
+        }
+        .theme-toggle .fa-sun {
+            display: none;
+        }
+        body.light-mode .theme-toggle .fa-sun {
+            display: inline-block;
+        }
+        body.light-mode .theme-toggle .fa-moon {
+            display: none;
+        }
+
+        /* --- SECTIONS & SHARED STYLES (UPDATED) --- */
+        main {
+            position: relative; /* Needed for z-index stacking */
+            z-index: 10;
+            /* FIX: Force new composite layer to fix rendering bug */
+            transform: translateZ(0);
+        }
+        .content-section,
+        .full-page-section {
+            padding: 120px 10% 60px;
+            /* NEW: Reset for GSAP */
+            opacity: 1;
+            transform: none;
+        }
+        .full-page-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden; /* For hero */
+        }
+        
+        /* NEW: Text Reveal Animation */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            position: relative;
+            /* For reveal animation */
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        }
+        .section-title .title-line {
+            display: inline-block;
+            transform: translateY(110%);
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+            /* For reveal animation */
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+        .section-title.is-revealed::after {
+            transform: scaleX(1);
+        }
+
+        /* --- HERO SECTION (UPDATED) --- */
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            gap: 40px;
+        }
+        .hero-text {
+            flex-basis: 55%;
+        }
+        .hero-text h1 {
+            font-size: 3.8rem;
+            line-height: 1.1;
+            margin-bottom: 15px;
+        }
+        .font-effect {
+            text-shadow: 0 0 10px var(--shadow-color);
+        }
+        .typing-effect {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            width: max-content;
+            border-right: 2px solid var(--accent-color);
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: var(--accent-color); }
+        }
+        .hero-text .email {
+            font-weight: 500;
+            margin-bottom: 30px;
+        }
+        .hero-buttons .cta-button {
+            display: inline-block;
+            margin: 5px 10px 5px 0;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent-color);
+        }
+        .cta-button {
+            background-color: var(--accent-color);
+            color: #fff;
+        }
+        .cta-button.secondary {
+            background-color: transparent;
+            color: var(--accent-color);
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        /* UPDATED: Hero Image (2D Profile Picture) */
+        .hero-image {
+            flex-basis: 45%;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-image img {
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 7px solid var(--accent-color);
+            box-shadow: 0 0 30px var(--shadow-color);
+            animation: pulse 2s infinite;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hero-image img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 45px var(--shadow-color);
+        }
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 30px var(--shadow-color);
+            }
+            50% {
+                box-shadow: 0 0 45px var(--shadow-color);
+            }
+        }
+
+        /* --- PROJECTS & WEBSITES (UPDATED) --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        .project-card {
+            /* UPDATED: Glassmorphism */
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            height: 100%;
+            overflow: hidden; /* For image zoom */
+            /* NEW: 3D Tilt Effect */
+            transform: perspective(1000px);
+        }
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+            border-radius: 10px 10px 0 0;
+            transition: transform 0.4s ease;
+        }
+        .project-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .project-info h3 {
+            margin-bottom: 10px;
+        }
+        .tech-stack {
+            margin-top: auto;
+        }
+        .project-card:hover {
+            transform: translateY(-8px) perspective(1000px);
+            box-shadow: 0 16px 32px var(--shadow-color);
+        }
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
+        .tech-stack span {
+            display: inline-block;
+            background-color: rgba(51, 51, 51, 0.7);
+            color: var(--accent-color);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin: 5px 5px 5px 0;
+        }
+        body.light-mode .tech-stack span {
+            background-color: rgba(238, 238, 255, 0.9);
+        }
+        .tag {
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-left: 10px;
+        }
+        .tag.lead {
+            background-color: var(--accent-color);
+            color: #fff;
+        }
+        .tag.current {
+            background-color: #f39c12;
+            color: #fff;
+        }
+        .project-link {
+            display: inline-block;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        /* --- PUBLICATIONS SECTION --- */
+        #publications .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+        #publications .project-card {
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: stretch;
+            padding: 20px;
+            gap: 20px;
+            height: auto;
+        }
+        #publications .project-card img {
+            width: 250px;
+            height: auto;
+            border-bottom: none;
+            flex-shrink: 0;
+            border-radius: 8px;
+        }
+        #publications .project-info {
+            padding: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        #publications .project-info .publication-links {
+            margin-top: auto;
+        }
+
+        /* --- EXPERIENCE SECTION (TIMELINE) --- */
+        .timeline {
+            position: relative;
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background-color: var(--accent-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1.5px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+        }
+        .timeline-item:nth-child(odd) { left: 0; }
+        .timeline-item:nth-child(even) { left: 50%; }
+        .timeline-item:nth-child(odd) .timeline-dot { right: -7.5px; }
+        .timeline-item:nth-child(even) .timeline-dot { left: -7.5px; }
+        .timeline-dot {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: var(--bg-color);
+            border: 3px solid var(--accent-color);
+            top: 25px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .timeline-content {
+            padding: 20px;
+            /* UPDATED: Glassmorphism */
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .timeline-item:nth-child(odd) .timeline-content:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 20px var(--shadow-color);
+        }
+        .timeline-item:nth-child(even) .timeline-content:hover {
+            transform: translateX(-10px);
+            box-shadow: 0 8px 20px var(--shadow-color);
+        }
+        .timeline-date {
+            font-size: 0.9rem;
+            color: var(--primary-text);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .timeline-content h3 { font-size: 1.2rem; }
+        .timeline-content .company {
+            font-size: 1rem;
+            color: var(--secondary-text);
+        }
+        .proof-link {
+            display: inline-block;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        /* --- NEW: SKILLS SECTION --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .skill-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 10px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(5px);
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px var(--shadow-color);
+        }
+        .skill-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        .skill-card span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary-text);
+        }
+        /* Skill Colors */
+        .skill-card .fa-python { color: #3776AB; }
+        .skill-card .fa-java { color: #f89820; }
+        .skill-card .fa-html5 { color: #E34F26; }
+        .skill-card .fa-css3-alt { color: #1572B6; }
+        .skill-card .fa-js { color: #F7DF1E; }
+        .skill-card .fa-database { color: #4479A1; }
+        .skill-card .fa-git-alt { color: #F05032; }
+        .skill-card .fa-github { color: #ffffff; }
+        .skill-card .fa-file-excel { color: #217346; }
+        .skill-card .fa-c { color: #A8B9CC; }
+        .skill-card .fa-code { color: #89E051; } /* VScode */
+        .skill-card .fa-people-group { color: #00aeff; }
+        .skill-card .fa-lightbulb { color: #f39c12; }
+        .skill-card .fa-tasks { color: #26a69a; }
+
+        /* --- CONTACT SECTION (UPDATED) --- */
+        #contact-3d-container {
+            width: 100%;
+            max-width: 600px;
+            height: 300px; /* New height for contact laptop */
+            margin: 0 auto;
+            cursor: move;
+        }
+        .chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+            /* UPDATED: Glassmorphism */
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden; /* To contain header */
+            margin-top: -40px; /* Pull form up to meet 3D model */
+            position: relative;
+            z-index: 5; /* Ensure form is on top of 3D model */
+        }
+        .chat-header {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .chat-header img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        .chat-body {
+            padding: 20px;
+        }
+        .chat-body form input,
+        .chat-body form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            background-color: rgba(51, 51, 51, 0.5);
+            color: var(--primary-text);
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        body.light-mode .chat-body form input,
+        body.light-mode .chat-body form textarea {
+            background-color: rgba(238, 238, 238, 0.8);
+        }
+        .send-button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .send-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+
+        /* --- FOOTER --- */
+        .main-footer {
+            padding: 40px 20px;
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        .social-links-footer a {
+            font-size: 1.5rem;
+            margin: 0 15px;
+            color: var(--secondary-text);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .social-links-footer a:hover {
+            color: var(--accent-color);
+            transform: translateY(-4px);
+        }
+
+        /* --- RESPONSIVE STYLES --- */
+        @media (max-width: 900px) {
+            .hero-container {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+            .typing-effect {
+                margin: 0 auto 15px;
+            }
+            .hero-image { /* UPDATED */
+                height: auto;
+                width: 100%;
+                margin-bottom: 30px;
+                padding: 20px 0;
+            }
+            .hero-image img { /* UPDATED */
+                width: 280px;
+                height: 280px;
+            }
+            #publications .project-card {
+                flex-direction: column;
+                align-items: center;
+                gap: 0;
+                padding: 0;
+            }
+            #publications .project-card img {
+                width: 100%;
+                max-height: 200px;
+                border-bottom: 1px solid var(--border-color);
+            }
+            #publications .project-info {
+                padding: 20px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-header {
+                padding: 15px 5%;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 50px;
+                padding-right: 0;
+                left: 0 !important;
+            }
+            .timeline::after {
+                left: 15px;
+            }
+            .timeline-dot {
+                left: 7.5px !important;
+            }
+            .timeline-item:nth-child(even) .timeline-content:hover,
+            .timeline-item:nth-child(odd) .timeline-content:hover {
+                transform: translateX(0);
+                box-shadow: none;
+            }
+            .skills-grid {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+                gap: 15px;
+            }
+            .skill-card {
+                padding: 15px 5px;
+            }
+            .skill-card i {
+                font-size: 2rem;
+            }
+            .skill-card span {
+                font-size: 0.8rem;
+            }
+            #contact-3d-container {
+                height: 250px;
+            }
+        }
+    </style>
 </head>
 <body>
+
+    <!-- NEW: 3D Background -->
+    <canvas id="bg-3d"></canvas>
+
+    <!-- NEW: Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <p>Building 3D environment...</p>
+    </div>
 
     <header class="main-header">
         <div class="logo">Pratham Kumar</div>
@@ -42,23 +794,26 @@
                 <div class="hero-text">
                     <h1 class="font-effect">Pratham Kumar</h1>
                     <p class="subtitle typing-effect">CS&E | Full Stack Dev | AI/ML Enthusiast</p>
+                    <p class="about-me">I’m a passionate Full-Stack Developer and quick learner who constantly builds new projects, focuses on secure and resilient development, and leverages AI to work smarter and innovate faster.</p>
                     <p class="email"><i class="fa-solid fa-envelope"></i> rajpratham40@gmail.com</p>
                     <div class="hero-buttons">
                         <a href="#projects" class="cta-button">View My Work</a>
                         <a href="raj-pratham cv.pdf" download="Pratham_Kumar_Resume.pdf" class="cta-button secondary">Download Resume</a>
                     </div>
                 </div>
+                <!-- UPDATED: Reverted to 2D Profile Picture -->
                 <div class="hero-image">
-                    <img src="profile-photo.jpg.jpg" alt="Pratham Kumar">
+                    <img src="profile-photo.jpg.jpg" alt="Pratham Kumar" onerror="this.src='https://placehold.co/320x320/1e1e1e/00aeff?text=PK'">
                 </div>
             </div>
         </section>
 
         <section id="projects" class="content-section">
-            <h2 class="section-title">Featured Projects</h2>
+            <h2 class="section-title"><span class="title-line">Featured Projects</span></h2>
             <div class="projects-grid">
+                <!-- Project cards will be animated by GSAP -->
                 <div class="project-card">
-                    <img src="project-smoke.jpg.jpg" alt="Smoke Detector Sensor">
+                    <img src="project-smoke.jpg.jpg" alt="Smoke Detector Sensor" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Smoke+Detector'">
                     <div class="project-info">
                         <h3>Smoke Detector Sensor <span class="tag lead">Team Lead</span></h3>
                         <p>A comprehensive fire safety solution using advanced sensor technology to detect and prevent fire hazards.</p>
@@ -68,7 +823,7 @@
                 </div>
 
                 <div class="project-card">
-                    <img src="retailsales.jpg.png" alt="Retail Sales Analytics">
+                    <img src="retailsales.jpg.png" alt="Retail Sales Analytics" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Retail+Analytics'">
                     <div class="project-info">
                         <h3>Retail Sales Analytics <span class="tag current">Current Project</span></h3>
                         <p>A data analysis project using linear regression models to predict sales trends and optimize inventory management.</p>
@@ -78,7 +833,7 @@
                 </div>
 
                 <div class="project-card">
-                    <img src="project-smartagriculture.jpg.webp" alt="Smart Agriculture System">
+                    <img src="project-smartagriculture.jpg.webp" alt="Smart Agriculture System" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Smart+Agriculture'">
                     <div class="project-info">
                         <h3>Smart Agriculture System</h3>
                         <p>An IoT-based solution for modern farming that monitors environmental conditions and automates irrigation.</p>
@@ -88,7 +843,7 @@
                 </div>
 
                 <div class="project-card">
-                    <img src="project-agronomy.jpg.avif" alt="Agronomy Application">
+                    <img src="project-agronomy.jpg.avif" alt="Agronomy Application" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Agronomy+App'">
                     <div class="project-info">
                         <h3>Agronomy-Farmer Communication App</h3>
                         <p>A software solution that bridges the knowledge gap between agricultural experts and farmers.</p>
@@ -96,28 +851,50 @@
                         <a href="INVI-CULTURE.pdf" target="_blank" class="project-link">View Presentation <i class="fa-solid fa-file-powerpoint"></i></a>
                     </div>
                 </div>
+                <div class="project-card">
+                    <img src="mediscan.png" alt="MediScan AI" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=MediScan+AI'">
+                    <div class="project-info">
+                        <h3>MediScan AI</h3>
+                        <p>A Flask-based web app for breast cancer detection using a tuned Random Forest Classifier. Supports single and batch predictions via CSV.</p>
+                        <div class="tech-stack"><span>Flask</span><span>Machine Learning</span><span>Random Forest</span></div>
+                        <a href="https://cancerdetction.vercel.app/" target="_blank" class="project-link">Visit Website <i class="fa-solid fa-globe"></i></a>
+                        <a href="mmm.pdf" target="_blank" class="project-link">View Presentation <i class="fa-solid fa-file-powerpoint"></i></a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="crime.png" alt="Crime Portal" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Crime+Portal'">
+                    <div class="project-info">
+                        <h3>Crime Portal</h3>
+                        <p>A web application for reporting and managing crimes.</p>
+                        <div class="tech-stack"><span>Full Stack</span><span>Web App</span></div>
+                        <a href="https://crimeportal-mu.vercel.app/team" target="_blank" class="project-link">Visit Website <i class="fa-solid fa-globe"></i></a>
+                        <a href="JAVA.pdf" target="_blank" class="project-link">View Presentation <i class="fa-solid fa-file-powerpoint"></i></a>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="websites" class="content-section">
-            <h2 class="section-title">My Live Websites</h2>
+            <h2 class="section-title"><span class="title-line">My Live Websites</span></h2>
             <div class="projects-grid">
-                <div class="project-card"><img src="mywebsite-Aether Tools.jpg.png" alt="Aether Tools"><div class="project-info"><h3>Aether Tools</h3><p>A website where you can check air condition/date/time/stopwatch/alarm</p><div class="tech-stack"><span>Full Stack</span><span>Api</span><span>User Auth</span></div><a href="https://rajpratham1.github.io/Aether-Tools/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
-                <div class="project-card"><img src="mywebsite-portnetwork.jpg.png" alt="Port Network Hub"><div class="project-info"><h3>Port Network Hub</h3><p>A professional network where teachers validate student projects, helping HR find verified talent.</p><div class="tech-stack"><span>Full Stack</span><span>Databases</span><span>User Auth</span></div><a href="https://project-port-network-hub.lovable.app/register" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
-                <div class="project-card"><img src="mywebsite-skillconnect.jpg.png" alt="Skill Connect India"><div class="project-info"><h3>Skill Connect India</h3><p>An on-demand platform to find and book local professionals like electricians, plumbers, and more.</p><div class="tech-stack"><span>Geolocation</span><span>Booking System</span><span>JS</span></div><a href="https://skillconnect-india-finder.lovable.app/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
-                <div class="project-card"><img src="mywebsite-healthcare.jpg.png" alt="Health Care App"><div class="project-info"><h3>Health Care</h3><p>A web app that provides health analysis, diet/exercise routines, and connects users with doctors.</p><div class="tech-stack"><span>Health Tech</span><span>APIs</span><span>JS</span></div><a href="https://v0-new-project-j2bgprzpxzm.vercel.app/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
-                <div class="project-card"><img src="mywebsite-campusclash.jpg.png" alt="Campus Clash Game"><div class="project-info"><h3>Campus Clash</h3><p>A fun gaming site featuring quizzes, a meme generator, and a speed typing challenge.</p><div class="tech-stack"><span>Gamification</span><span>JavaScript</span><span>HTML/CSS</span></div><a href="https://v0-campus-clash-game.vercel.app/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
-                <div class="project-card"><img src="mywebsite-aimaze.jpg.png" alt="AI Maze Quiz"><div class="project-info"><h3>AI Maze</h3><p>An intelligent quiz platform powered by AI, covering multiple subjects like math, science, and more.</p><div class="tech-stack"><span>AI Integration</span><span>JavaScript</span><span>APIs</span></div><a href="https://v0-new-project-ypz7qhvhpwv.vercel.app/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
-                <div class="project-card"><img src="mywebsite-searchgpt.jpg.png" alt="Search-GPT"><div class="project-info"><h3>Search-GPT</h3><p>My first website not fully working condition, but in the setting option you can use calculator a game</p><div class="tech-stack"><span>fun</span><span>JavaScript</span><span>APIs</span></div><a href="https://rajpratham1.github.io/Search-GPT/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
-                <div class="project-card"><img src="mywebsite-WebFolio.jpg.png" alt="WebFolio"><div class="project-info"><h3>WebFolio</h3><p>This is a website I created for developing custom websites and professional resumes.You can submit your details here to get your own dream website or a standout resume designed by me.</p><div class="tech-stack"><span>Full Stack</span><span>Api</span><span>User Auth</span></div><a href="https://rajpratham1.github.io/WebFolio/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                <div class="project-card"><img src="mywebsite-Aether Tools.jpg.png" alt="Aether Tools" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Aether+Tools'"><div class="project-info"><h3>Aether Tools</h3><p>A website where you can check air condition/date/time/stopwatch/alarm</p><div class="tech-stack"><span>Full Stack</span><span>Api</span><span>User Auth</span></div><a href="https://rajpratham1.github.io/Aether-Tools/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                <div class="project-card"><img src="mywebsite-portnetwork.jpg.png" alt="Port Network Hub" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Port+Network+Hub'"><div class="project-info"><h3>Port Network Hub</h3><p>A professional network where teachers validate student projects, helping HR find verified talent.</p><div class="tech-stack"><span>Full Stack</span><span>Databases</span><span>User Auth</span></div><a href="https://project-port-network-hub.lovable.app/register" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                <div class="project-card"><img src="mywebsite-skillconnect.jpg.png" alt="Skill Connect India" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Skill+Connect'"><div class="project-info"><h3>Skill Connect India</h3><p>An on-demand platform to find and book local professionals like electricians, plumbers, and more.</p><div class="tech-stack"><span>Geolocation</span><span>Booking System</span><span>JS</span></div><a href="https://skillconnect-india-finder.lovable.app/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                <div class="project-card"><img src="mywebsite-healthcare.jpg.png" alt="Health Care App" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Health+Care'"><div class="project-info"><h3>Health Care</h3><p>A web app that provides health analysis, diet/exercise routines, and connects users with doctors.</p><div class="tech-stack"><span>Health Tech</span><span>APIs</span><span>JS</span></div><a href="https://v0-new-project-j2bgprzpxzm.vercel.app/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                <div class="project-card"><img src="mywebsite-campusclash.jpg.png" alt="Campus Clash Game" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Campus+Clash'"><div class="project-info"><h3>Campus Clash</h3><p>A fun gaming site featuring quizzes, a meme generator, and a speed typing challenge.</p><div class="tech-stack"><span>Gamification</span><span>JavaScript</span><span>HTML/CSS</span></div><a href="https://v0-campus-clash-game.vercel.app/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                <div class="project-card"><img src="mywebsite-aimaze.jpg.png" alt="AI Maze Quiz" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=AI+Maze'"><div class="project-info"><h3>AI Maze</h3><p>An intelligent quiz platform powered by AI, covering multiple subjects like math, science, and more.</p><div class="tech-stack"><span>AI Integration</span><span>JavaScript</span><span>APIs</span></div><a href="https://v0-new-project-ypz7qhvhpwv.vercel.app/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                <div class="project-card"><img src="mywebsite-searchgpt.jpg.png" alt="Search-GPT" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Search-GPT'"><div class="project-info"><h3>Search-GPT</h3><p>My first website not fully working condition, but in the setting option you can use calculator a game</p><div class="tech-stack"><span>fun</span><span>JavaScript</span><span>APIs</span></div><a href="https://rajpratham1.github.io/Search-GPT/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                <div class="project-card"><img src="mywebsite-WebFolio.jpg.png" alt="WebFolio" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=WebFolio'"><div class="project-info"><h3>WebFolio</h3><p>This is a website I created for developing custom websites and professional resumes.You can submit your details here to get your own dream website or a standout resume designed by me.</p><div class="tech-stack"><span>Full Stack</span><span>Api</span><span>User Auth</span></div><a href="https://rajpratham1.github.io/WebFolio/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                <div class="project-card"><img src="disa.png" alt="Disaster Ready" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Disaster+Ready'"><div class="project-info"><h3>Disaster Ready</h3><p>The application is designed to address a specific problem statement from the hackathon, such as the "disaster-ready-campus" or the "Al-Powered Crop" challenge</p><div class="tech-stack"><span>Full Stack</span><span>Hackathon</span></div><a href="https://disaster-ready-campus.onrender.com/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                <div class="project-card"><img src="Cyber.png" alt="Cyber Threat Intelligence Dashboard" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Cyber+Threat'"><div class="project-info"><h3>Cyber Threat Intelligence Dashboard</h3><p>A web-based intelligence platform that visualizes live global cyber threats, displays attack trends and analytics, and provides a live cybersecurity news feed. The application features a React frontend and a Flask backend.</p><div class="tech-stack"><span>React</span><span>Flask</span><span>Cybersecurity</span></div><a href="https://cyber-threat-intelligence-z8lc.onrender.com/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
             </div>
         </section>
 
         <section id="publications" class="content-section">
-            <h2 class="section-title">My Publications</h2>
+            <h2 class="section-title"><span class="title-line">My Publications</span></h2>
             <div class="projects-grid">
                 <div class="project-card">
-                    <img src="The Pythonic Journey.png" alt="The Pythonic Journey Book Cover">
+                    <img src="The Pythonic Journey.png" alt="The Pythonic Journey Book Cover" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Pythonic+Journey'">
                     <div class="project-info">
                         <div>
                             <a href="https://rajpratham1.github.io/THE-PYTHONIC-JOURNEY/The_Pythonic_Journey.pdf" target="_blank">
@@ -136,13 +913,13 @@
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="Radha rani.jpg" alt="राधाश्रुति ">
+                    <img src="Radha rani.jpg" alt="राधाश्रुति " onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=राधाश्रुति'">
                     <div class="project-info">
                         <div>
                             <a href="https://rajpratham1.github.io/Radhashruti/Radhashruti.pdf" target="_blank">
                                 <h3>राधाश्रुति</h3>
                             </a>
-                            <p>""राधाश्रुति" (Radhashruti) जो प्रथम कुमार द्वारा लिखी गई है, राधा और कृष्ण के दिव्य प्रेम, भक्ति और विरह की एक अनूठी गाथा है। यह पुस्तक उनके पहली बार मिलने से लेकर राधा के आध्यात्मिक परिवर्तन तक की यात्रा का वर्णन करती है। प्रेम, भक्ति और त्याग की यह शाश्वत कहानी पाठकों के लिए आध्यात्मिकता के मार्ग पर एक मार्गदर्शक है।"</p>
+                            <p>"राधाश्रुति" (Radhashruti) जो प्रथम Kumar द्वारा लिखी गई है, राधा और कृष्ण के दिव्य प्रेम, भक्ति और विरह की एक अनूठी गाथा है। यह पुस्तक उनके पहली बार मिलने से लेकर राधा के आध्यात्मिक परिवर्तन तक की यात्रा का वर्णन करती है। प्रेम, भक्ति और त्याग की यह शाश्वत कहानी पाठकों के लिए आध्यात्मिकता के मार्ग पर एक मार्गदर्शक है।</p>
                             <div class="tech-stack"><span>प्रेम</span><span>भक्ति</span><span>अलगाव</span></div>
                         </div>
                         <p class="publication-links">
@@ -155,13 +932,13 @@
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="Radhajie.jpg" alt="Radhashruti">
+                    <img src="Radhajie.jpg" alt="Radhashruti" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Radhashruti'">
                     <div class="project-info">
                         <div>
                             <a href="https://rajpratham1.github.io/Radhashruti1-1-/Radhashruti1%5B1%5D.pdf" target="_blank">
                                 <h3>Radhashruti</h3>
                             </a>
-                            <p>""Radhashruti" by Pratham Kumar is a unique saga of Radha and Krishna's divine love, devotion, and separation. The book chronicles their journey from their first meeting to Radha's spiritual transformation. This timeless story of love, devotion, and sacrifice is a guide for readers on the path of spirituality."</p>
+                            <p>"Radhashruti" by Pratham Kumar is a unique saga of Radha and Krishna's divine love, devotion, and separation. The book chronicles their journey from their first meeting to Radha's spiritual transformation. This timeless story of love, devotion, and sacrifice is a guide for readers on the path of spirituality.</p>
                             <div class="tech-stack"><span>Love</span><span>Devotion</span><span>Separation</span></div>
                         </div>
                         <p class="publication-links">
@@ -177,23 +954,57 @@
         </section>
         
         <section id="experience" class="content-section">
-            <h2 class="section-title">Experience & Volunteering</h2>
+            <h2 class="section-title"><span class="title-line">Experience & Volunteering</span></h2>
             <div class="timeline">
+                <!-- Timeline items will be animated by GSAP -->
                 <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Apr 2025 - Jun 2025</div><div class="timeline-content"><h3>Android Developer Intern</h3><p class="company">Google (via EduSkills)</p><a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_androiddevelopment-googlefordevelopers-eduskills-activity-7341730129322131456-rV3C" target="_blank" class="proof-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
                 <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">2024 - 2025 Session</div><div class="timeline-content"><h3>Discipline Coordinator (DC)</h3><p class="company">Invertis University</p><a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_disciplinecoordinator-leadershipjourney-certificateofappreciation-activity-7341817788568653825-R-LW" target="_blank" class="proof-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
-                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">2024 (3 Days)</div><div class="timeline-content"><h3>Volunteer - Job Fest</h3><p class="company">Invertis University</p><a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_hello-connections-dedicated-my-day-to-empowering-activity-7196390435899031553-zaKy" target="_blank" class="proof-link">View Post <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
+                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">2024 (3 Days)</div><div class="timeline-content"><h3>Volunteer - Job Fest</h3><p class="company">Invertis University</p><a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_hello-connections-dedicated-my-day-to-empowering-activity-7196390435899031553-zaKy" target="_blank" class="proof-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
                 <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">25 June 2025- 25 July 2025</div><div class="timeline-content"><h3>Web Development</h3><p class="company">CODSOFT</p><a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_webdevelopment-internshipcompletion-codsoft-activity-7355621630854795267-KQp8?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4" target="_blank" class="proof-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
+                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Internal Hackathon 2025</div><div class="timeline-content"><h3>SIH Internal Hackathon</h3><p class="company">SIH Hackathon</p><a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_hackbhoomi-smartindiahackathon-backenddevelopment-activity-7376190388509986816-v0jS?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4" target="_blank" class="proof-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
+                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Virtual Internship</div><div class="timeline-content"><h3>AI ML Virtual Internship</h3><p class="company">AICTE x EduSkills</p><a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_certified-in-ai-ml-aicte-x-eduskills-activity-7392548543561072640-qxef?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4" target="_blank" class="proof-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
             </div>
         </section>
 
+        <!-- UPDATED: Skills Section -->
         <section id="skills" class="content-section">
-            <h2 class="section-title">Technical Skills</h2>
-            <div class="skills-container"><div class="skill-category"><h3>Programming & Web</h3><div class="skills-list"><span>Python</span><span>C</span><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div></div><div class="skill-category"><h3>Software & Tools</h3><div class="skills-list"><span>MS Office</span><span>MS Excel</span><span>Git & GitHub</span><span>VS Code</span></div></div><div class="skill-category"><h3>Other Skills</h3><div class="skills-list"><span>Data Management</span><span>Problem-Solving</span><span>Teamwork</span><span>Leadership</span></div></div></div>
+            <h2 class="section-title"><span class="title-line">Technical Skills</span></h2>
+            <div class="skills-grid">
+                <div class="skill-card"><i class="fab fa-python"></i><span>Python</span></div>
+                <div class="skill-card"><i class="fab fa-java"></i><span>Java</span></div>
+                <div class="skill-card"><i class="fas fa-c"></i><span>C</span></div>
+                <div class="skill-card"><i class="fab fa-js"></i><span>JavaScript</span></div>
+                <div class="skill-card"><i class="fab fa-html5"></i><span>HTML5</span></div>
+                <div class="skill-card"><i class="fab fa-css3-alt"></i><span>CSS3</span></div>
+                <div class="skill-card"><i class="fas fa-database"></i><span>SQL</span></div>
+                <div class="skill-card"><i class="fab fa-git-alt"></i><span>Git</span></div>
+                <div class="skill-card"><i class="fab fa-github"></i><span>GitHub</span></div>
+                <div class="skill-card"><i class="fas fa-code"></i><span>VS Code</span></div>
+                <div class="skill-card"><i class="fas fa-file-excel"></i><span>MS Excel</span></div>
+                <div class="skill-card"><i class="fas fa-tasks"></i><span>Data Management</span></div>
+                <div class="skill-card"><i class="fas fa-lightbulb"></i><span>Problem-Solving</span></div>
+                <div class="skill-card"><i class="fas fa-people-group"></i><span>Teamwork</span></div>
+            </div>
         </section>
 
         <section id="contact" class="content-section">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="chat-container"><div class="chat-header"><img src="profile-photo.jpg.jpg" alt="Pratham Kumar"><div class="header-info"><strong>Pratham Kumar</strong><span>Typically replies within a day</span></div></div><div class="chat-body"><form action="https://api.web3forms.com/submit" method="POST"><input type="hidden" name="access_key" value="bae4969a-76af-40e4-86d7-d87fcbece11e"><input type="text" name="name" placeholder="Your Name" required><input type="email" name="email" placeholder="Your Email" required><textarea name="message" placeholder="Type your message here..." required></textarea><button type="submit" class="send-button">Send <i class="fa-solid fa-paper-plane"></i></button></form></div></div>
+            <h2 class="section-title"><span class="title-line">Get In Touch</span></h2>
+            
+            <!-- NEW: 3D Laptop for Contact Section -->
+            <div id="contact-3d-container"></div>
+
+            <!-- UPDATED: Contact Form (no header) -->
+            <div class="chat-container">
+                <div class="chat-body">
+                    <form action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="bae4969a-76af-40e4-86d7-d87fcbece11e">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder="Your Email" required>
+                        <textarea name="message" placeholder="Type your message here..." required></textarea>
+                        <button type="submit" class="send-button">Send <i class="fa-solid fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
         </section>
     </main>
     
@@ -210,9 +1021,392 @@
         <p>Designed & Developed by Pratham Kumar © 2024</p>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- NEW: Animation & 3D Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+
+    <!-- UPDATED: Main Script (Module for imports) -->
+    <script type="module">
+        // Import necessary components
+        const { Scene, PerspectiveCamera, WebGLRenderer, BufferGeometry, BufferAttribute, PointsMaterial, Points, MeshStandardMaterial, MeshBasicMaterial, AmbientLight, DirectionalLight, Color, Vector2, Clock, Mesh, BoxGeometry, CanvasTexture } = THREE;
+        
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const body = document.body;
+            const themeToggleBtn = document.getElementById('theme-toggle-btn');
+            const menuIcon = document.getElementById('menu-icon-dots');
+            const dropdownMenu = document.getElementById('dropdown-menu');
+            const header = document.querySelector('.main-header');
+            const loadingScreen = document.getElementById('loading-screen');
+            let isLightMode = false;
+            
+            // Background variables
+            let bgScene, bgCamera, bgRenderer, particles, particlesMaterial;
+            
+            // REMOVED: Hero Laptop variables
+            
+            // Contact Laptop variables
+            let contactScene, contactCamera, contactRenderer, contactLaptop, contactScreen;
+
+            const mouse = new Vector2();
+            const clock = new Clock();
+
+            // --- 1. THEME SWITCHER LOGIC ---
+            const applySavedTheme = () => {
+                const savedTheme = localStorage.getItem('theme');
+                isLightMode = (savedTheme === 'light');
+                if (isLightMode) {
+                    body.classList.add('light-mode');
+                } else {
+                    body.classList.remove('light-mode');
+                }
+                update3DTheme();
+            };
+
+            themeToggleBtn.addEventListener('click', (event) => {
+                event.stopPropagation();
+                body.classList.toggle('light-mode');
+                isLightMode = body.classList.contains('light-mode');
+                localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+                update3DTheme();
+            });
+
+            // --- 2. DROPDOWN MENU LOGIC ---
+            menuIcon.addEventListener('click', (event) => {
+                event.stopPropagation();
+                dropdownMenu.classList.toggle('active');
+            });
+            window.addEventListener('click', () => {
+                if (dropdownMenu.classList.contains('active')) {
+                    dropdownMenu.classList.remove('active');
+                }
+            });
+            dropdownMenu.addEventListener('click', (event) => {
+                if (event.target.tagName === 'A') {
+                    dropdownMenu.classList.remove('active');
+                }
+            });
+
+            // --- 3. HEADER SCROLL LOGIC ---
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // --- 4. 3D BACKGROUND (STARFIELD) ---
+            function initBackground3D() {
+                const canvas = document.getElementById('bg-3d');
+                if (!canvas) return;
+
+                bgScene = new Scene();
+                bgCamera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                bgCamera.position.z = 1;
+
+                bgRenderer = new WebGLRenderer({ canvas, alpha: true });
+                bgRenderer.setSize(window.innerWidth, window.innerHeight);
+                bgRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+                // Starfield System
+                const particlesGeometry = new BufferGeometry();
+                const count = 5000;
+                const positions = new Float32Array(count * 3);
+
+                for (let i = 0; i < count * 3; i++) {
+                    positions[i] = (Math.random() - 0.5) * 10;
+                    positions[i+1] = (Math.random() - 0.5) * 10;
+                    positions[i+2] = (Math.random() - 0.5) * 10;
+                }
+                particlesGeometry.setAttribute('position', new BufferAttribute(positions, 3));
+
+                particlesMaterial = new PointsMaterial({
+                    size: 0.005,
+                    sizeAttenuation: true
+                });
+                
+                particles = new Points(particlesGeometry, particlesMaterial);
+                bgScene.add(particles);
+            }
+
+            // --- 5. CREATE 3D LAPTOP (Helper Function) ---
+            function createLaptop(screenText1, screenText2) {
+                const laptop = new Mesh();
+                const baseGeo = new BoxGeometry(3, 0.1, 2);
+                const baseMat = new MeshStandardMaterial({ color: 0x333333, metalness: 0.8, roughness: 0.4 });
+                const base = new Mesh(baseGeo, baseMat);
+
+                const screenGeo = new BoxGeometry(3, 1.8, 0.1);
+                const screenBackMat = new MeshStandardMaterial({ color: 0x222222, metalness: 0.8, roughness: 0.4 });
+                
+                // Create canvas for text
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 512;
+                canvas.height = 307; // 16:9 ratio
+                
+                const screenTexture = new CanvasTexture(canvas);
+                const screenMat = new MeshBasicMaterial({ map: screenTexture });
+
+                const screen = new Mesh(screenGeo, [screenBackMat, screenBackMat, screenBackMat, screenBackMat, screenMat, screenBackMat]);
+                screen.position.y = 0.9;
+                screen.position.z = -0.95;
+                screen.rotation.x = -0.1;
+
+                laptop.add(base);
+                laptop.add(screen);
+                laptop.rotation.y = -0.5;
+                laptop.position.y = -0.5;
+                
+                // Function to update screen text
+                laptop.updateScreen = (accentColor) => {
+                    ctx.fillStyle = isLightMode ? '#efefef' : '#000';
+                    ctx.fillRect(0, 0, 512, 307);
+                    ctx.fillStyle = accentColor;
+                    ctx.font = 'bold 50px Poppins';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(screenText1, 256, 120);
+                    ctx.font = 'bold 40px Poppins';
+                    ctx.fillText(screenText2, 256, 180);
+                    screenTexture.needsUpdate = true;
+                };
+
+                return { laptop, screen };
+            }
+
+            // --- 6. INIT HERO 3D LAPTOP (REMOVED) ---
+            
+            // --- 7. NEW: INIT CONTACT 3D LAPTOP ---
+            function initContact3D() {
+                const container = document.getElementById('contact-3d-container');
+                if (!container) return;
+
+                contactScene = new Scene();
+                const w = container.clientWidth;
+                const h = container.clientHeight;
+                contactCamera = new PerspectiveCamera(45, w / h, 0.1, 100);
+                contactCamera.position.z = 5;
+                contactScene.add(contactCamera);
+
+                contactRenderer = new WebGLRenderer({ alpha: true, antialias: true });
+                contactRenderer.setSize(w, h);
+                contactRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                container.appendChild(contactRenderer.domElement);
+
+                // Create Laptop
+                const contactData = createLaptop("Get In Touch", "rajpratham40@gmail.com");
+                contactLaptop = contactData.laptop;
+                contactScreen = contactData.screen;
+                contactScene.add(contactLaptop);
+
+                // Lights
+                const ambLight = new AmbientLight(0xffffff, 0.7);
+                contactScene.add(ambLight);
+                const dirLight = new DirectionalLight(0xffffff, 1);
+                dirLight.position.set(2, 2, 2);
+                contactScene.add(dirLight);
+            }
+
+            // --- 8. UPDATE 3D THEMES ---
+            function update3DTheme() {
+                const accentColor = getComputedStyle(body).getPropertyValue('--accent-color');
+                
+                // Update background stars
+                if (particlesMaterial) {
+                    const newStarColor = new Color(accentColor);
+                    gsap.to(particlesMaterial.color, {
+                        r: newStarColor.r,
+                        g: newStarColor.g,
+                        b: newStarColor.b,
+                        duration: 0.5
+                    });
+                }
+                
+                // REMOVED: Update hero laptop screen
+
+                // Update contact laptop screen
+                if (contactLaptop) {
+                    contactLaptop.updateScreen(accentColor);
+                }
+            }
+
+            // --- 9. ANIMATION LOOP ---
+            function animate() {
+                requestAnimationFrame(animate);
+                const elapsedTime = clock.getElapsedTime();
+
+                // Animate background
+                if (particles && bgRenderer) {
+                    particles.position.z = (elapsedTime * 0.05) % 1; // Move stars
+                    
+                    // Mouse parallax on camera
+                    bgCamera.position.x += (mouse.x * 0.5 - bgCamera.position.x) * 0.02;
+                    bgCamera.position.y += (-mouse.y * 0.5 - bgCamera.position.y) * 0.02;
+                    bgCamera.lookAt(bgScene.position);
+                    bgRenderer.render(bgScene, bgCamera);
+                }
+                
+                // REMOVED: Animate hero laptop
+
+                // Animate contact laptop
+                if (contactLaptop && contactRenderer) {
+                    contactLaptop.rotation.y = -0.5 + mouse.x * 0.5;
+                    contactLaptop.rotation.x = -0.1 + mouse.y * 0.2;
+                    contactRenderer.render(contactScene, contactCamera);
+                }
+            }
+
+            // --- 10. EVENT LISTENERS (Mouse, Resize) ---
+            window.addEventListener('mousemove', (event) => {
+                mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = (event.clientY / window.innerHeight) * 2 - 1;
+            });
+
+            window.addEventListener('resize', () => {
+                const w = window.innerWidth;
+                const h = window.innerHeight;
+
+                // Update BG camera
+                if (bgCamera && bgRenderer) {
+                    bgCamera.aspect = w / h;
+                    bgCamera.updateProjectionMatrix();
+                    bgRenderer.setSize(w, h);
+                    bgRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                }
+
+                // REMOVED: Update Hero camera
+
+                // Update Contact camera
+                const contactContainer = document.getElementById('contact-3d-container');
+                if (contactContainer && contactCamera && contactRenderer) {
+                    const contactW = contactContainer.clientWidth;
+                    const contactH = contactContainer.clientHeight;
+                    contactCamera.aspect = contactW / contactH;
+                    contactCamera.updateProjectionMatrix();
+                    contactRenderer.setSize(contactW, contactH);
+                    contactRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                }
+            });
+
+            // --- 11. GSAP SCROLL ANIMATIONS ---
+            function initScrollAnimations() {
+                // Hide loading screen
+                gsap.to(loadingScreen, { opacity: 0, duration: 0.5, onComplete: () => loadingScreen.style.display = 'none' });
+
+                // Hero fade in (delay slightly)
+                gsap.from('.hero-text > *', {
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.8,
+                    stagger: 0.1,
+                    delay: 0.5
+                });
+                gsap.from('.hero-image', { // UPDATED
+                    opacity: 0,
+                    duration: 1,
+                    delay: 0.5
+                });
+
+                // Section Title Reveals
+                gsap.utils.toArray('.section-title').forEach(title => {
+                    gsap.to(title.querySelector('.title-line'), {
+                        y: 0,
+                        duration: 1,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: title,
+                            start: 'top 85%',
+                            onEnter: () => title.classList.add('is-revealed')
+                        }
+                    });
+                });
+
+                // Staggered Card Animations
+                gsap.utils.toArray('.projects-grid').forEach(grid => {
+                    gsap.from(grid.querySelectorAll('.project-card'), {
+                        opacity: 0,
+                        y: 50,
+                        duration: 0.6,
+                        stagger: 0.1,
+                        scrollTrigger: {
+                            trigger: grid,
+                            start: 'top 80%'
+                        }
+                    });
+                });
+                
+                // Timeline Animations
+                gsap.utils.toArray('.timeline-item').forEach((item, index) => {
+                    const content = item.querySelector('.timeline-content');
+                    const dot = item.querySelector('.timeline-dot');
+                    const direction = index % 2 === 0 ? -50 : 50; // odd vs even
+                    
+                    gsap.from(content, {
+                        opacity: 0,
+                        x: direction,
+                        duration: 0.6,
+                        scrollTrigger: {
+                            trigger: item,
+                            start: 'top 85%'
+                        }
+                    });
+                    gsap.from(dot, {
+                        scale: 0,
+                        duration: 0.4,
+                        scrollTrigger: {
+                            trigger: item,
+                            start: 'top 85%'
+                        }
+                    });
+                });
+
+                // Skills Grid Animation
+                gsap.from('.skill-card', {
+                    opacity: 0,
+                    scale: 0.5,
+                    y: 30,
+                    duration: 0.5,
+                    stagger: 0.05,
+                    scrollTrigger: {
+                        trigger: '.skills-grid',
+                        start: 'top 80%'
+                    }
+                });
+
+                // Contact Form
+                gsap.from(['#contact-3d-container', '.chat-container'], {
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.8,
+                    stagger: 0.2,
+                    scrollTrigger: {
+                        trigger: '#contact-3d-container',
+                        start: 'top 80%'
+                    }
+                });
+            }
+
+            // --- 12. INITIALIZATION ---
+            try {
+                initBackground3D();
+                // initHero3D(); // REMOVED
+                initContact3D(); // Kept
+                applySavedTheme(); // Apply theme before showing 3D models
+                animate();
+                initScrollAnimations(); // Will hide loader when done
+            } catch (error) {
+                console.error("Failed to initialize 3D scene:", error);
+                // Hide loader even if 3D fails
+                loadingScreen.style.opacity = 0;
+                setTimeout(() => loadingScreen.style.display = 'none', 500);
+            }
+        });
+    </script>
 </body>
 </html>
-
-
-
