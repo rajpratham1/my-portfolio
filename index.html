@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pratham Kumar | Developer & Learning CyberSecurity </title>
-    <!-- FontAwesome (Icons) -->
+    <!-- FontAwesome (Icons के लिए ज़रूरी) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -590,6 +590,16 @@
             box-shadow: 0 5px 15px var(--shadow-color);
         }
 
+        /* --- FIX: Ensure the message is always visible (Override potential animation conflicts) --- */
+        /* Since the element uses inline style, we define a highly specific selector. */
+        .chat-body p { 
+            text-align: center; 
+            margin-bottom: 20px !important; 
+            color: var(--primary-text) !important; 
+            opacity: 1 !important; 
+            transition: none !important; /* Disable potential conflicting transitions */
+        }
+
         /* --- FOOTER STYLES (CENTERED) --- */
         .main-footer {
             padding: 40px 20px;
@@ -913,6 +923,7 @@
             
             <div class="chat-container">
                 <div class="chat-body">
+                    <!-- FIX APPLIED: Text is now hardcoded visible via CSS fix -->
                     <p style="text-align: center; margin-bottom: 20px; color: var(--primary-text);">Send me a message directly!</p>
                     <form action="https://api.web3forms.com/submit" method="POST">
                         <input type="hidden" name="access_key" value="bae4969a-76af-40e4-86d7-d87fcbece11e">
