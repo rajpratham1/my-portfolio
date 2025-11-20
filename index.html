@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pratham Kumar | Developer & Learning CyberSecurity </title>
-    <!-- FontAwesome -->
+    <!-- FontAwesome (Icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -24,33 +24,35 @@
         body {
             font-family: 'Poppins', sans-serif;
             transition: background-color 0.5s, color 0.5s;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-x: hidden; /* Horizontal scroll रोकने के लिए */
         }
         :root {
             /* Dark Mode (Default) */
-            --bg-color: #0d0d0d; /* Darker background */
+            --bg-color: #0d0d0d;
             --primary-text: #ffffff;
             --secondary-text: #a0a0a0;
-            --card-bg: rgba(29, 29, 29, 0.7); /* Glassmorphism background */
-            --header-bg: rgba(13, 13, 13, 0.7);
+            --card-bg: rgba(29, 29, 29, 0.75); /* Slight increase in opacity */
+            --header-bg: rgba(13, 13, 13, 0.85);
             --accent-color: #00aeff;
             --accent-light: #00c3ff;
-            --border-color: rgba(51, 51, 51, 0.5); /* Semi-transparent border */
-            --shadow-color: rgba(0, 174, 255, 0.2);
-            --star-color: 0x00aeff; /* three.js background */
+            --border-color: rgba(60, 60, 60, 0.6);
+            --shadow-color: rgba(0, 174, 255, 0.3); /* Stronger shadow glow */
+            --glow-color: rgba(0, 174, 255, 0.6);
+            --star-color: 0x00aeff;
         }
         body.light-mode {
             /* Light Mode */
             --bg-color: #f4f7f6;
             --primary-text: #1e1e1e;
             --secondary-text: #555555;
-            --card-bg: rgba(255, 255, 255, 0.7); /* Glassmorphism background */
-            --header-bg: rgba(244, 247, 246, 0.7);
+            --card-bg: rgba(255, 255, 255, 0.85); /* Slight increase in opacity */
+            --header-bg: rgba(244, 247, 246, 0.9);
             --accent-color: #007acc;
             --accent-light: #0056b3;
-            --border-color: rgba(221, 221, 221, 0.8);
-            --shadow-color: rgba(0, 122, 204, 0.2);
-            --star-color: 0x007acc; /* three.js background */
+            --border-color: rgba(200, 200, 200, 0.8);
+            --shadow-color: rgba(0, 122, 204, 0.3);
+            --glow-color: rgba(0, 122, 204, 0.5);
+            --star-color: 0x007acc;
         }
         body {
             background-color: var(--bg-color);
@@ -69,17 +71,17 @@
             color: var(--accent-light);
         }
 
-        /* --- NEW: 3D BACKGROUND CANVAS --- */
+        /* --- 3D BACKGROUND CANVAS --- */
         #bg-3d {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; /* Behind all content */
+            z-index: -1;
         }
 
-        /* --- NEW: LOADING SCREEN --- */
+        /* --- LOADING SCREEN --- */
         #loading-screen {
             position: fixed;
             top: 0;
@@ -102,17 +104,12 @@
             height: 50px;
             animation: spin 1s linear infinite;
         }
-        #loading-screen p {
-            margin-top: 20px;
-            font-size: 1rem;
-            color: var(--secondary-text);
-        }
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        /* --- HEADER & THREE-DOT MENU (UPDATED) --- */
+        /* --- HEADER & NAVIGATION (UPDATED) --- */
         .main-header {
             display: flex;
             justify-content: space-between;
@@ -123,7 +120,6 @@
             top: 0;
             left: 0;
             z-index: 1000;
-            /* UPDATED: Glassmorphism */
             background-color: var(--header-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -136,7 +132,22 @@
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
+            display: flex; /* Flex container to align image and text */
+            align-items: center;
+            gap: 10px; /* Space between image and text */
         }
+        
+        .header-profile-pic { /* NEW STYLES */
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--accent-light);
+            transition: border-color 0.3s ease;
+        }
+
+        /* REMOVED: NEW: Desktop Navigation Links (Desktop nav should be inside dropdown) */
+        
         .menu-container {
             position: relative;
         }
@@ -150,7 +161,6 @@
             position: absolute;
             top: 150%;
             right: 0;
-            /* UPDATED: Glassmorphism */
             background-color: var(--card-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -161,6 +171,11 @@
             z-index: 1001;
             display: flex;
             flex-direction: column;
+            
+            /* >>>>>>>>> FIX: Make dropdown scrollable <<<<<<<<<< */
+            max-height: 80vh; /* Maximum height to fill screen */
+            overflow-y: auto; /* Enable vertical scrolling */
+            
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
@@ -184,41 +199,24 @@
             text-align: left;
             cursor: pointer;
         }
-        .dropdown-menu a:hover,
-        .dropdown-menu .theme-toggle:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-            color: var(--primary-text);
-        }
-        body.light-mode .dropdown-menu a:hover,
-        body.light-mode .dropdown-menu .theme-toggle:hover {
-            background-color: rgba(0, 0, 0, 0.05);
-        }
         .dropdown-divider {
             height: 1px;
             background-color: var(--border-color);
             margin: 5px 0;
         }
-        .theme-toggle .fa-sun {
-            display: none;
-        }
-        body.light-mode .theme-toggle .fa-sun {
-            display: inline-block;
-        }
-        body.light-mode .theme-toggle .fa-moon {
-            display: none;
-        }
 
-        /* --- SECTIONS & SHARED STYLES (UPDATED) --- */
+        /* REMOVED: --- MEDIA QUERY: DESKTOP NAVIGATION FIX --- */
+        /* Now, the three-dots icon is visible on ALL screen sizes. */
+
+        /* --- SECTIONS & SHARED STYLES --- */
         main {
-            position: relative; /* Needed for z-index stacking */
+            position: relative;
             z-index: 10;
-            /* FIX: Force new composite layer to fix rendering bug */
             transform: translateZ(0);
         }
         .content-section,
         .full-page-section {
             padding: 120px 10% 60px;
-            /* NEW: Reset for GSAP */
             opacity: 1;
             transform: none;
         }
@@ -226,16 +224,13 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            overflow: hidden; /* For hero */
+            overflow: hidden;
         }
-        
-        /* NEW: Text Reveal Animation */
         .section-title {
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 50px;
             position: relative;
-            /* For reveal animation */
             clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
         }
         .section-title .title-line {
@@ -250,7 +245,6 @@
             background: var(--accent-color);
             margin: 10px auto 0;
             border-radius: 2px;
-            /* For reveal animation */
             transform: scaleX(0);
             transition: transform 0.5s ease;
         }
@@ -258,72 +252,18 @@
             transform: scaleX(1);
         }
 
-        /* --- HERO SECTION (UPDATED) --- */
+        /* --- HERO SECTION --- */
         .hero-container {
             display: flex;
             align-items: center;
             justify-content: space-between;
             width: 100%;
             gap: 40px;
+            padding-top: 50px;
         }
-        .hero-text {
-            flex-basis: 55%;
-        }
-        .hero-text h1 {
-            font-size: 3.8rem;
-            line-height: 1.1;
-            margin-bottom: 15px;
-        }
-        .font-effect {
-            text-shadow: 0 0 10px var(--shadow-color);
-        }
-        .typing-effect {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            width: max-content;
-            border-right: 2px solid var(--accent-color);
-            white-space: nowrap;
-            overflow: hidden;
-            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-        }
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        @keyframes blink-caret {
-            from, to { border-color: transparent; }
-            50% { border-color: var(--accent-color); }
-        }
-        .hero-text .email {
-            font-weight: 500;
-            margin-bottom: 30px;
-        }
-        .hero-buttons .cta-button {
-            display: inline-block;
-            margin: 5px 10px 5px 0;
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 2px solid var(--accent-color);
-        }
-        .cta-button {
-            background-color: var(--accent-color);
-            color: #fff;
-        }
-        .cta-button.secondary {
-            background-color: transparent;
-            color: var(--accent-color);
-        }
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px var(--shadow-color);
-        }
-        
-        /* UPDATED: Hero Image (2D Profile Picture) */
         .hero-image {
             flex-basis: 45%;
-            height: 400px;
+            height: auto; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -334,31 +274,139 @@
             border-radius: 50%;
             object-fit: cover;
             border: 7px solid var(--accent-color);
-            box-shadow: 0 0 30px var(--shadow-color);
-            animation: pulse 2s infinite;
+            box-shadow: 0 0 25px var(--shadow-color);
+            animation: pulse 3s infinite ease-in-out;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .hero-image img:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 45px var(--shadow-color);
+            box-shadow: 0 0 45px var(--shadow-color), 0 0 20px var(--accent-light);
         }
         @keyframes pulse {
             0%, 100% {
-                box-shadow: 0 0 30px var(--shadow-color);
+                box-shadow: 0 0 25px var(--shadow-color), 0 0 5px var(--accent-color);
             }
             50% {
-                box-shadow: 0 0 45px var(--shadow-color);
+                box-shadow: 0 0 45px var(--shadow-color), 0 0 15px var(--accent-light);
             }
         }
-
-        /* --- PROJECTS & WEBSITES (UPDATED) --- */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
+        /* Buttons, Typing effect styles retained */
+        .hero-text .email { font-weight: 500; margin-bottom: 30px; }
+        .hero-buttons .cta-button {
+            display: inline-block;
+            margin: 5px 10px 5px 0;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent-color);
         }
+        .cta-button { background-color: var(--accent-color); color: #fff; }
+        .cta-button.secondary { background-color: transparent; color: var(--accent-color); }
+        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 5px 15px var(--shadow-color); }
+
+        /* --- ABOUT ME SECTION STYLES (4 CARDS) --- */
+        #about-me .about-grid {
+            /* Change grid template to support 4 columns for large screens */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; /* Reduced gap slightly for 4 columns */
+            margin-top: 20px;
+        }
+        .about-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            border: 2px solid var(--border-color);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle at center, var(--glow-color) 0%, transparent 100%);
+            opacity: 0;
+            transition: width 0.4s, height 0.4s, opacity 0.4s;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            border-radius: 50%;
+        }
+        .about-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 40px var(--shadow-color);
+        }
+        .about-card:hover::before {
+            opacity: 0.3;
+            width: 300%;
+            height: 300%;
+        }
+        .about-card * { position: relative; z-index: 2; }
+        .about-card h3 { font-size: 1.25rem; margin-bottom: 10px; color: var(--accent-light); }
+        .about-card i { margin-right: 10px; color: var(--accent-color); }
+
+
+        /* --- PROJECTS, WEBSITES, PUBLICATIONS (Auto Scroll & Card Styles) --- */
+        .project-scroll-container {
+            width: 100%;
+            overflow-x: hidden; 
+            white-space: nowrap;
+            padding-bottom: 20px;
+            scroll-behavior: smooth;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .project-scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        .project-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 10px;
+        }
+        .project-scroll-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #projects .projects-grid,
+        #websites .websites-grid,
+        #publications .projects-grid { 
+            display: flex;
+            gap: 30px;
+            padding: 10px 0;
+            flex-wrap: nowrap; 
+            width: fit-content; 
+        }
+        #projects .project-card,
+        #websites .project-card,
+        #publications .project-card { 
+            flex: 0 0 350px;
+            max-width: 350px;
+            transform: none; 
+            flex-direction: column; 
+            height: auto;
+        }
+        
+        /* Publications-specific style adjustment for vertical card content alignment */
+        #publications .project-card .project-info {
+            height: 100%;
+            padding-bottom: 10px;
+        }
+        #publications .project-card img {
+            width: 100%;
+            height: 250px; 
+            border-bottom: 1px solid var(--border-color);
+            border-radius: 10px 10px 0 0;
+        }
+
+        /* --- GENERAL PROJECT CARD STYLES --- */
         .project-card {
-            /* UPDATED: Glassmorphism */
             background: var(--card-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -369,9 +417,11 @@
             flex-direction: column;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
             height: 100%;
-            overflow: hidden; /* For image zoom */
-            /* NEW: 3D Tilt Effect */
-            transform: perspective(1000px);
+            overflow: hidden;
+        }
+        .project-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 16px 32px var(--shadow-color);
         }
         .project-card img {
             width: 100%;
@@ -381,90 +431,20 @@
             border-radius: 10px 10px 0 0;
             transition: transform 0.4s ease;
         }
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
         .project-info {
             padding: 20px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
-        .project-info h3 {
-            margin-bottom: 10px;
-        }
         .tech-stack {
             margin-top: auto;
         }
-        .project-card:hover {
-            transform: translateY(-8px) perspective(1000px);
-            box-shadow: 0 16px 32px var(--shadow-color);
-        }
-        .project-card:hover img {
-            transform: scale(1.05);
-        }
-        .tech-stack span {
-            display: inline-block;
-            background-color: rgba(51, 51, 51, 0.7);
-            color: var(--accent-color);
-            padding: 4px 10px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            margin: 5px 5px 5px 0;
-        }
-        body.light-mode .tech-stack span {
-            background-color: rgba(238, 238, 255, 0.9);
-        }
-        .tag {
-            font-size: 0.8rem;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 12px;
-            margin-left: 10px;
-        }
-        .tag.lead {
-            background-color: var(--accent-color);
-            color: #fff;
-        }
-        .tag.current {
-            background-color: #f39c12;
-            color: #fff;
-        }
-        .project-link {
-            display: inline-block;
-            margin-top: 15px;
-            font-weight: 600;
-        }
 
-        /* --- PUBLICATIONS SECTION --- */
-        #publications .projects-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-        }
-        #publications .project-card {
-            display: flex;
-            flex-direction: row-reverse;
-            align-items: stretch;
-            padding: 20px;
-            gap: 20px;
-            height: auto;
-        }
-        #publications .project-card img {
-            width: 250px;
-            height: auto;
-            border-bottom: none;
-            flex-shrink: 0;
-            border-radius: 8px;
-        }
-        #publications .project-info {
-            padding: 0;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        #publications .project-info .publication-links {
-            margin-top: auto;
-        }
-
-        /* --- EXPERIENCE SECTION (TIMELINE) --- */
+        /* --- EXPERIENCE SECTION (TIMELINE - RESTORED) --- */
         .timeline {
             position: relative;
             max-width: 750px;
@@ -503,7 +483,6 @@
         }
         .timeline-content {
             padding: 20px;
-            /* UPDATED: Glassmorphism */
             background: var(--card-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -519,24 +498,9 @@
             transform: translateX(-10px);
             box-shadow: 0 8px 20px var(--shadow-color);
         }
-        .timeline-date {
-            font-size: 0.9rem;
-            color: var(--primary-text);
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        .timeline-content h3 { font-size: 1.2rem; }
-        .timeline-content .company {
-            font-size: 1rem;
-            color: var(--secondary-text);
-        }
-        .proof-link {
-            display: inline-block;
-            margin-top: 10px;
-            font-weight: 600;
-        }
 
-        /* --- NEW: SKILLS SECTION --- */
+
+        /* --- TECHNICAL SKILLS (RESTORED) --- */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
@@ -563,13 +527,14 @@
         .skill-card i {
             font-size: 2.5rem;
             margin-bottom: 15px;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
         }
         .skill-card span {
             font-size: 0.9rem;
             font-weight: 500;
             color: var(--primary-text);
         }
-        /* Skill Colors */
+        /* Skill Colors (Retained) */
         .skill-card .fa-python { color: #3776AB; }
         .skill-card .fa-java { color: #f89820; }
         .skill-card .fa-html5 { color: #E34F26; }
@@ -577,201 +542,124 @@
         .skill-card .fa-js { color: #F7DF1E; }
         .skill-card .fa-database { color: #4479A1; }
         .skill-card .fa-git-alt { color: #F05032; }
-        .skill-card .fa-github { color: #ffffff; }
+        .skill-card .fa-github { color: var(--primary-text); }
         .skill-card .fa-file-excel { color: #217346; }
         .skill-card .fa-c { color: #A8B9CC; }
-        .skill-card .fa-code { color: #89E051; } /* VScode */
+        .skill-card .fa-code { color: #89E051; }
         .skill-card .fa-people-group { color: #00aeff; }
         .skill-card .fa-lightbulb { color: #f39c12; }
         .skill-card .fa-tasks { color: #26a69a; }
 
-        /* --- CONTACT SECTION (UPDATED) --- */
-        #contact-3d-container {
-            width: 100%;
-            max-width: 600px;
-            height: 300px; /* New height for contact laptop */
-            margin: 0 auto;
-            cursor: move;
-        }
+
+        /* --- CONTACT SECTION (RESTORED) --- */
         .chat-container {
             max-width: 600px;
-            margin: 0 auto;
-            /* UPDATED: Glassmorphism */
+            margin: 50px auto 0;
             background: var(--card-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            overflow: hidden; /* To contain header */
-            margin-top: -40px; /* Pull form up to meet 3D model */
+            overflow: hidden;
             position: relative;
-            z-index: 5; /* Ensure form is on top of 3D model */
+            z-index: 5;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .chat-header {
-            background-color: var(--accent-color);
-            color: white;
-            padding: 15px;
-            display: flex;
-            align-items: center;
+        .chat-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px var(--shadow-color);
         }
-        .chat-header img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 15px;
-            object-fit: cover;
+        .chat-body { padding: 20px; }
+        .chat-body form input, .chat-body form textarea {
+            width: 100%; padding: 12px; border: 1px solid var(--border-color);
+            background-color: rgba(51, 51, 51, 0.5); color: var(--primary-text);
+            border-radius: 8px; margin-bottom: 15px;
         }
-        .chat-body {
-            padding: 20px;
-        }
-        .chat-body form input,
-        .chat-body form textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            background-color: rgba(51, 51, 51, 0.5);
-            color: var(--primary-text);
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-        body.light-mode .chat-body form input,
-        body.light-mode .chat-body form textarea {
+        body.light-mode .chat-body form input, body.light-mode .chat-body form textarea {
             background-color: rgba(238, 238, 238, 0.8);
         }
         .send-button {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
+            width: 100%; padding: 12px; border-radius: 8px;
+            background-color: var(--accent-color); color: white;
+            border: none; cursor: pointer; font-size: 1rem;
             transition: transform 0.3s, box-shadow 0.3s;
         }
         .send-button:hover {
+            background-color: var(--accent-light);
             transform: translateY(-3px);
             box-shadow: 0 5px 15px var(--shadow-color);
         }
 
-        /* --- FOOTER --- */
+        /* --- FOOTER STYLES (CENTERED) --- */
         .main-footer {
             padding: 40px 20px;
             background-color: var(--card-bg);
             border-top: 1px solid var(--border-color);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            text-align: center;
-        }
-        .social-links-footer a {
-            font-size: 1.5rem;
-            margin: 0 15px;
-            color: var(--secondary-text);
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-        .social-links-footer a:hover {
-            color: var(--accent-color);
-            transform: translateY(-4px);
+            text-align: center; 
         }
 
         /* --- RESPONSIVE STYLES --- */
-        @media (max-width: 900px) {
-            .hero-container {
-                flex-direction: column-reverse;
-                text-align: center;
-            }
-            .hero-text h1 {
-                font-size: 2.8rem;
-            }
-            .typing-effect {
-                margin: 0 auto 15px;
-            }
-            .hero-image { /* UPDATED */
-                height: auto;
-                width: 100%;
-                margin-bottom: 30px;
-                padding: 20px 0;
-            }
-            .hero-image img { /* UPDATED */
-                width: 280px;
-                height: 280px;
-            }
-            #publications .project-card {
-                flex-direction: column;
-                align-items: center;
-                gap: 0;
-                padding: 0;
-            }
-            #publications .project-card img {
-                width: 100%;
-                max-height: 200px;
-                border-bottom: 1px solid var(--border-color);
-            }
-            #publications .project-info {
-                padding: 20px;
-                text-align: center;
+        @media (max-width: 1024px) {
+             /* Adjust About Me grid for tablets/smaller desktops */
+            #about-me .about-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 30px;
             }
         }
 
+        @media (max-width: 900px) {
+            .hero-container { flex-direction: column-reverse; text-align: center; padding-top: 30px; }
+            .hero-image img { width: 280px; height: 280px; border-width: 5px; }
+            #projects .project-card,
+            #websites .project-card,
+            #publications .project-card { 
+                flex: 0 0 85vw; 
+                max-width: 85vw;
+                height: auto; 
+            } 
+        }
+
         @media (max-width: 768px) {
-            .main-header {
-                padding: 15px 5%;
-            }
-            .timeline-item {
-                width: 100%;
-                padding-left: 50px;
-                padding-right: 0;
-                left: 0 !important;
-            }
-            .timeline::after {
-                left: 15px;
-            }
-            .timeline-dot {
-                left: 7.5px !important;
-            }
-            .timeline-item:nth-child(even) .timeline-content:hover,
-            .timeline-item:nth-child(odd) .timeline-content:hover {
-                transform: translateX(0);
-                box-shadow: none;
-            }
-            .skills-grid {
-                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-                gap: 15px;
-            }
-            .skill-card {
-                padding: 15px 5px;
-            }
-            .skill-card i {
-                font-size: 2rem;
-            }
-            .skill-card span {
-                font-size: 0.8rem;
-            }
-            #contact-3d-container {
-                height: 250px;
+            .full-page-section { padding: 100px 5% 40px; }
+            .content-section { padding: 80px 5% 40px; }
+            .timeline-item { width: 100%; padding-left: 50px; padding-right: 0; left: 0 !important; }
+            .timeline::after { left: 15px; }
+            #about-me .about-grid {
+                grid-template-columns: 1fr; /* Stack on small mobile */
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- NEW: 3D Background -->
+    <!-- 3D Background (मॉडर्न लुक के लिए) -->
     <canvas id="bg-3d"></canvas>
 
-    <!-- NEW: Loading Screen -->
+    <!-- Loading Screen -->
     <div id="loading-screen">
         <div class="loader"></div>
-        <p>Building 3D environment...</p>
+        <p>Environment बन रहा है...</p>
     </div>
 
     <header class="main-header">
-        <div class="logo">Pratham Kumar</div>
+        <div class="logo">
+            <!-- Header Profile Photo -->
+            <img src="profile-photo.jpg.jpg" alt="PK" class="header-profile-pic" onerror="this.src='https://placehold.co/30x30/1e1e1e/00aeff?text=PK';">
+            Pratham Kumar
+        </div>
+        
+        <!-- REMOVED: NEW DESKTOP NAVIGATION -->
+
         <div class="menu-container">
             <div id="menu-icon-dots" class="menu-icon-dots">
                 <i class="fa-solid fa-ellipsis-vertical"></i>
             </div>
             <div id="dropdown-menu" class="dropdown-menu">
+                <!-- Links now only live here, accessible on all screens via the three-dot icon -->
                 <a href="#home">Home</a>
+                <a href="#about-me">About Me</a>
                 <a href="#projects">Featured Projects</a>
                 <a href="#websites">My Websites</a>
                 <a href="#publications">My Publications</a> 
@@ -801,162 +689,194 @@
                         <a href="raj-pratham cv.pdf" download="Pratham_Kumar_Resume.pdf" class="cta-button secondary">Download Resume</a>
                     </div>
                 </div>
-                <!-- UPDATED: Reverted to 2D Profile Picture -->
                 <div class="hero-image">
                     <img src="profile-photo.jpg.jpg" alt="Pratham Kumar" onerror="this.src='https://placehold.co/320x320/1e1e1e/00aeff?text=PK'">
                 </div>
             </div>
         </section>
 
+        <!-- About Me Section (UPDATED: 4 Cards in one row/grid) -->
+        <section id="about-me" class="content-section">
+            <h2 class="section-title"><span class="title-line">About My Workflow</span></h2>
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3><i class="fa-solid fa-arrows-rotate"></i>Continuous Innovation</h3>
+                    <p>I am **always working on different projects simultaneously**. I don't believe in stagnation; the moment I finish one project, I am already architecting the next. This constant cycle of creation helps me stay ahead of the curve.</p>
+                </div>
+                <div class="about-card">
+                    <h3><i class="fa-solid fa-lock"></i>Security Focus</h3>
+                    <p>Recently, I have **started learning Cyber Security**. My goal is to evolve from building apps that *work* to building apps that are **secure, resilient, and unbreakable**. This focus is integrated into my development lifecycle.</p>
+                </div>
+                <div class="about-card">
+                    <h3><i class="fa-solid fa-bolt"></i>AI-Augmented Workflow</h3>
+                    <p>I **leverage the power of advanced AI models** to accelerate my development. By integrating AI into my workflow, I save time on boilerplate code and focus entirely on **complex logic and system architecture**.</p>
+                </div>
+                <div class="about-card">
+                    <h3><i class="fa-solid fa-lightbulb"></i>Strategic Planning</h3>
+                    <p>Before writing the first line of code, I focus on system architecture and scalability. This **strategic planning** ensures that every project is built on a solid, future-proof foundation, minimizing technical debt.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURED PROJECTS (Auto-Sliding Carousel) -->
         <section id="projects" class="content-section">
             <h2 class="section-title"><span class="title-line">Featured Projects</span></h2>
-            <div class="projects-grid">
-                <!-- Project cards will be animated by GSAP -->
-                <div class="project-card">
-                    <img src="project-smoke.jpg.jpg" alt="Smoke Detector Sensor" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Smoke+Detector'">
-                    <div class="project-info">
-                        <h3>Smoke Detector Sensor <span class="tag lead">Team Lead</span></h3>
-                        <p>A comprehensive fire safety solution using advanced sensor technology to detect and prevent fire hazards.</p>
-                        <div class="tech-stack"><span>Arduino</span><span>IoT</span><span>Safety</span><span>Mobile Alerts</span></div>
-                        <a href="Smoke detector sensor.pdf" target="_blank" class="project-link">View Presentation <i class="fa-solid fa-file-powerpoint"></i></a>
+            <!-- WRAPPER for Horizontal Scroll -->
+            <div id="projects-scroll-wrapper" class="project-scroll-container">
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <img src="project-smoke.jpg.jpg" alt="Smoke Detector Sensor" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Smoke+Detector'">
+                        <div class="project-info">
+                            <h3>Smoke Detector Sensor <span class="tag lead">Team Lead</span></h3>
+                            <p>A comprehensive fire safety solution using advanced sensor technology to detect and prevent fire hazards.</p>
+                            <div class="tech-stack"><span>Arduino</span><span>IoT</span><span>Safety</span><span>Mobile Alerts</span></div>
+                            <a href="Smoke detector sensor.pdf" target="_blank" class="project-link">View Presentation <i class="fa-solid fa-file-powerpoint"></i></a>
+                        </div>
                     </div>
-                </div>
 
-                <div class="project-card">
-                    <img src="retailsales.jpg.png" alt="Retail Sales Analytics" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Retail+Analytics'">
-                    <div class="project-info">
-                        <h3>Retail Sales Analytics <span class="tag current">Current Project</span></h3>
-                        <p>A data analysis project using linear regression models to predict sales trends and optimize inventory management.</p>
-                        <div class="tech-stack"><span>Python</span><span>Pandas</span><span>Scikit-learn</span></div>
-                        <a href="Retail-Sales_Analytics.pdf" target="_blank" class="project-link">View Presentation <i class="fa-solid fa-file-powerpoint"></i></a>
+                    <div class="project-card">
+                        <img src="retailsales.jpg.png" alt="Retail Sales Analytics" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Retail+Analytics'">
+                        <div class="project-info">
+                            <h3>Retail Sales Analytics <span class="tag current">Current Project</span></h3>
+                            <p>A data analysis project using linear regression models to predict sales trends and optimize inventory management.</p>
+                            <div class="tech-stack"><span>Python</span><span>Pandas</span><span>Scikit-learn</span></div>
+                            <a href="Retail-Sales_Analytics.pdf" target="_blank" class="project-link">View Presentation <i class="fa-solid fa-file-powerpoint"></i></a>
+                        </div>
                     </div>
-                </div>
 
-                <div class="project-card">
-                    <img src="project-smartagriculture.jpg.webp" alt="Smart Agriculture System" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Smart+Agriculture'">
-                    <div class="project-info">
-                        <h3>Smart Agriculture System</h3>
-                        <p>An IoT-based solution for modern farming that monitors environmental conditions and automates irrigation.</p>
-                        <div class="tech-stack"><span>Raspberry Pi</span><span>Soil Sensors</span><span>Python</span></div>
-                        <a href="Smart Agriculture (2).pdf" target="_blank" class="project-link">View Presentation <i class="fa-solid fa-file-powerpoint"></i></a>
+                    <div class="project-card">
+                        <img src="project-smartagriculture.jpg.webp" alt="Smart Agriculture System" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Smart+Agriculture'">
+                        <div class="project-info">
+                            <h3>Smart Agriculture System</h3>
+                            <p>An IoT-based solution for modern farming that monitors environmental conditions and automates irrigation.</p>
+                            <div class="tech-stack"><span>Raspberry Pi</span><span>Soil Sensors</span><span>Python</span></div>
+                            <a href="Smart Agriculture (2).pdf" target="_blank" class="project-link">View Presentation <i class="fa-solid fa-file-powerpoint"></i></a>
+                        </div>
                     </div>
-                </div>
 
-                <div class="project-card">
-                    <img src="project-agronomy.jpg.avif" alt="Agronomy Application" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Agronomy+App'">
-                    <div class="project-info">
-                        <h3>Agronomy-Farmer Communication App</h3>
-                        <p>A software solution that bridges the knowledge gap between agricultural experts and farmers.</p>
-                        <div class="tech-stack"><span>Python</span><span>TensorFlow</span><span>Flask</span></div>
-                        <a href="INVI-CULTURE.pdf" target="_blank" class="project-link">View Presentation <i class="fa-solid fa-file-powerpoint"></i></a>
+                    <div class="project-card">
+                        <img src="project-agronomy.jpg.avif" alt="Agronomy Application" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Agronomy+App'">
+                        <div class="project-info">
+                            <h3>Agronomy-Farmer Communication App</h3>
+                            <p>A software solution that bridges the knowledge gap between agricultural experts and farmers.</p>
+                            <div class="tech-stack"><span>Python</span><span>TensorFlow</span><span>Flask</span></div>
+                            <a href="INVI-CULTURE.pdf" target="_blank" class="project-link">View Presentation <i class="fa-solid fa-file-powerpoint"></i></a>
+                        </div>
                     </div>
-                </div>
-                <div class="project-card">
-                    <img src="mediscan.png" alt="MediScan AI" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=MediScan+AI'">
-                    <div class="project-info">
-                        <h3>MediScan AI</h3>
-                        <p>A Flask-based web app for breast cancer detection using a tuned Random Forest Classifier. Supports single and batch predictions via CSV.</p>
-                        <div class="tech-stack"><span>Flask</span><span>Machine Learning</span><span>Random Forest</span></div>
-                        <a href="https://cancerdetction.vercel.app/" target="_blank" class="project-link">Visit Website <i class="fa-solid fa-globe"></i></a>
-                        <a href="mmm.pdf" target="_blank" class="project-link">View Presentation <i class="fa-solid fa-file-powerpoint"></i></a>
+                    <div class="project-card">
+                        <img src="mediscan.png" alt="MediScan AI" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=MediScan+AI'">
+                        <div class="project-info">
+                            <h3>MediScan AI</h3>
+                            <p>A Flask-based web app for breast cancer detection using a tuned Random Forest Classifier. Supports single and batch predictions via CSV.</p>
+                            <div class="tech-stack"><span>Flask</span><span>Machine Learning</span><span>Random Forest</span></div>
+                            <a href="https://cancerdetction.vercel.app/" target="_blank" class="project-link">Visit Website <i class="fa-solid fa-globe"></i></a>
+                            <a href="mmm.pdf" target="_blank" class="project-link">View Presentation <i class="fa-solid fa-file-powerpoint"></i></a>
+                        </div>
                     </div>
-                </div>
-                <div class="project-card">
-                    <img src="crime.png" alt="Crime Portal" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Crime+Portal'">
-                    <div class="project-info">
-                        <h3>Crime Portal</h3>
-                        <p>A web application for reporting and managing crimes.</p>
-                        <div class="tech-stack"><span>Full Stack</span><span>Web App</span></div>
-                        <a href="https://crimeportal-mu.vercel.app/team" target="_blank" class="project-link">Visit Website <i class="fa-solid fa-globe"></i></a>
-                        <a href="JAVA.pdf" target="_blank" class="project-link">View Presentation <i class="fa-solid fa-file-powerpoint"></i></a>
+                    <div class="project-card">
+                        <img src="crime.png" alt="Crime Portal" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Crime+Portal'">
+                        <div class="project-info">
+                            <h3>Crime Portal</h3>
+                            <p>A web application for reporting and managing crimes.</p>
+                            <div class="tech-stack"><span>Full Stack</span><span>Web App</span></div>
+                            <a href="https://crimeportal-mu.vercel.app/team" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a>
+                            <a href="JAVA.pdf" target="_blank" class="project-link">View Presentation <i class="fa-solid fa-file-powerpoint"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- LIVE WEBSITES (Auto-Sliding Carousel) -->
         <section id="websites" class="content-section">
             <h2 class="section-title"><span class="title-line">My Live Websites</span></h2>
-            <div class="projects-grid">
-                <div class="project-card"><img src="mywebsite-Aether Tools.jpg.png" alt="Aether Tools" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Aether+Tools'"><div class="project-info"><h3>Aether Tools</h3><p>A website where you can check air condition/date/time/stopwatch/alarm</p><div class="tech-stack"><span>Full Stack</span><span>Api</span><span>User Auth</span></div><a href="https://rajpratham1.github.io/Aether-Tools/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
-                <div class="project-card"><img src="mywebsite-portnetwork.jpg.png" alt="Port Network Hub" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Port+Network+Hub'"><div class="project-info"><h3>Port Network Hub</h3><p>A professional network where teachers validate student projects, helping HR find verified talent.</p><div class="tech-stack"><span>Full Stack</span><span>Databases</span><span>User Auth</span></div><a href="https://project-port-network-hub.lovable.app/register" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
-                <div class="project-card"><img src="mywebsite-skillconnect.jpg.png" alt="Skill Connect India" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Skill+Connect'"><div class="project-info"><h3>Skill Connect India</h3><p>An on-demand platform to find and book local professionals like electricians, plumbers, and more.</p><div class="tech-stack"><span>Geolocation</span><span>Booking System</span><span>JS</span></div><a href="https://skillconnect-india-finder.lovable.app/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
-                <div class="project-card"><img src="mywebsite-healthcare.jpg.png" alt="Health Care App" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Health+Care'"><div class="project-info"><h3>Health Care</h3><p>A web app that provides health analysis, diet/exercise routines, and connects users with doctors.</p><div class="tech-stack"><span>Health Tech</span><span>APIs</span><span>JS</span></div><a href="https://v0-new-project-j2bgprzpxzm.vercel.app/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
-                <div class="project-card"><img src="mywebsite-campusclash.jpg.png" alt="Campus Clash Game" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Campus+Clash'"><div class="project-info"><h3>Campus Clash</h3><p>A fun gaming site featuring quizzes, a meme generator, and a speed typing challenge.</p><div class="tech-stack"><span>Gamification</span><span>JavaScript</span><span>HTML/CSS</span></div><a href="https://v0-campus-clash-game.vercel.app/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
-                <div class="project-card"><img src="mywebsite-aimaze.jpg.png" alt="AI Maze Quiz" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=AI+Maze'"><div class="project-info"><h3>AI Maze</h3><p>An intelligent quiz platform powered by AI, covering multiple subjects like math, science, and more.</p><div class="tech-stack"><span>AI Integration</span><span>JavaScript</span><span>APIs</span></div><a href="https://v0-new-project-ypz7qhvhpwv.vercel.app/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
-                <div class="project-card"><img src="mywebsite-searchgpt.jpg.png" alt="Search-GPT" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Search-GPT'"><div class="project-info"><h3>Search-GPT</h3><p>My first website not fully working condition, but in the setting option you can use calculator a game</p><div class="tech-stack"><span>fun</span><span>JavaScript</span><span>APIs</span></div><a href="https://rajpratham1.github.io/Search-GPT/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
-                <div class="project-card"><img src="mywebsite-WebFolio.jpg.png" alt="WebFolio" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=WebFolio'"><div class="project-info"><h3>WebFolio</h3><p>This is a website I created for developing custom websites and professional resumes.You can submit your details here to get your own dream website or a standout resume designed by me.</p><div class="tech-stack"><span>Full Stack</span><span>Api</span><span>User Auth</span></div><a href="https://rajpratham1.github.io/WebFolio/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
-                <div class="project-card"><img src="disa.png" alt="Disaster Ready" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Disaster+Ready'"><div class="project-info"><h3>Disaster Ready</h3><p>The application is designed to address a specific problem statement from the hackathon, such as the "disaster-ready-campus" or the "Al-Powered Crop" challenge</p><div class="tech-stack"><span>Full Stack</span><span>Hackathon</span></div><a href="https://disaster-ready-campus.onrender.com/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
-                <div class="project-card"><img src="Cyber.png" alt="Cyber Threat Intelligence Dashboard" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Cyber+Threat'"><div class="project-info"><h3>Cyber Threat Intelligence Dashboard</h3><p>A web-based intelligence platform that visualizes live global cyber threats, displays attack trends and analytics, and provides a live cybersecurity news feed. The application features a React frontend and a Flask backend.</p><div class="tech-stack"><span>React</span><span>Flask</span><span>Cybersecurity</span></div><a href="https://cyber-threat-intelligence-z8lc.onrender.com/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+            <!-- WRAPPER for Horizontal Scroll -->
+            <div id="websites-scroll-wrapper" class="project-scroll-container">
+                <div class="websites-grid">
+                    <div class="project-card"><img src="mywebsite-Aether Tools.jpg.png" alt="Aether Tools" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Aether+Tools'"><div class="project-info"><h3>Aether Tools</h3><p>A website where you can check air condition/date/time/stopwatch/alarm</p><div class="tech-stack"><span>Full Stack</span><span>Api</span><span>User Auth</span></div><a href="https://rajpratham1.github.io/Aether-Tools/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                    <div class="project-card"><img src="mywebsite-portnetwork.jpg.png" alt="Port Network Hub" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Port+Network+Hub'"><div class="project-info"><h3>Port Network Hub</h3><p>A professional network where teachers validate student projects, helping HR find verified talent.</p><div class="tech-stack"><span>Full Stack</span><span>Databases</span><span>User Auth</span></div><a href="https://project-port-network-hub.lovable.app/register" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                    <div class="project-card"><img src="mywebsite-skillconnect.jpg.png" alt="Skill Connect India" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Skill+Connect'"><div class="project-info"><h3>Skill Connect India</h3><p>An on-demand platform to find and book local professionals like electricians, plumbers, and more.</p><div class="tech-stack"><span>Geolocation</span><span>Booking System</span><span>JS</span></div><a href="https://skillconnect-india-finder.lovable.app/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                    <div class="project-card"><img src="mywebsite-healthcare.jpg.png" alt="Health Care App" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Health+Care'"><div class="project-info"><h3>Health Care</h3><p>A web app that provides health analysis, diet/exercise routines, and connects users with doctors.</p><div class="tech-stack"><span>Health Tech</span><span>APIs</span><span>JS</span></div><a href="https://v0-new-project-j2bgprzpxzm.vercel.app/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                    <div class="project-card"><img src="mywebsite-campusclash.jpg.png" alt="Campus Clash Game" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Campus+Clash'"><div class="project-info"><h3>Campus Clash</h3><p>A fun gaming site featuring quizzes, a meme generator, and a speed typing challenge.</p><div class="tech-stack"><span>Gamification</span><span>JavaScript</span><span>HTML/CSS</span></div><a href="https://v0-campus-clash-game.vercel.app/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                    <div class="project-card"><img src="mywebsite-aimaze.jpg.png" alt="AI Maze Quiz" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=AI+Maze'"><div class="project-info"><h3>AI Maze</h3><p>An intelligent quiz platform powered by AI, covering multiple subjects like math, science, and more.</p><div class="tech-stack"><span>AI Integration</span><span>JavaScript</span><span>APIs</span></div><a href="https://v0-new-project-ypz7qhvhpwv.vercel.app/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                    <div class="project-card"><img src="mywebsite-searchgpt.jpg.png" alt="Search-GPT" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Search-GPT'"><div class="project-info"><h3>Search-GPT</h3><p>My first website not fully working condition, but in the setting option you can use calculator a game</p><div class="tech-stack"><span>fun</span><span>JavaScript</span><span>APIs</span></div><a href="https://rajpratham1.github.io/Search-GPT/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                    <div class="project-card"><img src="mywebsite-WebFolio.jpg.png" alt="WebFolio" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=WebFolio'"><div class="project-info"><h3>WebFolio</h3><p>This is a website I created for developing custom websites and professional resumes.You can submit your details here to get your own dream website or a standout resume designed by me.</p><div class="tech-stack"><span>Full Stack</span><span>Api</span><span>User Auth</span></div><a href="https://rajpratham1.github.io/WebFolio/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                    <div class="project-card"><img src="disa.png" alt="Disaster Ready" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Disaster+Ready'"><div class="project-info"><h3>Disaster Ready</h3><p>The application is designed to address a specific problem statement from the hackathon, such as the "disaster-ready-campus" or the "Al-Powered Crop" challenge</p><div class="tech-stack"><span>Full Stack</span><span>Hackathon</span></div><a href="https://disaster-ready-campus.onrender.com/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                    <div class="project-card"><img src="Cyber.png" alt="Cyber Threat Intelligence Dashboard" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Cyber+Threat'"><div class="project-info"><h3>Cyber Threat Intelligence Dashboard</h3><p>A web-based intelligence platform that visualizes live global cyber threats, displays attack trends and analytics, and provides a live cybersecurity news feed. The application features a React frontend and a Flask backend.</p><div class="tech-stack"><span>React</span><span>Flask</span><span>Cybersecurity</span></div><a href="https://cyber-threat-intelligence-z8lc.onrender.com/" target="_blank" class="project-link">Visit Site <i class="fa-solid fa-globe"></i></a></div></div>
+                </div>
             </div>
         </section>
 
+        <!-- PUBLICATIONS (Auto-Sliding Carousel) -->
         <section id="publications" class="content-section">
             <h2 class="section-title"><span class="title-line">My Publications</span></h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <img src="The Pythonic Journey.png" alt="The Pythonic Journey Book Cover" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Pythonic+Journey'">
-                    <div class="project-info">
-                        <div>
-                            <a href="https://rajpratham1.github.io/THE-PYTHONIC-JOURNEY/The_Pythonic_Journey.pdf" target="_blank">
-                                <h3>The Pythonic Journey</h3>
-                            </a>
-                            <p>Embark on "The Pythonic Journey," a beginner's guide to mastering Python. This book makes coding "spellbindingly easy," taking you from fundamental syntax to building real-world projects. Unlock advanced topics like web development (Flask/Django), GUI programming, and more. Your quest to become a coding sorcerer starts here!</p>
-                            <div class="tech-stack"><span>Python</span><span>Web Dev</span><span>GUI</span><span>OOP</span></div>
+            <div id="publications-scroll-wrapper" class="project-scroll-container">
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <img src="The Pythonic Journey.png" alt="The Pythonic Journey Book Cover" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Pythonic+Journey'">
+                        <div class="project-info">
+                            <div>
+                                <a href="https://rajpratham1.github.io/THE-PYTHONIC-JOURNEY/The_Pythonic_Journey.pdf" target="_blank">
+                                    <h3>The Pythonic Journey</h3>
+                                </a>
+                                <p>Embark on "The Pythonic Journey," a beginner's guide to mastering Python. This book makes coding "spellbindingly easy," taking you from fundamental syntax to building real-world projects. Unlock advanced topics like web development (Flask/Django), GUI programming, and more. Your quest to become a coding sorcerer starts here!</p>
+                                <div class="tech-stack"><span>Python</span><span>Web Dev</span><span>GUI</span><span>OOP</span></div>
+                            </div>
+                            <p class="publication-links">
+                                Published on:
+                                <a href="https://rajpratham.gumroad.com/l/fzzui" target="_blank">Gumroad</a> |
+                                <a href="https://prathamlustrous.sellfy.store/p/the-pythonic-journey/" target="_blank">Sellfy</a> |
+                                <a href="https://payhip.com/b/utf8S" target="_blank">Payhip</a> |
+                                <a href="https://ko-fi.com/s/c33f08ae4a" target="_blank">Ko-fi</a>
+                            </p>
                         </div>
-                        <p class="publication-links">
-                            Published on:
-                            <a href="https://rajpratham.gumroad.com/l/fzzui" target="_blank">Gumroad</a> |
-                            <a href="https://prathamlustrous.sellfy.store/p/the-pythonic-journey/" target="_blank">Sellfy</a> |
-                            <a href="https://payhip.com/b/utf8S" target="_blank">Payhip</a> |
-                            <a href="https://ko-fi.com/s/c33f08ae4a" target="_blank">Ko-fi</a>
-                        </p>
                     </div>
-                </div>
-                <div class="project-card">
-                    <img src="Radha rani.jpg" alt="राधाश्रुति " onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=राधाश्रुति'">
-                    <div class="project-info">
-                        <div>
-                            <a href="https://rajpratham1.github.io/Radhashruti/Radhashruti.pdf" target="_blank">
-                                <h3>राधाश्रुति</h3>
-                            </a>
-                            <p>"राधाश्रुति" (Radhashruti) जो प्रथम Kumar द्वारा लिखी गई है, राधा और कृष्ण के दिव्य प्रेम, भक्ति और विरह की एक अनूठी गाथा है। यह पुस्तक उनके पहली बार मिलने से लेकर राधा के आध्यात्मिक परिवर्तन तक की यात्रा का वर्णन करती है। प्रेम, भक्ति और त्याग की यह शाश्वत कहानी पाठकों के लिए आध्यात्मिकता के मार्ग पर एक मार्गदर्शक है।</p>
-                            <div class="tech-stack"><span>प्रेम</span><span>भक्ति</span><span>अलगाव</span></div>
+                    <div class="project-card">
+                        <img src="Radha rani.jpg" alt="राधाश्रुति " onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=राधाश्रुति'">
+                        <div class="project-info">
+                            <div>
+                                <a href="https://rajpratham1.github.io/Radhashruti/Radhashruti.pdf" target="_blank">
+                                    <h3>राधाश्रुति</h3>
+                                </a>
+                                <p>"राधाश्रुति" (Radhashruti) जो प्रथम Kumar द्वारा लिखी गई है, राधा और कृष्ण के दिव्य प्रेम, भक्ति और विरह की एक अनूठी गाथा है। यह पुस्तक उनके पहली बार मिलने से लेकर राधा के आध्यात्मिक परिवर्तन तक की यात्रा का वर्णन करती है। प्रेम, भक्ति और त्याग की यह शाश्वत कहानी पाठकों के लिए आध्यात्मिकता के मार्ग पर एक मार्गदर्शक है।</p>
+                                <div class="tech-stack"><span>प्रेम</span><span>भक्ति</span><span>अलगाव</span></div>
+                            </div>
+                            <p class="publication-links">
+                                Published on:
+                                <a href="https://rajpratham.gumroad.com/l/kbvfg" target="_blank">Gumroad</a> |
+                                <a href="https://prathamlustrous.sellfy.store/p/radhashruti/?_gl=1*79qf3g*_gcl_au*NzE0MDI5MjY1LjE3NTQyMjM3NzMuMzA4OTAwMTk3LjE3NTQzMjM1OTkuMTc1NDMyMzYxNw..*_ga*MjA0MTM0NTgxMy4xNzU0MjIzNzcz*_ga_2CKX0FMHTP*czE3NTQzMjM1NzkkbzIkZzEkdDE3NTQzMjM4NTYkajYwJGwwJGgw" target="_blank">Sellfy</a> |
+                                <a href="https://payhip.com/b/zi85Z" target="_blank">Payhip</a> |
+                                <a href="https://ko-fi.com/s/3e9f6bfb41" target="_blank">Ko-fi</a>
+                            </p>
                         </div>
-                        <p class="publication-links">
-                            Published on:
-                            <a href="https://rajpratham.gumroad.com/l/kbvfg" target="_blank">Gumroad</a> |
-                            <a href="https://prathamlustrous.sellfy.store/p/radhashruti/?_gl=1*79qf3g*_gcl_au*NzE0MDI5MjY1LjE3NTQyMjM3NzMuMzA4OTAwMTk3LjE3NTQzMjM1OTkuMTc1NDMyMzYxNw..*_ga*MjA0MTM0NTgxMy4xNzU0MjIzNzcz*_ga_2CKX0FMHTP*czE3NTQzMjM1NzkkbzIkZzEkdDE3NTQzMjM4NTYkajYwJGwwJGgw" target="_blank">Sellfy</a> |
-                            <a href="https://payhip.com/b/zi85Z" target="_blank">Payhip</a> |
-                            <a href="https://ko-fi.com/s/3e9f6bfb41" target="_blank">Ko-fi</a>
-                        </p>
                     </div>
-                </div>
-                <div class="project-card">
-                    <img src="Radhajie.jpg" alt="Radhashruti" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Radhashruti'">
-                    <div class="project-info">
-                        <div>
-                            <a href="https://rajpratham1.github.io/Radhashruti1-1-/Radhashruti1%5B1%5D.pdf" target="_blank">
-                                <h3>Radhashruti</h3>
-                            </a>
-                            <p>"Radhashruti" by Pratham Kumar is a unique saga of Radha and Krishna's divine love, devotion, and separation. The book chronicles their journey from their first meeting to Radha's spiritual transformation. This timeless story of love, devotion, and sacrifice is a guide for readers on the path of spirituality.</p>
-                            <div class="tech-stack"><span>Love</span><span>Devotion</span><span>Separation</span></div>
+                    <div class="project-card">
+                        <img src="Radhajie.jpg" alt="Radhashruti" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Radhashruti'">
+                        <div class="project-info">
+                            <div>
+                                <a href="https://rajpratham1.github.io/Radhashruti1-1-/Radhashruti1%5B1%5D.pdf" target="_blank">
+                                    <h3>Radhashruti</h3>
+                                </a>
+                                <p>"Radhashruti" by Pratham Kumar is a unique saga of Radha and Krishna's divine love, devotion, and separation. The book chronicles their journey from their first meeting to Radha's spiritual transformation. This timeless story of love, devotion, and sacrifice is a guide for readers on the path of spirituality.</p>
+                                <div class="tech-stack"><span>Love</span><span>Devotion</span><span>Separation</span></div>
+                            </div>
+                            <p class="publication-links">
+                                Published on:
+                                <a href="https://rajpratham.gumroad.com/l/qvxrgh" target="_blank">Gumroad</a> |
+                                <a href="https://prathamlustrous.sellfy.store/p/radhashruti-487bqk/" target="_blank">Sellfy</a> |
+                                <a href="https://payhip.com/b/BPDxv" target="_blank">Payhip</a> |
+                                <a href="https://ko-fi.com/s/436691e053" target="_blank">Ko-fi</a>
+                            </p>
                         </div>
-                        <p class="publication-links">
-                            Published on:
-                            <a href="https://rajpratham.gumroad.com/l/qvxrgh" target="_blank">Gumroad</a> |
-                            <a href="https://prathamlustrous.sellfy.store/p/radhashruti-487bqk/" target="_blank">Sellfy</a> |
-                            <a href="https://payhip.com/b/BPDxv" target="_blank">Payhip</a> |
-                            <a href="https://ko-fi.com/s/436691e053" target="_blank">Ko-fi</a>
-                        </p>
                     </div>
                 </div>
             </div>
         </section>
         
+        <!-- EXPERIENCE & VOLUNTEERING (RESTORED OLD VERSION) -->
         <section id="experience" class="content-section">
             <h2 class="section-title"><span class="title-line">Experience & Volunteering</span></h2>
             <div class="timeline">
-                <!-- Timeline items will be animated by GSAP -->
                 <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Apr 2025 - Jun 2025</div><div class="timeline-content"><h3>Android Developer Intern</h3><p class="company">Google (via EduSkills)</p><a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_androiddevelopment-googlefordevelopers-eduskills-activity-7341730129322131456-rV3C" target="_blank" class="proof-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
                 <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">2024 - 2025 Session</div><div class="timeline-content"><h3>Discipline Coordinator (DC)</h3><p class="company">Invertis University</p><a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_disciplinecoordinator-leadershipjourney-certificateofappreciation-activity-7341817788568653825-R-LW" target="_blank" class="proof-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
                 <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">2024 (3 Days)</div><div class="timeline-content"><h3>Volunteer - Job Fest</h3><p class="company">Invertis University</p><a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_hello-connections-dedicated-my-day-to-empowering-activity-7196390435899031553-zaKy" target="_blank" class="proof-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
@@ -966,7 +886,7 @@
             </div>
         </section>
 
-        <!-- UPDATED: Skills Section -->
+        <!-- TECHNICAL SKILLS (RESTORED OLD VERSION) -->
         <section id="skills" class="content-section">
             <h2 class="section-title"><span class="title-line">Technical Skills</span></h2>
             <div class="skills-grid">
@@ -987,15 +907,13 @@
             </div>
         </section>
 
+        <!-- GET IN TOUCH (RESTORED OLD VERSION) -->
         <section id="contact" class="content-section">
             <h2 class="section-title"><span class="title-line">Get In Touch</span></h2>
             
-            <!-- NEW: 3D Laptop for Contact Section -->
-            <div id="contact-3d-container"></div>
-
-            <!-- UPDATED: Contact Form (no header) -->
             <div class="chat-container">
                 <div class="chat-body">
+                    <p style="text-align: center; margin-bottom: 20px; color: var(--primary-text);">Send me a message directly!</p>
                     <form action="https://api.web3forms.com/submit" method="POST">
                         <input type="hidden" name="access_key" value="bae4969a-76af-40e4-86d7-d87fcbece11e">
                         <input type="text" name="name" placeholder="Your Name" required>
@@ -1021,17 +939,16 @@
         <p>Designed & Developed by Pratham Kumar © 2024</p>
     </footer>
 
-    <!-- NEW: Animation & 3D Libraries -->
+    <!-- Animation & 3D Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
 
-    <!-- UPDATED: Main Script (Module for imports) -->
     <script type="module">
-        // Import necessary components
-        const { Scene, PerspectiveCamera, WebGLRenderer, BufferGeometry, BufferAttribute, PointsMaterial, Points, MeshStandardMaterial, MeshBasicMaterial, AmbientLight, DirectionalLight, Color, Vector2, Clock, Mesh, BoxGeometry, CanvasTexture } = THREE;
+        // Import ज़रूरी components (Necessary components)
+        const { Scene, PerspectiveCamera, WebGLRenderer, BufferGeometry, BufferAttribute, PointsMaterial, Points, Color, Vector2, Clock } = THREE;
         
-        // Register GSAP plugins
+        // GSAP plugins register करें
         gsap.registerPlugin(ScrollTrigger);
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -1047,11 +964,6 @@
             // Background variables
             let bgScene, bgCamera, bgRenderer, particles, particlesMaterial;
             
-            // REMOVED: Hero Laptop variables
-            
-            // Contact Laptop variables
-            let contactScene, contactCamera, contactRenderer, contactLaptop, contactScreen;
-
             const mouse = new Vector2();
             const clock = new Clock();
 
@@ -1074,7 +986,7 @@
                 localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
                 update3DTheme();
             });
-
+            
             // --- 2. DROPDOWN MENU LOGIC ---
             menuIcon.addEventListener('click', (event) => {
                 event.stopPropagation();
@@ -1113,7 +1025,6 @@
                 bgRenderer.setSize(window.innerWidth, window.innerHeight);
                 bgRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-                // Starfield System
                 const particlesGeometry = new BufferGeometry();
                 const count = 5000;
                 const positions = new Float32Array(count * 3);
@@ -1134,90 +1045,11 @@
                 bgScene.add(particles);
             }
 
-            // --- 5. CREATE 3D LAPTOP (Helper Function) ---
-            function createLaptop(screenText1, screenText2) {
-                const laptop = new Mesh();
-                const baseGeo = new BoxGeometry(3, 0.1, 2);
-                const baseMat = new MeshStandardMaterial({ color: 0x333333, metalness: 0.8, roughness: 0.4 });
-                const base = new Mesh(baseGeo, baseMat);
-
-                const screenGeo = new BoxGeometry(3, 1.8, 0.1);
-                const screenBackMat = new MeshStandardMaterial({ color: 0x222222, metalness: 0.8, roughness: 0.4 });
-                
-                // Create canvas for text
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                canvas.width = 512;
-                canvas.height = 307; // 16:9 ratio
-                
-                const screenTexture = new CanvasTexture(canvas);
-                const screenMat = new MeshBasicMaterial({ map: screenTexture });
-
-                const screen = new Mesh(screenGeo, [screenBackMat, screenBackMat, screenBackMat, screenBackMat, screenMat, screenBackMat]);
-                screen.position.y = 0.9;
-                screen.position.z = -0.95;
-                screen.rotation.x = -0.1;
-
-                laptop.add(base);
-                laptop.add(screen);
-                laptop.rotation.y = -0.5;
-                laptop.position.y = -0.5;
-                
-                // Function to update screen text
-                laptop.updateScreen = (accentColor) => {
-                    ctx.fillStyle = isLightMode ? '#efefef' : '#000';
-                    ctx.fillRect(0, 0, 512, 307);
-                    ctx.fillStyle = accentColor;
-                    ctx.font = 'bold 50px Poppins';
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(screenText1, 256, 120);
-                    ctx.font = 'bold 40px Poppins';
-                    ctx.fillText(screenText2, 256, 180);
-                    screenTexture.needsUpdate = true;
-                };
-
-                return { laptop, screen };
-            }
-
-            // --- 6. INIT HERO 3D LAPTOP (REMOVED) ---
-            
-            // --- 7. NEW: INIT CONTACT 3D LAPTOP ---
-            function initContact3D() {
-                const container = document.getElementById('contact-3d-container');
-                if (!container) return;
-
-                contactScene = new Scene();
-                const w = container.clientWidth;
-                const h = container.clientHeight;
-                contactCamera = new PerspectiveCamera(45, w / h, 0.1, 100);
-                contactCamera.position.z = 5;
-                contactScene.add(contactCamera);
-
-                contactRenderer = new WebGLRenderer({ alpha: true, antialias: true });
-                contactRenderer.setSize(w, h);
-                contactRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-                container.appendChild(contactRenderer.domElement);
-
-                // Create Laptop
-                const contactData = createLaptop("Get In Touch", "rajpratham40@gmail.com");
-                contactLaptop = contactData.laptop;
-                contactScreen = contactData.screen;
-                contactScene.add(contactLaptop);
-
-                // Lights
-                const ambLight = new AmbientLight(0xffffff, 0.7);
-                contactScene.add(ambLight);
-                const dirLight = new DirectionalLight(0xffffff, 1);
-                dirLight.position.set(2, 2, 2);
-                contactScene.add(dirLight);
-            }
-
-            // --- 8. UPDATE 3D THEMES ---
+            // --- 5. UPDATE 3D THEMES ---
             function update3DTheme() {
-                const accentColor = getComputedStyle(body).getPropertyValue('--accent-color');
+                const accentColor = getComputedStyle(body).getPropertyValue('--accent-color').trim();
                 
-                // Update background stars
+                // Background सितारों को अपडेट करें
                 if (particlesMaterial) {
                     const newStarColor = new Color(accentColor);
                     gsap.to(particlesMaterial.color, {
@@ -1227,42 +1059,91 @@
                         duration: 0.5
                     });
                 }
-                
-                // REMOVED: Update hero laptop screen
-
-                // Update contact laptop screen
-                if (contactLaptop) {
-                    contactLaptop.updateScreen(accentColor);
-                }
             }
 
-            // --- 9. ANIMATION LOOP ---
+            // --- 6. IMPLEMENT AUTO SLIDING CAROUSEL ---
+            function setupAutoScroll(containerId, speed) {
+                const container = document.getElementById(containerId);
+                const grid = container.querySelector('.projects-grid, .websites-grid');
+                if (!container || !grid) return;
+
+                // Infinite scroll के लिए content को clone करें
+                const originalContent = Array.from(grid.children);
+                
+                // Ensure only one clone exists before cloning more to avoid duplicates on resize/re-initialization
+                if (grid.children.length === originalContent.length) {
+                     originalContent.forEach(item => {
+                        grid.appendChild(item.cloneNode(true));
+                    });
+                }
+                
+                // Animation wrapper
+                const scrollWrapper = grid;
+                
+                // Calculate total width of one set of content
+                let totalWidth = 0;
+                // Measure the width of the original items + gaps
+                for(let i=0; i < originalContent.length; i++) {
+                    totalWidth += originalContent[i].offsetWidth;
+                    totalWidth += 30; // Gap width (30px defined in CSS)
+                }
+                
+                // Set the combined width high enough to hold all content and clones
+                scrollWrapper.style.width = `${totalWidth * 2}px`;
+
+                // Create a timeline for continuous, looping movement
+                const timeline = gsap.timeline({
+                    repeat: -1, // Infinite loop
+                    paused: true,
+                    defaults: { ease: "none" }
+                });
+
+                // Animate the content wrapper left by the width of the original content
+                timeline.to(scrollWrapper, {
+                    x: -totalWidth, 
+                    duration: totalWidth / speed, 
+                    onUpdate: () => {
+                        // Reset position once halfway point is passed (for flawless loop visual)
+                        if (gsap.getProperty(scrollWrapper, "x") <= -totalWidth) {
+                            gsap.set(scrollWrapper, { x: 0 });
+                        }
+                    }
+                });
+                
+                // ScrollTrigger to start/pause animation when visible
+                ScrollTrigger.create({
+                    trigger: container,
+                    start: "top bottom",
+                    end: "bottom top",
+                    onEnter: () => timeline.play(),
+                    onLeave: () => timeline.pause(),
+                    onEnterBack: () => timeline.play(),
+                    onLeaveBack: () => timeline.pause(),
+                });
+
+                // Hover पर pause करें
+                container.addEventListener('mouseenter', () => timeline.pause());
+                container.addEventListener('mouseleave', () => timeline.play());
+            }
+
+            // --- 7. ANIMATION LOOP ---
             function animate() {
                 requestAnimationFrame(animate);
                 const elapsedTime = clock.getElapsedTime();
 
-                // Animate background
+                // Background stars को animate करें
                 if (particles && bgRenderer) {
-                    particles.position.z = (elapsedTime * 0.05) % 1; // Move stars
+                    particles.position.z = (elapsedTime * 0.05) % 1;
                     
-                    // Mouse parallax on camera
+                    // Mouse parallax
                     bgCamera.position.x += (mouse.x * 0.5 - bgCamera.position.x) * 0.02;
                     bgCamera.position.y += (-mouse.y * 0.5 - bgCamera.position.y) * 0.02;
                     bgCamera.lookAt(bgScene.position);
                     bgRenderer.render(bgScene, bgCamera);
                 }
-                
-                // REMOVED: Animate hero laptop
-
-                // Animate contact laptop
-                if (contactLaptop && contactRenderer) {
-                    contactLaptop.rotation.y = -0.5 + mouse.x * 0.5;
-                    contactLaptop.rotation.x = -0.1 + mouse.y * 0.2;
-                    contactRenderer.render(contactScene, contactCamera);
-                }
             }
 
-            // --- 10. EVENT LISTENERS (Mouse, Resize) ---
+            // --- 8. EVENT LISTENERS ---
             window.addEventListener('mousemove', (event) => {
                 mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
                 mouse.y = (event.clientY / window.innerHeight) * 2 - 1;
@@ -1272,34 +1153,21 @@
                 const w = window.innerWidth;
                 const h = window.innerHeight;
 
-                // Update BG camera
+                // BG camera अपडेट करें
                 if (bgCamera && bgRenderer) {
                     bgCamera.aspect = w / h;
                     bgCamera.updateProjectionMatrix();
                     bgRenderer.setSize(w, h);
                     bgRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
                 }
-
-                // REMOVED: Update Hero camera
-
-                // Update Contact camera
-                const contactContainer = document.getElementById('contact-3d-container');
-                if (contactContainer && contactCamera && contactRenderer) {
-                    const contactW = contactContainer.clientWidth;
-                    const contactH = contactContainer.clientHeight;
-                    contactCamera.aspect = contactW / contactH;
-                    contactCamera.updateProjectionMatrix();
-                    contactRenderer.setSize(contactW, contactH);
-                    contactRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-                }
             });
 
-            // --- 11. GSAP SCROLL ANIMATIONS ---
+            // --- 9. GSAP SCROLL ANIMATIONS ---
             function initScrollAnimations() {
-                // Hide loading screen
+                // Loading screen छिपाएँ
                 gsap.to(loadingScreen, { opacity: 0, duration: 0.5, onComplete: () => loadingScreen.style.display = 'none' });
 
-                // Hero fade in (delay slightly)
+                // Hero fade in
                 gsap.from('.hero-text > *', {
                     opacity: 0,
                     y: 30,
@@ -1307,7 +1175,7 @@
                     stagger: 0.1,
                     delay: 0.5
                 });
-                gsap.from('.hero-image', { // UPDATED
+                gsap.from('.hero-image', {
                     opacity: 0,
                     duration: 1,
                     delay: 0.5
@@ -1327,82 +1195,67 @@
                     });
                 });
 
-                // Staggered Card Animations
-                gsap.utils.toArray('.projects-grid').forEach(grid => {
-                    gsap.from(grid.querySelectorAll('.project-card'), {
-                        opacity: 0,
-                        y: 50,
-                        duration: 0.6,
-                        stagger: 0.1,
-                        scrollTrigger: {
-                            trigger: grid,
-                            start: 'top 80%'
-                        }
-                    });
-                });
-                
-                // Timeline Animations
-                gsap.utils.toArray('.timeline-item').forEach((item, index) => {
-                    const content = item.querySelector('.timeline-content');
-                    const dot = item.querySelector('.timeline-dot');
-                    const direction = index % 2 === 0 ? -50 : 50; // odd vs even
-                    
-                    gsap.from(content, {
-                        opacity: 0,
-                        x: direction,
-                        duration: 0.6,
-                        scrollTrigger: {
-                            trigger: item,
-                            start: 'top 85%'
-                        }
-                    });
-                    gsap.from(dot, {
-                        scale: 0,
-                        duration: 0.4,
-                        scrollTrigger: {
-                            trigger: item,
-                            start: 'top 85%'
-                        }
-                    });
-                });
+                // Staggered Card Animations (About Me, Skills, Timeline)
+                gsap.utils.toArray('.about-grid, .skills-grid, .timeline-item').forEach(gridOrItem => {
+                    // Timeline items के लिए अलग से setup
+                    if (gridOrItem.classList.contains('timeline-item')) {
+                        const content = gridOrItem.querySelector('.timeline-content');
+                        const dot = gridOrItem.querySelector('.timeline-dot');
+                        const direction = gridOrItem.previousElementSibling?.classList.contains('timeline-item') ? -50 : 50; 
 
-                // Skills Grid Animation
-                gsap.from('.skill-card', {
-                    opacity: 0,
-                    scale: 0.5,
-                    y: 30,
-                    duration: 0.5,
-                    stagger: 0.05,
-                    scrollTrigger: {
-                        trigger: '.skills-grid',
-                        start: 'top 80%'
+                        gsap.from([content, dot], {
+                            opacity: 0,
+                            x: direction,
+                            scale: 0,
+                            duration: 0.6,
+                            stagger: 0.05,
+                            scrollTrigger: {
+                                trigger: gridOrItem,
+                                start: 'top 85%'
+                            }
+                        });
+                    } else {
+                        // Grids (About Me, Skills) के लिए
+                        gsap.from(gridOrItem.querySelectorAll('.about-card, .skill-card'), {
+                            opacity: 0,
+                            y: 50,
+                            scale: 0.8,
+                            duration: 0.6,
+                            stagger: 0.1,
+                            scrollTrigger: {
+                                trigger: gridOrItem,
+                                start: 'top 80%'
+                            }
+                        });
                     }
                 });
 
-                // Contact Form
-                gsap.from(['#contact-3d-container', '.chat-container'], {
+                // Contact Form 
+                gsap.from('.chat-container', {
                     opacity: 0,
                     y: 50,
                     duration: 0.8,
-                    stagger: 0.2,
                     scrollTrigger: {
-                        trigger: '#contact-3d-container',
+                        trigger: '#contact',
                         start: 'top 80%'
                     }
                 });
+                
+                // Auto-Sliding Carousels शुरू करें
+                // Speed = pixels/second.
+                setupAutoScroll('projects-scroll-wrapper', 40); 
+                setupAutoScroll('websites-scroll-wrapper', 50); 
+                setupAutoScroll('publications-scroll-wrapper', 30); 
             }
 
-            // --- 12. INITIALIZATION ---
+            // --- 10. INITIALIZATION ---
             try {
                 initBackground3D();
-                // initHero3D(); // REMOVED
-                initContact3D(); // Kept
-                applySavedTheme(); // Apply theme before showing 3D models
+                applySavedTheme();
                 animate();
-                initScrollAnimations(); // Will hide loader when done
+                initScrollAnimations();
             } catch (error) {
-                console.error("Failed to initialize 3D scene:", error);
-                // Hide loader even if 3D fails
+                console.error("Initialization failed:", error); // Debugging के लिए
                 loadingScreen.style.opacity = 0;
                 setTimeout(() => loadingScreen.style.display = 'none', 500);
             }
@@ -1410,5 +1263,3 @@
     </script>
 </body>
 </html>
-
-
