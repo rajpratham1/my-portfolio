@@ -6,17 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pratham Kumar | Developer & Learning CyberSecurity</title>
     
-    <!-- SEO & Open Graph Tags -->
     <meta name="description" content="Portfolio of Pratham Kumar, a Full Stack Developer and CyberSecurity Enthusiast.">
     <meta property="og:title" content="Pratham Kumar | Developer Portfolio">
     <meta property="og:description" content="Explore my projects, publications, and skills in web development, AI/ML, and cybersecurity.">
-    <meta property="og:image" content="profile-photo.jpg.jpg"> <!-- Ensure this image is accessible -->
-    <meta property="og:url" content="https://your-domain.com"> <!-- Replace with your actual domain -->
+    <meta property="og:image" content="profile-photo.jpg.jpg"> 
+    <meta property="og:url" content="https://your-domain.com"> 
     <meta name="twitter:card" content="summary_large_image">
 
-    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="logo.png.jpg">
 
@@ -798,11 +795,8 @@
 </head>
 <body>
 
-    <!-- 3D Background -->
     <canvas id="bg-3d"></canvas>
-    <!-- Scroll Progress Bar -->
     <div id="scroll-progress"></div>
-    <!-- Custom Cursor -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
@@ -841,12 +835,10 @@
             <div class="hero-container">
                 <div class="hero-text">
                     <h1 class="font-effect">Pratham Kumar</h1>
-                    <!-- UPDATED: Primary Typewriter for cycling roles -->
                     <p class="subtitle-wrapper">
                         <span class="typing-effect" id="primary-typing"></span>
                     </p>
                     
-                    <!-- NEW: Secondary Title for specific, static text -->
                     <p id="secondary-title-wrapper">
                         <span class="typing-effect" id="secondary-typing"></span>
                     </p>
@@ -858,14 +850,12 @@
                         <a href="raj-pratham cv.pdf" download="Pratham_Kumar_Resume.pdf" class="cta-button secondary">Download Resume</a>
                     </div>
                 </div>
-                <!-- NEW: Parallax wrapper -->
                 <div class="hero-image" id="hero-image-wrapper">
                     <img loading="lazy" src="profile-photo.jpg.jpg" alt="Pratham Kumar" onerror="this.src='https://placehold.co/320x320/1e1e1e/00aeff?text=PK'">
                 </div>
             </div>
         </section>
 
-        <!-- About Me Section -->
         <section id="about" class="content-section">
             <h2 class="section-title"><span class="title-line">About Me</span></h2>
             <div class="about-container">
@@ -883,7 +873,6 @@
                         <h4><i class="fas fa-bolt" style="color: #f1c40f;"></i> AI-Augmented Workflow</h4>
                         <p>I leverage the power of advanced AI models to accelerate my development. By integrating AI into my workflow, I save time on boilerplate and focus entirely on complex logic and system architecture.</p>
                     </div>
-                    <!-- NEW: Strategic Planning Card -->
                     <div class="about-card">
                         <h4><i class="fas fa-lightbulb" style="color: #00aeff;"></i> Strategic Planning</h4>
                         <p>Before writing the first line of code, I focus on system architecture and scalability. This <strong>strategic planning</strong> ensures that every project is built on a solid, future-proof foundation, minimizing technical debt.</p>
@@ -892,7 +881,6 @@
             </div>
         </section>
 
-        <!-- Featured Projects (Slider) -->
         <section id="projects" class="content-section">
             <h2 class="section-title"><span class="title-line">Featured Projects</span></h2>
             <div class="slider-container" data-slider="projects">
@@ -973,7 +961,6 @@
             </div>
         </section>
 
-        <!-- Websites (Slider) -->
         <section id="websites" class="content-section">
             <h2 class="section-title"><span class="title-line">My Live Websites</span></h2>
             <div class="slider-container" data-slider="websites">
@@ -997,7 +984,6 @@
             </div>
         </section>
 
-        <!-- Publications (Slider) -->
         <section id="publications" class="content-section">
             <h2 class="section-title"><span class="title-line">My Publications</span></h2>
             <div class="slider-container" data-slider="publications">
@@ -1034,7 +1020,6 @@
             </div>
         </section>
         
-        <!-- Experience Timeline -->
         <section id="experience" class="content-section">
             <h2 class="section-title"><span class="title-line">Experience & Volunteering</span></h2>
             <div class="timeline">
@@ -1047,7 +1032,6 @@
             </div>
         </section>
 
-        <!-- Skills -->
         <section id="skills" class="content-section">
             <h2 class="section-title"><span class="title-line">Technical Skills</span></h2>
             <div class="skills-grid">
@@ -1074,13 +1058,14 @@
             <div id="contact-3d-container"></div>
             <div class="chat-container">
                 <div class="chat-body">
-                    <form action="https://api.web3forms.com/submit" method="POST">
+                    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
                         <input type="hidden" name="access_key" value="bae4969a-76af-40e4-86d7-d87fcbece11e">
                         <input type="text" name="name" placeholder="Your Name" required>
                         <input type="email" name="email" placeholder="Your Email" required>
                         <textarea name="message" placeholder="Type your message here..." required></textarea>
                         <button type="submit" class="send-button">Send <i class="fa-solid fa-paper-plane"></i></button>
                     </form>
+                    <div id="result" style="margin-top: 15px; text-align: center; display: none;"></div>
                 </div>
             </div>
         </section>
@@ -1487,12 +1472,54 @@
                 loadingScreen.style.opacity = 0;
                 setTimeout(() => loadingScreen.style.display = 'none', 500);
             }
+
+            // --- 14. NEW: CONTACT FORM HANDLER (No Redirect) ---
+            const contactForm = document.getElementById('contact-form');
+            const result = document.getElementById('result');
+
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(contactForm);
+                const object = Object.fromEntries(formData);
+                const json = JSON.stringify(object);
+
+                result.innerHTML = "Sending...";
+                result.style.display = "block";
+                result.style.color = "var(--secondary-text)";
+
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                })
+                .then(async (response) => {
+                    let json = await response.json();
+                    if (response.status == 200) {
+                        result.innerHTML = "Message sent successfully! I will get back to you soon.";
+                        result.style.color = "#00aeff"; // Your accent color
+                        contactForm.reset();
+                    } else {
+                        console.log(response);
+                        result.innerHTML = json.message;
+                        result.style.color = "red";
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                    result.innerHTML = "Something went wrong!";
+                    result.style.color = "red";
+                })
+                .then(function() {
+                    setTimeout(() => {
+                        result.style.display = "none";
+                    }, 5000);
+                });
+            });
         });
     </script>
 </body>
 </html>
-
-
-
-
 
