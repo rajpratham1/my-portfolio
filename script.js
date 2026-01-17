@@ -258,6 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+
     // Explicitly attach click listeners for Skills to ensure they work
     const fullstackBtn = document.getElementById('btn-fullstack');
     if (fullstackBtn) {
@@ -492,7 +493,6 @@ window.showCertTab = function (type) {
 // Full Stack Skills
 window.openFullStackSkills = function () {
     console.log('FUNC: openFullStackSkills CALLED');
-    // alert('Opening Full Stack Skills...'); // Debug alert
     document.getElementById('fullstackOverlay').classList.add('show');
     document.body.style.overflow = 'hidden';
 };
@@ -504,7 +504,6 @@ window.closeFullStackSkills = function () {
 // Cybersecurity Skills
 window.openCybersecuritySkills = function () {
     console.log('FUNC: openCybersecuritySkills CALLED');
-    // alert('Opening Cybersecurity Skills...'); // Debug alert
     document.getElementById('cybersecurityOverlay').classList.add('show');
     document.body.style.overflow = 'hidden';
 };

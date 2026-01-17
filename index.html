@@ -21,61 +21,6 @@
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="overlay-fix.css">
-    <style>
-        /* CRITICAL INLINE FIX FOR OVERLAYS */
-        .projects-overlay {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            background: rgba(10, 22, 40, 0.98) !important;
-            z-index: 2147483647 !important;
-            /* Max integer value */
-            display: none;
-            justify-content: center;
-            align-items: flex-start;
-            /* Better for scrolling */
-            padding-top: 50px;
-            overflow-y: auto !important;
-            backdrop-filter: blur(5px);
-        }
-
-        .projects-overlay.show {
-            display: flex !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-            pointer-events: auto !important;
-        }
-
-        .projects-container {
-            position: relative;
-            background: #0a1628;
-            width: 90%;
-            max-width: 1000px;
-            margin-bottom: 50px;
-            border-radius: 20px;
-            padding: 40px;
-            border: 1px solid rgba(0, 174, 255, 0.3);
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-            z-index: 2147483648;
-        }
-
-        /* Badge Fixes */
-        .fullstack-badge,
-        .cybersecurity-badge {
-            cursor: pointer !important;
-            z-index: 1000 !important;
-            position: relative;
-            pointer-events: auto !important;
-        }
-
-        /* Ensure nothing covers the badges */
-        canvas {
-            pointer-events: none !important;
-            z-index: -1 !important;
-        }
-    </style>
 </head>
 
 <body>
@@ -426,8 +371,8 @@
                             </div>
                             <span class="skill-percent">75%</span>
                         </div>
-                        <div class="skill-progress">
-                            <div class="skill-fill"></div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar-fill" style="width: 75%;"></div>
                         </div>
                     </div>
 
@@ -439,8 +384,8 @@
                             </div>
                             <span class="skill-percent">70%</span>
                         </div>
-                        <div class="skill-progress">
-                            <div class="skill-fill"></div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar-fill" style="width: 70%;"></div>
                         </div>
                     </div>
 
@@ -452,8 +397,8 @@
                             </div>
                             <span class="skill-percent">70%</span>
                         </div>
-                        <div class="skill-progress">
-                            <div class="skill-fill"></div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar-fill" style="width: 70%;"></div>
                         </div>
                     </div>
 
@@ -465,8 +410,8 @@
                             </div>
                             <span class="skill-percent">65%</span>
                         </div>
-                        <div class="skill-progress">
-                            <div class="skill-fill"></div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar-fill" style="width: 65%;"></div>
                         </div>
                     </div>
                 </div>
@@ -1165,514 +1110,591 @@
                     <div class="projects-grid" id="projectsList"></div>
 
                     <!-- Full Stack Skills Overlay -->
-                    <div id="fullstackOverlay" class="projects-overlay">
-                        <button class="close-btn" onclick="closeFullStackSkills()">&times;</button>
-                        <div class="projects-container">
-                            <h1 class="projects-title">
-                                <i class="fas fa-layer-group"></i> Full Stack Development Skills
-                            </h1>
+                </div>
 
-                            <div class="skills-overlay-grid">
-                                <div class="skills-category">
-                                    <h3 class="category-title"><i class="fas fa-paint-brush"></i> Frontend Development
-                                    </h3>
-                                    <div id="fullstackFrontendSkills">
-                                        <!-- HTML5 -->
-                                        <div class="skill-card">
-                                            <div class="skill-icon-box"><i class="fab fa-html5"></i></div>
-                                            <div class="skill-info-box">
-                                                <h4>HTML5</h4>
-                                                <div class="skill-bar-container">
-                                                    <div class="skill-bar-fill" style="width: 80%;"></div>
-                                                </div>
-                                                <span class="skill-percentage">80%</span>
-                                            </div>
-                                        </div>
-                                        <!-- CSS3 -->
-                                        <div class="skill-card">
-                                            <div class="skill-icon-box"><i class="fab fa-css3-alt"></i></div>
-                                            <div class="skill-info-box">
-                                                <h4>CSS3</h4>
-                                                <div class="skill-bar-container">
-                                                    <div class="skill-bar-fill" style="width: 75%;"></div>
-                                                </div>
-                                                <span class="skill-percentage">75%</span>
-                                            </div>
-                                        </div>
-                                        <!-- JavaScript -->
-                                        <div class="skill-card">
-                                            <div class="skill-icon-box"><i class="fab fa-js"></i></div>
-                                            <div class="skill-info-box">
-                                                <h4>JavaScript</h4>
-                                                <div class="skill-bar-container">
-                                                    <div class="skill-bar-fill" style="width: 78%;"></div>
-                                                </div>
-                                                <span class="skill-percentage">78%</span>
-                                            </div>
-                                        </div>
-                                        <!-- React -->
-                                        <div class="skill-card">
-                                            <div class="skill-icon-box"><i class="fab fa-react"></i></div>
-                                            <div class="skill-info-box">
-                                                <h4>React.js</h4>
-                                                <div class="skill-bar-container">
-                                                    <div class="skill-bar-fill" style="width: 72%;"></div>
-                                                </div>
-                                                <span class="skill-percentage">72%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                <!-- Card 2: Security -->
+                <div class="about-card">
+                    <div class="about-icon-container">
+                        <i class="fas fa-user-shield pulse"></i>
+                    </div>
+                    <h3>Cyber Security Focus</h3>
+                    <p>Transitioning from "working" apps to "unbreakable" apps. My security journey
+                        includes:
+                    </p>
+                    <ul class="clean-list" style="margin-top: 15px; text-align: left;">
+                        <li><i class="fas fa-bug"></i> <strong>Vulnerability Assessment:</strong>
+                            Identifying
+                            weak
+                            points.</li>
+                        <li><i class="fas fa-lock"></i> <strong>Secure Coding:</strong> OWASP Top 10
+                            mitigation.
+                        </li>
+                        <li><i class="fas fa-certificate"></i> <strong>Certifications:</strong>
+                            Pursuing
+                            advanced
+                            CyberSec credentials.</li>
+                    </ul>
+                </div>
+            </div>
 
-                                <div class="skills-category">
-                                    <h3 class="category-title"><i class="fas fa-server"></i> Backend Development</h3>
-                                    <div id="fullstackBackendSkills">
-                                        <!-- Node.js -->
-                                        <div class="skill-card">
-                                            <div class="skill-icon-box"><i class="fab fa-node-js"></i></div>
-                                            <div class="skill-info-box">
-                                                <h4>Node.js</h4>
-                                                <div class="skill-bar-container">
-                                                    <div class="skill-bar-fill" style="width: 74%;"></div>
-                                                </div>
-                                                <span class="skill-percentage">74%</span>
-                                            </div>
-                                        </div>
-                                        <!-- Express -->
-                                        <div class="skill-card">
-                                            <div class="skill-icon-box"><i class="fas fa-server"></i></div>
-                                            <div class="skill-info-box">
-                                                <h4>Express.js</h4>
-                                                <div class="skill-bar-container">
-                                                    <div class="skill-bar-fill" style="width: 70%;"></div>
-                                                </div>
-                                                <span class="skill-percentage">70%</span>
-                                            </div>
-                                        </div>
-                                        <!-- MongoDB -->
-                                        <div class="skill-card">
-                                            <div class="skill-icon-box"><i class="fas fa-database"></i></div>
-                                            <div class="skill-info-box">
-                                                <h4>MongoDB</h4>
-                                                <div class="skill-bar-container">
-                                                    <div class="skill-bar-fill" style="width: 76%;"></div>
-                                                </div>
-                                                <span class="skill-percentage">76%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+            <div class="about-footer-text">
+                <p>I leverage the power of advanced AI models to accelerate my development. By
+                    integrating AI
+                    into
+                    my workflow, I save time on boilerplate and focus entirely on complex logic and
+                    system
+                    architecture.</p>
+            </div>
+        </div>
+    </div>
+    </div>
 
-                                <div class="skills-category">
-                                    <h3 class="category-title"><i class="fas fa-tools"></i> Development Tools</h3>
-                                    <div id="fullstackToolsSkills">
-                                        <!-- Git -->
-                                        <div class="skill-card">
-                                            <div class="skill-icon-box"><i class="fab fa-git-alt"></i></div>
-                                            <div class="skill-info-box">
-                                                <h4>Git</h4>
-                                                <div class="skill-bar-container">
-                                                    <div class="skill-bar-fill" style="width: 77%;"></div>
-                                                </div>
-                                                <span class="skill-percentage">77%</span>
-                                            </div>
-                                        </div>
-                                        <!-- VS Code -->
-                                        <div class="skill-card">
-                                            <div class="skill-icon-box"><i class="fas fa-code"></i></div>
-                                            <div class="skill-info-box">
-                                                <h4>VS Code</h4>
-                                                <div class="skill-bar-container">
-                                                    <div class="skill-bar-fill" style="width: 79%;"></div>
-                                                </div>
-                                                <span class="skill-percentage">79%</span>
-                                            </div>
-                                        </div>
-                                    </div>
+    <!-- Publications Overlay -->
+    <div id="publicationsOverlay" class="projects-overlay">
+        <button class="close-btn" onclick="closePublications()">&times;</button>
+        <div class="projects-container">
+            <h1 class="projects-title"><i class="fas fa-book-open"></i> My Publications</h1>
+            <div class="pub-grid">
+                <!-- Book 1 -->
+                <div class="pub-card">
+                    <img src="assets/images/The Pythonic Journey.png" alt="The Pythonic Journey" class="pub-image"
+                        loading="lazy" onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Python+Book'">
+                    <div class="pub-content">
+                        <h3 class="pub-title">The Pythonic Journey</h3>
+                        <p class="pub-desc">A beginner's guide to mastering Python and building
+                            real-world projects.
+                            Perfect for those starting their coding journey.</p>
+                        <a href="https://rajpratham1.github.io/THE-PYTHONIC-JOURNEY/The_Pythonic_Journey.pdf"
+                            target="_blank" class="pub-btn">
+                            <i class="fas fa-file-pdf"></i> Read Book
+                        </a>
+                    </div>
+                </div>
+                <!-- Book 2 -->
+                <div class="pub-card">
+                    <img src="assets/images/Radha rani.jpg" alt="Radhashruti (Hindi)" class="pub-image" loading="lazy"
+                        onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Book'">
+                    <div class="pub-content">
+                        <h3 class="pub-title">राधाश्रुति (Hindi)</h3>
+                        <p class="pub-desc">A unique saga of Radha and Krishna's divine love, devotion,
+                            and
+                            separation,
+                            explored through a spiritual lens.</p>
+                        <a href="https://rajpratham1.github.io/Radhashruti/Radhashruti.pdf" target="_blank"
+                            class="pub-btn">
+                            <i class="fas fa-file-pdf"></i> Read Book
+                        </a>
+                    </div>
+                </div>
+                <!-- Book 3 -->
+                <div class="pub-card">
+                    <img src="assets/images/Radhajie.jpg" alt="Radhashruti (English)" class="pub-image" loading="lazy"
+                        onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Book'">
+                    <div class="pub-content">
+                        <h3 class="pub-title">Radhashruti (English)</h3>
+                        <p class="pub-desc">The English translation of Radhashruti, detailing the
+                            spiritual
+                            transformation of Radha through love, devotion, and sacrifice.</p>
+                        <a href="https://rajpratham1.github.io/Radhashruti1-1-/Radhashruti1%5B1%5D.pdf" target="_blank"
+                            class="pub-btn">
+                            <i class="fas fa-file-pdf"></i> Read Book
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Overlay -->
+    <div id="contactOverlay" class="projects-overlay">
+        <button class="close-btn" onclick="closeContact()">&times;</button>
+        <div class="projects-container">
+            <h1 class="projects-title"><i class="fas fa-address-card"></i> Connect With Me</h1>
+            <div class="contact-scroll-container">
+
+                <!-- LinkedIn Card -->
+                <div class="contact-card">
+                    <div class="contact-card-content">
+                        <img src="assets/images/linkdin.png" alt="LinkedIn" loading="lazy"
+                            onerror="this.style.display='none'">
+                        <div class="contact-card-text">
+                            <h3>LinkedIn</h3>
+                            <p>Let's connect professionally! Check out my career journey, endorsements,
+                                projects,
+                                and
+                                latest achievements. I regularly share insights on Full Stack
+                                Development and
+                                Cybersecurity.</p>
+                            <a href="https://www.linkedin.com/in/pratham-kumar-2a4b151a7/" target="_blank"
+                                class="contact-card-btn">Connect on LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GitHub Card -->
+                <div class="contact-card">
+                    <div class="contact-card-content">
+                        <img src="assets/images/github.png" alt="GitHub" loading="lazy"
+                            onerror="this.style.display='none'">
+                        <div class="contact-card-text">
+                            <h3>GitHub</h3>
+                            <p>Dive into my code! Explore my open-source repositories, personal
+                                projects, and
+                                contributions. I believe in transparent, collaborative development.</p>
+                            <a href="https://github.com/rajpratham1" target="_blank" class="contact-card-btn">Follow
+                                on
+                                GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- X (Twitter) Card -->
+                <div class="contact-card">
+                    <div class="contact-card-content">
+                        <img src="assets/images/x.png" alt="X (Twitter)" loading="lazy"
+                            onerror="this.style.display='none'">
+                        <div class="contact-card-text">
+                            <h3>X (Twitter)</h3>
+                            <p>Follow me for daily tech updates, industry news, and quick thoughts on
+                                the latest
+                                trends
+                                in AI and Software Engineering. Let's start a conversation!</p>
+                            <a href="https://x.com/" target="_blank" class="contact-card-btn">Follow on
+                                X</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instagram Card -->
+                <div class="contact-card">
+                    <div class="contact-card-content">
+                        <img src="assets/images/insta.jpeg" alt="Instagram" loading="lazy"
+                            onerror="this.style.display='none'">
+                        <div class="contact-card-text">
+                            <h3>Instagram</h3>
+                            <p>Get a glimpse of the person behind the code. I share moments from my
+                                life, travels,
+                                hobbies, and the lighter side of being a developer.</p>
+                            <a href="https://www.instagram.com/" target="_blank" class="contact-card-btn">Follow on
+                                Instagram</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Facebook Card -->
+                <div class="contact-card">
+                    <div class="contact-card-content">
+                        <img src="assets/images/facebook.jpeg" alt="Facebook" loading="lazy"
+                            onerror="this.style.display='none'">
+                        <div class="contact-card-text">
+                            <h3>Facebook</h3>
+                            <p>Stay in touch! A space for friends, family, and extended network to
+                                connect and share
+                                memorable life moments.</p>
+                            <a href="https://www.facebook.com/" target="_blank" class="contact-card-btn">Add
+                                Friend</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WhatsApp Card -->
+                <div class="contact-card">
+                    <div class="contact-card-content">
+                        <i class="fab fa-whatsapp large-icon"></i>
+                        <div class="contact-card-text">
+                            <h3>WhatsApp</h3>
+                            <p>Direct & instant messaging. Feel free to reach out for quick queries,
+                                collaboration
+                                discussions, or just to say hi!</p>
+                            <a href="https://wa.me/918318089403" target="_blank" class="contact-card-btn"
+                                style="background: linear-gradient(90deg, #25D366, #128C7E);">Chat on
+                                WhatsApp</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gmail Card -->
+                <div class="contact-card">
+                    <div class="contact-card-content">
+                        <i class="fas fa-envelope large-icon"></i>
+                        <div class="contact-card-text">
+                            <h3>Gmail</h3>
+                            <p>Prefer email? Send me a detailed message about your project, job
+                                opportunity, or
+                                inquiry.
+                                I typically respond within 24 hours.</p>
+                            <a href="mailto:rajpratham40@gmail.com" target="_blank" class="contact-card-btn"
+                                style="background: linear-gradient(90deg, #EA4335, #D44638);">Send
+                                Email</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Additional Contact Info -->
+            <div class="overlay-footer">
+                <p style="text-align: center; color: var(--secondary-text); margin-top: 3rem; font-size: 1.1rem;">
+                    <i class="fas fa-envelope"></i> rajpratham40@gmail.com &nbsp;|&nbsp; <i class="fas fa-phone"></i>
+                    +91 831-808-9403
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Full Stack Skills Overlay -->
+    <div id="fullstackOverlay" class="projects-overlay">
+        <button class="close-btn" onclick="closeFullStackSkills()">&times;</button>
+        <div class="projects-container">
+            <h1 class="projects-title">
+                <i class="fas fa-layer-group"></i> Full Stack Development Skills
+            </h1>
+
+            <div class="skills-overlay-grid">
+                <div class="skills-category">
+                    <h3 class="category-title"><i class="fas fa-paint-brush"></i> Frontend Development</h3>
+                    <div id="fullstackFrontendSkills">
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fab fa-html5"></i></div>
+                            <div class="skill-info-box">
+                                <h4>HTML5</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 80%;"></div>
                                 </div>
+                                <span class="skill-percentage">80%</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fab fa-css3-alt"></i></div>
+                            <div class="skill-info-box">
+                                <h4>CSS3</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 78%;"></div>
+                                </div>
+                                <span class="skill-percentage">78%</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fab fa-js"></i></div>
+                            <div class="skill-info-box">
+                                <h4>JavaScript</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 75%;"></div>
+                                </div>
+                                <span class="skill-percentage">75%</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fab fa-react"></i></div>
+                            <div class="skill-info-box">
+                                <h4>React.js</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 72%;"></div>
+                                </div>
+                                <span class="skill-percentage">72%</span>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Cybersecurity Skills Overlay -->
-                    <div id="cybersecurityOverlay" class="projects-overlay">
-                        <button class="close-btn" onclick="closeCybersecuritySkills()">&times;</button>
-                        <div class="projects-container">
-                            <h1 class="projects-title">
-                                <i class="fas fa-shield-halved"></i> Cybersecurity & Security Skills
-                            </h1>
-                            <p
-                                style="color: var(--text-secondary); margin-bottom: 30px; line-height: 1.6; border-left: 3px solid #00aeff; padding-left: 15px;">
-                                <strong style="color: #fff;">Certified in Cybersecurity (CC) by ISC2</strong><br>
-                                I have successfully completed the CC program, strengthening my foundation in key
-                                security domains including
-                                Security Principles, Incident Response, Access Control, Network Security, and Security
-                                Operations.
-                            </p>
-
-
-                            <div class="skills-overlay-grid">
-                                <div class="skills-category">
-                                    <h3 class="category-title"><i class="fas fa-shield-halved"></i> Core Security
-                                        Domains</h3>
-                                    <div id="cybersecurityCoreSkills">
-                                        <!-- Security Principles -->
-                                        <div class="skill-card">
-                                            <div class="skill-icon-box"><i class="fas fa-book-shield"></i></div>
-                                            <div class="skill-info-box">
-                                                <h4>Security Principles</h4>
-                                                <div class="skill-bar-container">
-                                                    <div class="skill-bar-fill" style="width: 65%;"></div>
-                                                </div>
-                                                <span class="skill-percentage">65%</span>
-                                            </div>
-                                        </div>
-                                        <!-- Incident Response, BC & DR -->
-                                        <div class="skill-card">
-                                            <div class="skill-icon-box"><i class="fas fa-file-medical-alt"></i></div>
-                                            <div class="skill-info-box">
-                                                <h4>Incident Response, BC & DR</h4>
-                                                <div class="skill-bar-container">
-                                                    <div class="skill-bar-fill" style="width: 62%;"></div>
-                                                </div>
-                                                <span class="skill-percentage">62%</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                <div class="skills-category">
+                    <h3 class="category-title"><i class="fas fa-server"></i> Backend Development</h3>
+                    <div id="fullstackBackendSkills">
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fab fa-node-js"></i></div>
+                            <div class="skill-info-box">
+                                <h4>Node.js</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 74%;"></div>
                                 </div>
-
-                                <div class="skills-category">
-                                    <h3 class="category-title"><i class="fas fa-bell"></i> Operations & Access Control
-                                    </h3>
-                                    <div id="cybersecurityOperationsSkills">
-                                        <!-- Security Operations -->
-                                        <div class="skill-card">
-                                            <div class="skill-icon-box"><i class="fas fa-cogs"></i></div>
-                                            <div class="skill-info-box">
-                                                <h4>Security Operations</h4>
-                                                <div class="skill-bar-container">
-                                                    <div class="skill-bar-fill" style="width: 60%;"></div>
-                                                </div>
-                                                <span class="skill-percentage">60%</span>
-                                            </div>
-                                        </div>
-                                        <!-- Access Control Concepts -->
-                                        <div class="skill-card">
-                                            <div class="skill-icon-box"><i class="fas fa-id-card-alt"></i></div>
-                                            <div class="skill-info-box">
-                                                <h4>Access Control Concepts</h4>
-                                                <div class="skill-bar-container">
-                                                    <div class="skill-bar-fill" style="width: 64%;"></div>
-                                                </div>
-                                                <span class="skill-percentage">64%</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <span class="skill-percentage">74%</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-server"></i></div>
+                            <div class="skill-info-box">
+                                <h4>Express.js</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 70%;"></div>
                                 </div>
-
-                                <div class="skills-category">
-                                    <h3 class="category-title"><i class="fas fa-network-wired"></i> Network Security
-                                    </h3>
-                                    <div id="cybersecurityNetworkSkills">
-                                        <!-- Network Security -->
-                                        <div class="skill-card">
-                                            <div class="skill-icon-box"><i class="fas fa-wifi"></i></div>
-                                            <div class="skill-info-box">
-                                                <h4>Network Security</h4>
-                                                <div class="skill-bar-container">
-                                                    <div class="skill-bar-fill" style="width: 63%;"></div>
-                                                </div>
-                                                <span class="skill-percentage">63%</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <span class="skill-percentage">70%</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-database"></i></div>
+                            <div class="skill-info-box">
+                                <h4>MongoDB</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 76%;"></div>
                                 </div>
+                                <span class="skill-percentage">76%</span>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- About Me Overlay -->
-                    <div id="aboutOverlay" class="projects-overlay">
-                        <button class="close-btn" onclick="closeAbout()">&times;</button>
-                        <div class="projects-container">
-                            <h1 class="projects-title"><i class="fas fa-user-circle"></i> About Me</h1>
-                            <div class="about-overlay-content">
-                                <p class="about-intro">I am a passionate <strong>Full-Stack Developer</strong> and a
-                                    <strong>Quick
-                                        Learner</strong> who believes that the best way to master technology is by
-                                    building it.
-                                </p>
-
-                                <div class="about-grid">
-                                    <!-- Card 1: Innovation -->
-                                    <div class="about-card">
-                                        <div class="about-icon-container">
-                                            <i class="fas fa-sync-alt spin"></i>
-                                        </div>
-                                        <h3>Full Stack & Innovation</h3>
-                                        <p>I don't just write code; I architect scalable solutions. My expertise spans
-                                            the entire
-                                            development lifecycle:</p>
-                                        <ul class="clean-list" style="margin-top: 15px; text-align: left;">
-                                            <li><i class="fas fa-code"></i> <strong>Frontend:</strong> React, Next.js,
-                                                Tailwind,
-                                                Glassmorphism UI</li>
-                                            <li><i class="fas fa-server"></i> <strong>Backend:</strong> Node.js, Python,
-                                                Supabase,
-                                                SQL
-                                            </li>
-                                            <li><i class="fas fa-brain"></i> <strong>AI Integration:</strong> LLMs,
-                                                Automation,
-                                                Smart
-                                                Agents</li>
-                                        </ul>
-                                    </div>
-
-                                    <!-- Card 2: Security -->
-                                    <div class="about-card">
-                                        <div class="about-icon-container">
-                                            <i class="fas fa-user-shield pulse"></i>
-                                        </div>
-                                        <h3>Cyber Security Focus</h3>
-                                        <p>Transitioning from "working" apps to "unbreakable" apps. My security journey
-                                            includes:
-                                        </p>
-                                        <ul class="clean-list" style="margin-top: 15px; text-align: left;">
-                                            <li><i class="fas fa-bug"></i> <strong>Vulnerability Assessment:</strong>
-                                                Identifying
-                                                weak
-                                                points.</li>
-                                            <li><i class="fas fa-lock"></i> <strong>Secure Coding:</strong> OWASP Top 10
-                                                mitigation.
-                                            </li>
-                                            <li><i class="fas fa-certificate"></i> <strong>Certifications:</strong>
-                                                Pursuing
-                                                advanced
-                                                CyberSec credentials.</li>
-                                        </ul>
-                                    </div>
+                <div class="skills-category">
+                    <h3 class="category-title"><i class="fas fa-tools"></i> Development Tools</h3>
+                    <div id="fullstackToolsSkills">
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fab fa-git-alt"></i></div>
+                            <div class="skill-info-box">
+                                <h4>Git</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 77%;"></div>
                                 </div>
-
-                                <div class="about-footer-text">
-                                    <p>I leverage the power of advanced AI models to accelerate my development. By
-                                        integrating AI
-                                        into
-                                        my workflow, I save time on boilerplate and focus entirely on complex logic and
-                                        system
-                                        architecture.</p>
+                                <span class="skill-percentage">77%</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-code"></i></div>
+                            <div class="skill-info-box">
+                                <h4>VS Code</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 79%;"></div>
                                 </div>
+                                <span class="skill-percentage">79%</span>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                    <!-- Publications Overlay -->
-                    <div id="publicationsOverlay" class="projects-overlay">
-                        <button class="close-btn" onclick="closePublications()">&times;</button>
-                        <div class="projects-container">
-                            <h1 class="projects-title"><i class="fas fa-book-open"></i> My Publications</h1>
-                            <div class="pub-grid">
-                                <!-- Book 1 -->
-                                <div class="pub-card">
-                                    <img src="assets/images/The Pythonic Journey.png" alt="The Pythonic Journey"
-                                        class="pub-image" loading="lazy"
-                                        onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Python+Book'">
-                                    <div class="pub-content">
-                                        <h3 class="pub-title">The Pythonic Journey</h3>
-                                        <p class="pub-desc">A beginner's guide to mastering Python and building
-                                            real-world projects.
-                                            Perfect for those starting their coding journey.</p>
-                                        <a href="https://rajpratham1.github.io/THE-PYTHONIC-JOURNEY/The_Pythonic_Journey.pdf"
-                                            target="_blank" class="pub-btn">
-                                            <i class="fas fa-file-pdf"></i> Read Book
-                                        </a>
-                                    </div>
+    <!-- Cybersecurity Skills Overlay -->
+    <div id="cybersecurityOverlay" class="projects-overlay">
+        <button class="close-btn" onclick="closeCybersecuritySkills()">&times;</button>
+        <div class="projects-container">
+            <h1 class="projects-title">
+                <i class="fas fa-shield-halved"></i> Cybersecurity & Security Skills
+            </h1>
+
+            <div class="skills-overlay-grid">
+                <div class="skills-category">
+                    <h3 class="category-title"><i class="fas fa-shield-halved"></i> Core Security Domains</h3>
+                    <div id="cybersecurityCoreSkills">
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-book-shield"></i></div>
+                            <div class="skill-info-box">
+                                <h4>Security Principles</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 65%;"></div>
                                 </div>
-                                <!-- Book 2 -->
-                                <div class="pub-card">
-                                    <img src="assets/images/Radha rani.jpg" alt="Radhashruti (Hindi)" class="pub-image"
-                                        loading="lazy"
-                                        onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Book'">
-                                    <div class="pub-content">
-                                        <h3 class="pub-title">राधाश्रुति (Hindi)</h3>
-                                        <p class="pub-desc">A unique saga of Radha and Krishna's divine love, devotion,
-                                            and
-                                            separation,
-                                            explored through a spiritual lens.</p>
-                                        <a href="https://rajpratham1.github.io/Radhashruti/Radhashruti.pdf"
-                                            target="_blank" class="pub-btn">
-                                            <i class="fas fa-file-pdf"></i> Read Book
-                                        </a>
-                                    </div>
+                                <span class="skill-percentage">65%</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-file-medical-alt"></i></div>
+                            <div class="skill-info-box">
+                                <h4>Incident Response & DR</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 63%;"></div>
                                 </div>
-                                <!-- Book 3 -->
-                                <div class="pub-card">
-                                    <img src="assets/images/Radhajie.jpg" alt="Radhashruti (English)" class="pub-image"
-                                        loading="lazy"
-                                        onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Book'">
-                                    <div class="pub-content">
-                                        <h3 class="pub-title">Radhashruti (English)</h3>
-                                        <p class="pub-desc">The English translation of Radhashruti, detailing the
-                                            spiritual
-                                            transformation of Radha through love, devotion, and sacrifice.</p>
-                                        <a href="https://rajpratham1.github.io/Radhashruti1-1-/Radhashruti1%5B1%5D.pdf"
-                                            target="_blank" class="pub-btn">
-                                            <i class="fas fa-file-pdf"></i> Read Book
-                                        </a>
-                                    </div>
+                                <span class="skill-percentage">63%</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-user-shield"></i></div>
+                            <div class="skill-info-box">
+                                <h4>Risk Management</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 62%;"></div>
                                 </div>
+                                <span class="skill-percentage">62%</span>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Contact Overlay -->
-                    <div id="contactOverlay" class="projects-overlay">
-                        <button class="close-btn" onclick="closeContact()">&times;</button>
-                        <div class="projects-container">
-                            <h1 class="projects-title"><i class="fas fa-address-card"></i> Connect With Me</h1>
-                            <div class="contact-scroll-container">
-
-                                <!-- LinkedIn Card -->
-                                <div class="contact-card">
-                                    <div class="contact-card-content">
-                                        <img src="assets/images/linkdin.png" alt="LinkedIn" loading="lazy"
-                                            onerror="this.style.display='none'">
-                                        <div class="contact-card-text">
-                                            <h3>LinkedIn</h3>
-                                            <p>Let's connect professionally! Check out my career journey, endorsements,
-                                                projects,
-                                                and
-                                                latest achievements. I regularly share insights on Full Stack
-                                                Development and
-                                                Cybersecurity.</p>
-                                            <a href="https://www.linkedin.com/in/pratham-kumar-2a4b151a7/"
-                                                target="_blank" class="contact-card-btn">Connect on LinkedIn</a>
-                                        </div>
-                                    </div>
+                <div class="skills-category">
+                    <h3 class="category-title"><i class="fas fa-network-wired"></i> Network & Infrastructure</h3>
+                    <div id="cybersecurityNetworkSkills">
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-wifi"></i></div>
+                            <div class="skill-info-box">
+                                <h4>Network Security</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 64%;"></div>
                                 </div>
-
-                                <!-- GitHub Card -->
-                                <div class="contact-card">
-                                    <div class="contact-card-content">
-                                        <img src="assets/images/github.png" alt="GitHub" loading="lazy"
-                                            onerror="this.style.display='none'">
-                                        <div class="contact-card-text">
-                                            <h3>GitHub</h3>
-                                            <p>Dive into my code! Explore my open-source repositories, personal
-                                                projects, and
-                                                contributions. I believe in transparent, collaborative development.</p>
-                                            <a href="https://github.com/rajpratham1" target="_blank"
-                                                class="contact-card-btn">Follow
-                                                on
-                                                GitHub</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- X (Twitter) Card -->
-                                <div class="contact-card">
-                                    <div class="contact-card-content">
-                                        <img src="assets/images/x.png" alt="X (Twitter)" loading="lazy"
-                                            onerror="this.style.display='none'">
-                                        <div class="contact-card-text">
-                                            <h3>X (Twitter)</h3>
-                                            <p>Follow me for daily tech updates, industry news, and quick thoughts on
-                                                the latest
-                                                trends
-                                                in AI and Software Engineering. Let's start a conversation!</p>
-                                            <a href="https://x.com/" target="_blank" class="contact-card-btn">Follow on
-                                                X</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Instagram Card -->
-                                <div class="contact-card">
-                                    <div class="contact-card-content">
-                                        <img src="assets/images/insta.jpeg" alt="Instagram" loading="lazy"
-                                            onerror="this.style.display='none'">
-                                        <div class="contact-card-text">
-                                            <h3>Instagram</h3>
-                                            <p>Get a glimpse of the person behind the code. I share moments from my
-                                                life, travels,
-                                                hobbies, and the lighter side of being a developer.</p>
-                                            <a href="https://www.instagram.com/" target="_blank"
-                                                class="contact-card-btn">Follow on
-                                                Instagram</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Facebook Card -->
-                                <div class="contact-card">
-                                    <div class="contact-card-content">
-                                        <img src="assets/images/facebook.jpeg" alt="Facebook" loading="lazy"
-                                            onerror="this.style.display='none'">
-                                        <div class="contact-card-text">
-                                            <h3>Facebook</h3>
-                                            <p>Stay in touch! A space for friends, family, and extended network to
-                                                connect and share
-                                                memorable life moments.</p>
-                                            <a href="https://www.facebook.com/" target="_blank"
-                                                class="contact-card-btn">Add
-                                                Friend</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- WhatsApp Card -->
-                                <div class="contact-card">
-                                    <div class="contact-card-content">
-                                        <i class="fab fa-whatsapp large-icon"></i>
-                                        <div class="contact-card-text">
-                                            <h3>WhatsApp</h3>
-                                            <p>Direct & instant messaging. Feel free to reach out for quick queries,
-                                                collaboration
-                                                discussions, or just to say hi!</p>
-                                            <a href="https://wa.me/918318089403" target="_blank"
-                                                class="contact-card-btn"
-                                                style="background: linear-gradient(90deg, #25D366, #128C7E);">Chat on
-                                                WhatsApp</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Gmail Card -->
-                                <div class="contact-card">
-                                    <div class="contact-card-content">
-                                        <i class="fas fa-envelope large-icon"></i>
-                                        <div class="contact-card-text">
-                                            <h3>Gmail</h3>
-                                            <p>Prefer email? Send me a detailed message about your project, job
-                                                opportunity, or
-                                                inquiry.
-                                                I typically respond within 24 hours.</p>
-                                            <a href="mailto:rajpratham40@gmail.com" target="_blank"
-                                                class="contact-card-btn"
-                                                style="background: linear-gradient(90deg, #EA4335, #D44638);">Send
-                                                Email</a>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                <span class="skill-percentage">64%</span>
                             </div>
-
-                            <!-- Additional Contact Info -->
-                            <div class="overlay-footer">
-                                <p
-                                    style="text-align: center; color: var(--secondary-text); margin-top: 3rem; font-size: 1.1rem;">
-                                    <i class="fas fa-envelope"></i> rajpratham40@gmail.com &nbsp;|&nbsp; <i
-                                        class="fas fa-phone"></i>
-                                    +91 831-808-9403
-                                </p>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-fire"></i></div>
+                            <div class="skill-info-box">
+                                <h4>Firewalls & IDS/IPS</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 60%;"></div>
+                                </div>
+                                <span class="skill-percentage">60%</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-server"></i></div>
+                            <div class="skill-info-box">
+                                <h4>Cloud Security (AWS/Azure)</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 58%;"></div>
+                                </div>
+                                <span class="skill-percentage">58%</span>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Custom Cursor -->
-                    <div class="cursor-dot" data-cursor-dot></div>
-                    <div class="cursor-outline" data-cursor-outline></div>
+                <div class="skills-category">
+                    <h3 class="category-title"><i class="fas fa-bug"></i> Security Testing & Tools</h3>
+                    <div id="cybersecurityToolsSkills">
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-search"></i></div>
+                            <div class="skill-info-box">
+                                <h4>Penetration Testing</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 61%;"></div>
+                                </div>
+                                <span class="skill-percentage">61%</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-terminal"></i></div>
+                            <div class="skill-info-box">
+                                <h4>Kali Linux & Tools</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 63%;"></div>
+                                </div>
+                                <span class="skill-percentage">63%</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-code"></i></div>
+                            <div class="skill-info-box">
+                                <h4>Vulnerability Assessment</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 62%;"></div>
+                                </div>
+                                <span class="skill-percentage">62%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                    <script src="script.js"></script>
+                <div class="skills-category">
+                    <h3 class="category-title"><i class="fas fa-lock"></i> Access Control & Cryptography</h3>
+                    <div id="cybersecurityAccessSkills">
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-id-card-alt"></i></div>
+                            <div class="skill-info-box">
+                                <h4>Access Control (IAM)</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 64%;"></div>
+                                </div>
+                                <span class="skill-percentage">64%</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-key"></i></div>
+                            <div class="skill-info-box">
+                                <h4>Cryptography Basics</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 60%;"></div>
+                                </div>
+                                <span class="skill-percentage">60%</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-certificate"></i></div>
+                            <div class="skill-info-box">
+                                <h4>PKI & SSL/TLS</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 59%;"></div>
+                                </div>
+                                <span class="skill-percentage">59%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skills-category">
+                    <h3 class="category-title"><i class="fas fa-cogs"></i> Security Operations</h3>
+                    <div id="cybersecurityOperationsSkills">
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-chart-line"></i></div>
+                            <div class="skill-info-box">
+                                <h4>SIEM & Log Analysis</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 61%;"></div>
+                                </div>
+                                <span class="skill-percentage">61%</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-shield-alt"></i></div>
+                            <div class="skill-info-box">
+                                <h4>Threat Intelligence</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 60%;"></div>
+                                </div>
+                                <span class="skill-percentage">60%</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-exclamation-triangle"></i></div>
+                            <div class="skill-info-box">
+                                <h4>Security Monitoring</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 62%;"></div>
+                                </div>
+                                <span class="skill-percentage">62%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skills-category">
+                    <h3 class="category-title"><i class="fas fa-file-code"></i> Application Security</h3>
+                    <div id="cybersecurityAppSecSkills">
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-globe"></i></div>
+                            <div class="skill-info-box">
+                                <h4>Web Application Security</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 63%;"></div>
+                                </div>
+                                <span class="skill-percentage">63%</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-spider"></i></div>
+                            <div class="skill-info-box">
+                                <h4>OWASP Top 10</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 64%;"></div>
+                                </div>
+                                <span class="skill-percentage">64%</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon-box"><i class="fas fa-code-branch"></i></div>
+                            <div class="skill-info-box">
+                                <h4>Secure Coding Practices</h4>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar-fill" style="width: 61%;"></div>
+                                </div>
+                                <span class="skill-percentage">61%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+
+    <script src="script.js"></script>
 </body>
 
 </html>
