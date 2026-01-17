@@ -1,0 +1,269 @@
+/* ==========================================================================
+   GITHUB STATS DASHBOARD
+   ========================================================================== */
+
+.github-stats-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
+}
+
+.github-stats-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.github-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.github-stat-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.github-stat-card:hover {
+    border-color: rgba(0, 174, 255, 0.5);
+    box-shadow: 0 0 30px rgba(0, 174, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+.github-stat-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.contribution-graph {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.contribution-graph img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* GitHub Calendar Heatmap */
+.github-calendar-section {
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 25px;
+}
+
+.github-calendar-section h3 {
+    color: #00aeff;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.github-calendar-section h3 i {
+    font-size: 1.2rem;
+}
+
+.calendar {
+    color: #fff;
+}
+
+.calendar-note {
+    color: #888;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+}
+
+.github-heatmap-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+/* Override GitHub Calendar default styles */
+.calendar .contrib-legend {
+    color: #aaa;
+}
+
+.calendar .text-muted {
+    color: #888 !important;
+}
+
+.calendar .day {
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+}
+
+.calendar rect.ContributionCalendar-day[data-level="1"] {
+    fill: #0e4429;
+}
+
+.calendar rect.ContributionCalendar-day[data-level="2"] {
+    fill: #006d32;
+}
+
+.calendar rect.ContributionCalendar-day[data-level="3"] {
+    fill: #26a641;
+}
+
+.calendar rect.ContributionCalendar-day[data-level="4"] {
+    fill: #39d353;
+}
+
+/* Mobile Responsive */
+@media (max-width: 992px) {
+    .github-stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================================
+   SKILLS PROGRESS BARS
+   ========================================================================== */
+
+.skills-progress-section {
+    padding: 80px 0;
+}
+
+.skills-progress-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.skill-category {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 30px;
+    transition: all 0.3s ease;
+}
+
+.skill-category:hover {
+    border-color: rgba(0, 174, 255, 0.3);
+    box-shadow: 0 0 30px rgba(0, 174, 255, 0.1);
+}
+
+.skill-category h3 {
+    font-size: 1.3rem;
+    color: #00aeff;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.skill-category h3 i {
+    font-size: 1.2rem;
+}
+
+.skill-bar-wrapper {
+    margin-bottom: 20px;
+}
+
+.skill-bar-wrapper:last-child {
+    margin-bottom: 0;
+}
+
+.skill-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.skill-name {
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.skill-percent {
+    color: #00aeff;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.skill-bar {
+    height: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.skill-progress {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--progress-color), var(--progress-color));
+    border-radius: 5px;
+    position: relative;
+    transition: width 1.5s ease-out;
+}
+
+.skill-progress::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Animated state */
+.skill-progress.animated {
+    width: var(--progress-width);
+}
+
+/* Mobile Responsive */
+@media (max-width: 992px) {
+    .skills-progress-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .github-stats-section,
+    .skills-progress-section {
+        padding: 50px 0;
+    }
+
+    .skill-category {
+        padding: 20px;
+    }
+
+    .skill-category h3 {
+        font-size: 1.1rem;
+    }
+}

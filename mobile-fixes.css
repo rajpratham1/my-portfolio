@@ -1,0 +1,249 @@
+/* ==========================================================================
+   MOBILE RESPONSIVENESS FIXES
+   Only applies to mobile devices - Desktop remains unchanged
+   ========================================================================== */
+
+@media (max-width: 768px) {
+
+    /* ========================================
+       MY SKILLS & EXPERTISE - Horizontal Scroll
+       ======================================== */
+    .about-cards-grid {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 15px !important;
+        padding: 10px 5px 20px 5px !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    .about-cards-grid::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    .about-card {
+        min-width: 280px !important;
+        max-width: 280px !important;
+        flex: 0 0 auto !important;
+        scroll-snap-align: start !important;
+        padding: 15px !important;
+    }
+
+    .about-card h4 {
+        font-size: 1rem !important;
+        margin-bottom: 8px !important;
+    }
+
+    .about-card p {
+        font-size: 0.85rem !important;
+        line-height: 1.5 !important;
+    }
+
+    /* ========================================
+       AI TOOLS SECTION - Horizontal Scroll
+       ======================================== */
+    .skills-grid {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 15px !important;
+        padding: 10px 5px 20px 5px !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    .skills-grid::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    .skill-item {
+        min-width: 280px !important;
+        max-width: 280px !important;
+        flex: 0 0 auto !important;
+        scroll-snap-align: start !important;
+    }
+
+    /* ========================================
+       HIRE ME SECTION - Mobile Compact
+       ======================================== */
+    .hire-me-section {
+        padding: 30px 0 !important;
+    }
+
+    .hire-me-card {
+        padding: 20px 15px !important;
+        border-radius: 16px !important;
+    }
+
+    .hire-me-badge {
+        position: relative !important;
+        top: 0 !important;
+        right: 0 !important;
+        margin-bottom: 15px !important;
+        display: inline-flex !important;
+        font-size: 0.8rem !important;
+        padding: 8px 14px !important;
+    }
+
+    .hire-me-content h2 {
+        font-size: 1.2rem !important;
+        margin-bottom: 15px !important;
+    }
+
+    .hire-me-content h2 i {
+        font-size: 1.1rem !important;
+    }
+
+    .hire-me-message {
+        margin-bottom: 15px !important;
+    }
+
+    .hire-me-message p {
+        font-size: 0.85rem !important;
+        line-height: 1.5 !important;
+        margin-bottom: 8px !important;
+    }
+
+    .hire-me-message .signature {
+        font-size: 0.95rem !important;
+        margin-top: 10px !important;
+    }
+
+    .hire-me-cta {
+        gap: 8px !important;
+        margin-bottom: 15px !important;
+    }
+
+    .hire-btn {
+        padding: 10px 14px !important;
+        font-size: 0.8rem !important;
+    }
+
+    .hire-me-tags {
+        gap: 6px !important;
+    }
+
+    .hire-me-tags span {
+        padding: 5px 10px !important;
+        font-size: 0.7rem !important;
+    }
+
+    /* ========================================
+       FOOTER - Mobile Compact
+       ======================================== */
+    footer,
+    .footer-section,
+    .site-footer {
+        padding: 25px 0 10px !important;
+    }
+
+    .footer-content {
+        gap: 20px !important;
+    }
+
+    .footer-col {
+        margin-bottom: 0 !important;
+    }
+
+    .footer-col h3 {
+        font-size: 1rem !important;
+        margin-bottom: 8px !important;
+    }
+
+    .footer-col p,
+    .footer-col li,
+    .footer-col a {
+        font-size: 0.8rem !important;
+        line-height: 1.4 !important;
+    }
+
+    .footer-col ul {
+        gap: 5px !important;
+    }
+
+    .footer-col li {
+        margin-bottom: 5px !important;
+    }
+
+    .footer-bottom {
+        padding-top: 10px !important;
+        margin-top: 15px !important;
+    }
+
+    .footer-bottom p {
+        font-size: 0.75rem !important;
+    }
+
+    /* ========================================
+       GITHUB STATS - Mobile Compact
+       ======================================== */
+    .github-stats-section {
+        padding: 30px 0 !important;
+    }
+
+    .github-stat-card {
+        padding: 10px !important;
+    }
+
+    .github-calendar-section {
+        padding: 15px !important;
+        margin-top: 15px !important;
+    }
+
+    .github-calendar-section h3 {
+        font-size: 1rem !important;
+        margin-bottom: 10px !important;
+    }
+
+    .contribution-graph {
+        padding: 10px !important;
+    }
+
+    /* ========================================
+       GENERAL SECTION SPACING
+       ======================================== */
+    section {
+        padding: 40px 0 !important;
+    }
+
+    .section-title {
+        margin-bottom: 20px !important;
+    }
+
+    .section-title .title-line {
+        font-size: 1.3rem !important;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .about-card {
+        min-width: 250px !important;
+        max-width: 250px !important;
+    }
+
+    .hire-me-card {
+        padding: 15px 12px !important;
+    }
+
+    .hire-me-content h2 {
+        font-size: 1.1rem !important;
+    }
+
+    .hire-me-message p {
+        font-size: 0.8rem !important;
+    }
+
+    .hire-btn {
+        padding: 8px 10px !important;
+        font-size: 0.75rem !important;
+    }
+
+    .hire-me-tags span {
+        padding: 4px 8px !important;
+        font-size: 0.65rem !important;
+    }
+}

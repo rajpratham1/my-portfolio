@@ -1,0 +1,37 @@
+/* Scroll To Top Button */
+.scroll-top-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: rgba(0, 174, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 174, 255, 0.5);
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.2rem;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 15px rgba(0, 174, 255, 0.3);
+    transform: translateY(20px);
+}
+
+.scroll-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-top-btn:hover {
+    background: #00aeff;
+    color: #fff;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 174, 255, 0.5);
+}

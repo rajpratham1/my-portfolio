@@ -1,0 +1,242 @@
+/* ==========================================================================
+   HIRE ME / OPEN TO WORK SECTION
+   ========================================================================== */
+
+.hire-me-section {
+    padding: 80px 0;
+}
+
+.hire-me-card {
+    background: linear-gradient(135deg, rgba(0, 174, 255, 0.08) 0%, rgba(0, 119, 255, 0.05) 100%);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(0, 174, 255, 0.3);
+    border-radius: 24px;
+    padding: 50px;
+    position: relative;
+    overflow: hidden;
+    max-width: 900px;
+    margin: 0 auto;
+    transition: all 0.4s ease;
+}
+
+.hire-me-card:hover {
+    border-color: rgba(0, 174, 255, 0.5);
+    box-shadow: 0 0 50px rgba(0, 174, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+/* Animated glow background */
+.hire-me-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 174, 255, 0.1) 0%, transparent 60%);
+    animation: glowRotate 10s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes glowRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Open to Work Badge */
+.hire-me-badge {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #fff;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+.pulse-dot {
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+    }
+}
+
+/* Content */
+.hire-me-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hire-me-content h2 {
+    font-size: 2rem;
+    color: #00aeff;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.hire-me-content h2 i {
+    font-size: 1.8rem;
+}
+
+/* Message */
+.hire-me-message {
+    margin-bottom: 30px;
+}
+
+.hire-me-message p {
+    color: #ccc;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.hire-me-message strong {
+    color: #fff;
+}
+
+.hire-me-message .signature {
+    color: #00aeff;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+
+/* CTA Buttons */
+.hire-me-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.hire-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.hire-btn.primary {
+    background: linear-gradient(135deg, #00aeff, #0077ff);
+    color: #fff;
+}
+
+.hire-btn.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 174, 255, 0.4);
+}
+
+.hire-btn.secondary {
+    background: #0077b5;
+    color: #fff;
+}
+
+.hire-btn.secondary:hover {
+    background: #005582;
+    transform: translateY(-3px);
+}
+
+.hire-btn.outline {
+    background: transparent;
+    color: #00aeff;
+    border: 2px solid #00aeff;
+}
+
+.hire-btn.outline:hover {
+    background: rgba(0, 174, 255, 0.1);
+    transform: translateY(-3px);
+}
+
+/* Tags */
+.hire-me-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.hire-me-tags span {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    color: #aaa;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.hire-me-tags span:hover {
+    background: rgba(0, 174, 255, 0.15);
+    border-color: rgba(0, 174, 255, 0.3);
+    color: #00aeff;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .hire-me-section {
+        padding: 50px 0;
+    }
+
+    .hire-me-card {
+        padding: 30px 20px;
+        border-radius: 16px;
+    }
+
+    .hire-me-badge {
+        position: relative;
+        top: 0;
+        right: 0;
+        margin-bottom: 20px;
+        display: inline-flex;
+    }
+
+    .hire-me-content h2 {
+        font-size: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .hire-me-message p {
+        font-size: 1rem;
+    }
+
+    .hire-me-cta {
+        flex-direction: column;
+    }
+
+    .hire-btn {
+        justify-content: center;
+        width: 100%;
+    }
+}

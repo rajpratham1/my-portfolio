@@ -2504,6 +2504,158 @@
             transform: rotate(90deg);
         }
 
+
+        /* Mobile Menu Styles */
+        @media (max-width: 968px) {
+            .mobile-menu-toggle {
+                display: block;
+                background: none;
+                border: none;
+                color: #00aeff;
+                font-size: 1.8rem;
+                cursor: pointer;
+                z-index: 1001;
+            }
+
+            .main-header .desktop-nav {
+                display: none;
+            }
+
+            .mobile-nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 20, 0.95);
+                backdrop-filter: blur(15px);
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 20px 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                transform: translateY(-20px);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .main-header.mobile-menu-open .mobile-nav {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .mobile-nav .nav-link {
+                font-size: 1.2rem;
+                width: 100%;
+                text-align: center;
+                padding: 10px 0;
+            }
+
+            /* Hide floating menu on mobile if present to avoid clutter */
+            .floating-menu {
+                display: none !important;
+            }
+        }
+
+        /* About Overlay Improvements */
+        #aboutOverlay .projects-container {
+            background: rgba(0, 174, 255, 0.05) !important;
+            /* Blue Glassmorphism - lighter */
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(0, 174, 255, 0.2) !important;
+            box-shadow: 0 0 40px rgba(0, 174, 255, 0.15) !important;
+            max-height: 80vh !important;
+            /* Ensure it fits */
+            overflow-y: auto !important;
+            /* Scrollable */
+            border-radius: 20px !important;
+        }
+
+        /* Scrollbar Styling for About Overlay */
+        #aboutOverlay .projects-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #aboutOverlay .projects-container::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        #aboutOverlay .projects-container::-webkit-scrollbar-thumb {
+            background: rgba(0, 174, 255, 0.5);
+            border-radius: 4px;
+        }
+
+        #aboutOverlay .projects-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 174, 255, 0.8);
+        }
+
+        /* About Cards Horizontal Scroll - Global Fix */
+        .about-grid {
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            /* Explicitly prevent wrapping */
+            overflow-x: auto !important;
+            gap: 40px;
+            /* Larger gap for separation */
+            padding: 20px 10px 30px 10px;
+            /* Padding for shadow/hover space */
+            scrollbar-width: thin;
+            -ms-overflow-style: none;
+            scroll-snap-type: x mandatory;
+            justify-content: flex-start;
+            width: 100%;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .about-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .about-grid::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .about-grid::-webkit-scrollbar-thumb {
+            background: rgba(0, 174, 255, 0.8);
+            border-radius: 4px;
+        }
+
+        /* Apply to both overlay and potential main page cards */
+        .about-card,
+        #aboutOverlay .about-card {
+            background: rgba(255, 255, 255, 0.08) !important;
+            /* Slightly more visible glass */
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            /* Stronger border */
+            border-radius: 20px !important;
+            padding: 35px !important;
+            transition: all 0.4s ease;
+            min-width: 320px;
+            flex: 0 0 350px;
+            /* Fixed flex basis */
+            scroll-snap-align: center;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+            /* Soft shadow */
+            margin-right: 10px;
+        }
+
+        .about-card:hover,
+        #aboutOverlay .about-card:hover {
+            background: rgba(255, 255, 255, 0.12) !important;
+            border-color: rgba(0, 174, 255, 0.6) !important;
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 174, 255, 0.2);
+        }
+
+        /* Projects Title */
         .projects-title {
             font-size: 2.2rem;
             background: linear-gradient(45deg, #00aeff, #00c3ff);
@@ -3224,10 +3376,6 @@
         }
 
         @media (max-width: 768px) {
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
-
             .about-intro {
                 font-size: 1rem;
             }

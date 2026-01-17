@@ -570,12 +570,12 @@ function toggleMobileMenu() {
     // Animate hamburger icon
     const icon = document.querySelector('.mobile-menu-toggle i');
     if (header.classList.contains('mobile-menu-open')) {
-        icon.classList.remove('fa-bars');
+        icon.classList.remove('fa-ellipsis-v');
         icon.classList.add('fa-times');
         document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
     } else {
         icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
+        icon.classList.add('fa-ellipsis-v');
         document.body.style.overflow = 'auto'; // Restore scrolling
     }
 }
@@ -727,3 +727,370 @@ function handleContactSubmit(e) {
             btn.disabled = false;
         });
 }
+
+// Scroll To Top Logic
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+if (scrollTopBtn) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollTopBtn.classList.add('visible');
+        } else {
+            scrollTopBtn.classList.remove('visible');
+        }
+    });
+
+    scrollTopBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+// ==========================================================================
+// INTERSECTION OBSERVER - Fade-in Animations on Scroll
+// ==========================================================================
+const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+};
+
+const fadeInObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            // Optional: Stop observing after animation triggers
+            // fadeInObserver.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+// Observe all elements with animate-on-scroll class
+document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    fadeInObserver.observe(el);
+});
+
+// Also observe project cards, website cards, and pub cards for dynamic content
+document.querySelectorAll('.project-card, .website-card, .pub-card, .about-card').forEach(el => {
+    el.classList.add('animate-on-scroll');
+    fadeInObserver.observe(el);
+});
+
+// ==========================================================================
+// CANVAS MOBILE OPTIMIZATION - Reduce particles for 60FPS
+// ==========================================================================
+function optimizeCanvasForMobile() {
+    const isMobile = window.innerWidth <= 768;
+    const canvas = document.querySelector('canvas');
+
+    if (canvas && typeof particlesJS !== 'undefined') {
+        // Reduce particle count on mobile
+        const particleCount = isMobile ? 30 : 80;
+        const speed = isMobile ? 1 : 2;
+
+        // If particles.js is being used, update config
+        if (window.pJSDom && window.pJSDom.length > 0) {
+            try {
+                window.pJSDom[0].pJS.particles.number.value = particleCount;
+                window.pJSDom[0].pJS.particles.move.speed = speed;
+                window.pJSDom[0].pJS.fn.particlesRefresh();
+            } catch (e) {
+                console.log('Canvas optimization skipped:', e);
+            }
+        }
+    }
+}
+
+// Run optimization on load and resize
+window.addEventListener('load', optimizeCanvasForMobile);
+window.addEventListener('resize', () => {
+    clearTimeout(window.resizeTimer);
+    window.resizeTimer = setTimeout(optimizeCanvasForMobile, 250);
+});
+
+// ==========================================================================
+// SCROLL PROGRESS BAR
+// ==========================================================================
+function initScrollProgressBar() {
+    // Create progress bar element
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress-bar';
+    document.body.prepend(progressBar);
+
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        progressBar.style.width = scrollPercent + '%';
+    });
+}
+
+// ==========================================================================
+// 3D CARD TILT EFFECT
+// ==========================================================================
+function initTiltEffect() {
+    const cards = document.querySelectorAll('.project-card, .pub-card, .fav-website-item, .about-card');
+
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+        });
+    });
+}
+
+// ==========================================================================
+// BUTTON RIPPLE EFFECT
+// ==========================================================================
+function initRippleEffect() {
+    const buttons = document.querySelectorAll('.cta-button, .project-link, .pub-btn, .fav-btn, .contact-card-btn');
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple-effect';
+
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+
+            ripple.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                left: ${x}px;
+                top: ${y}px;
+                background: rgba(255, 255, 255, 0.3);
+                border-radius: 50%;
+                transform: scale(0);
+                animation: rippleAnim 0.6s ease-out forwards;
+                pointer-events: none;
+            `;
+
+            this.style.position = 'relative';
+            this.style.overflow = 'hidden';
+            this.appendChild(ripple);
+
+            setTimeout(() => ripple.remove(), 600);
+        });
+    });
+
+    // Add ripple animation keyframes dynamically
+    if (!document.querySelector('#ripple-keyframes')) {
+        const style = document.createElement('style');
+        style.id = 'ripple-keyframes';
+        style.textContent = `
+            @keyframes rippleAnim {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
+
+// ==========================================================================
+// PAGE LOADER
+// ==========================================================================
+function initPageLoader() {
+    // Create loader
+    const loader = document.createElement('div');
+    loader.className = 'page-loader';
+    loader.innerHTML = `
+        <div class="loader-content">
+            <div class="loader-logo">PK</div>
+            <div class="loader-bar">
+                <div class="loader-bar-fill"></div>
+            </div>
+        </div>
+    `;
+    document.body.prepend(loader);
+
+    // Hide loader after page loads
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            setTimeout(() => loader.remove(), 500);
+        }, 1500);
+    });
+}
+
+// ==========================================================================
+// STAGGERED REVEAL (Enhanced)
+// ==========================================================================
+function initStaggeredReveal() {
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    // Add stagger-reveal class to all cards
+    document.querySelectorAll('.project-card, .pub-card, .fav-website-item, .about-card, .contact-card').forEach((el, index) => {
+        el.classList.add('stagger-reveal');
+        el.style.transitionDelay = `${index * 0.1}s`;
+        revealObserver.observe(el);
+    });
+}
+
+// ==========================================================================
+// INITIALIZE ALL ANIMATIONS
+// ==========================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    initPageLoader();
+    initScrollProgressBar();
+    initTiltEffect();
+    initRippleEffect();
+    initStaggeredReveal();
+    initSkillBarsAnimation();
+});
+
+// ==========================================================================
+// ANIMATED SKILLS PROGRESS BARS
+// ==========================================================================
+function initSkillBarsAnimation() {
+    const skillBars = document.querySelectorAll('.skill-progress');
+
+    if (skillBars.length === 0) return;
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.3
+    };
+
+    const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const bar = entry.target;
+                const progress = bar.getAttribute('data-progress');
+                bar.style.setProperty('--progress-width', progress + '%');
+                bar.classList.add('animated');
+                bar.style.width = progress + '%';
+                skillObserver.unobserve(bar);
+            }
+        });
+    }, observerOptions);
+
+    skillBars.forEach(bar => {
+        skillObserver.observe(bar);
+    });
+}
+
+// ==========================================================================
+// LIVE CLOCK WITH TIMEZONE
+// ==========================================================================
+function initLiveClock() {
+    const clockElement = document.getElementById('liveClock');
+    const dateElement = document.getElementById('clockDate');
+    const statusElement = document.getElementById('clockStatus');
+    
+    if (!clockElement) return;
+
+    function updateClock() {
+        const now = new Date();
+        
+        // Format time (IST: UTC+5:30)
+        const options = { 
+            timeZone: 'Asia/Kolkata',
+            hour: '2-digit', 
+            minute: '2-digit', 
+            second: '2-digit',
+            hour12: false 
+        };
+        const time = now.toLocaleTimeString('en-IN', options);
+        clockElement.textContent = time;
+        
+        // Format date
+        const dateOptions = { 
+            timeZone: 'Asia/Kolkata',
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        };
+        const date = now.toLocaleDateString('en-IN', dateOptions);
+        dateElement.textContent = date;
+        
+        // Update availability status based on time
+        const hour = parseInt(time.split(':')[0]);
+        if (hour >= 9 && hour < 22) {
+            statusElement.textContent = '🟢 Available for collaboration';
+            statusElement.style.color = '#4ade80';
+        } else {
+            statusElement.textContent = '🟡 Away - Will respond soon';
+            statusElement.style.color = '#fbbf24';
+        }
+    }
+    
+    updateClock();
+    setInterval(updateClock, 1000);
+}
+
+// ==========================================================================
+// TESTIMONIALS CAROUSEL
+// ==========================================================================
+let currentTestimonial = 0;
+const totalTestimonials = 3;
+
+function moveTestimonial(direction) {
+    const track = document.getElementById('testimonialTrack');
+    const dots = document.querySelectorAll('.carousel-dots .dot');
+    
+    if (!track) return;
+    
+    currentTestimonial += direction;
+    
+    // Loop around
+    if (currentTestimonial < 0) currentTestimonial = totalTestimonials - 1;
+    if (currentTestimonial >= totalTestimonials) currentTestimonial = 0;
+    
+    // Move track
+    track.style.transform = `translateX(-${currentTestimonial * 100}%)`;
+    
+    // Update dots
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentTestimonial);
+    });
+}
+
+// Auto-play testimonials
+function autoPlayTestimonials() {
+    setInterval(() => {
+        moveTestimonial(1);
+    }, 5000);
+}
+
+// Initialize on DOM load
+document.addEventListener('DOMContentLoaded', () => {
+    initLiveClock();
+    autoPlayTestimonials();
+});
+
+
+

@@ -5,22 +5,87 @@
     <meta name="google-site-verification" content="google410e9a3399195645.html" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pratham Kumar | Developer & Learning CyberSecurity</title>
+    <title>Pratham Kumar | Full Stack Developer & Cybersecurity Enthusiast</title>
 
-    <meta name="description" content="Portfolio of Pratham Kumar, a Full Stack Developer and CyberSecurity Enthusiast.">
-    <meta property="og:title" content="Pratham Kumar | Developer Portfolio">
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Portfolio of Pratham Kumar - A passionate Full Stack Developer and Cybersecurity enthusiast specializing in building secure, scalable, and innovative web solutions.">
+    <meta name="keywords"
+        content="Pratham Kumar, Full Stack Developer, Cybersecurity, Web Development, Portfolio, React, Python, Ethical Hacking">
+    <meta name="author" content="Pratham Kumar">
+    <link rel="canonical" href="https://rajpratham1.github.io/my-portfolio/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rajpratham1.github.io/my-portfolio/">
+    <meta property="og:title" content="Pratham Kumar | Full Stack Developer">
     <meta property="og:description"
         content="Explore my projects, publications, and skills in web development, AI/ML, and cybersecurity.">
     <meta property="og:image" content="assets/images/profile-photo.jpg.jpg">
-    <meta property="og:url" content="https://your-domain.com">
-    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://rajpratham1.github.io/my-portfolio/">
+    <meta property="twitter:title" content="Pratham Kumar | Full Stack Developer">
+    <meta property="twitter:description"
+        content="Explore my projects, publications, and skills in web development, AI/ML, and cybersecurity.">
+    <meta property="twitter:image" content="assets/images/profile-photo.jpg.jpg">
+
+    <!-- JSON-LD Structured Data for Sitelinks -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "url": "https://rajpratham1.github.io/my-portfolio/",
+          "name": "Pratham Kumar Portfolio",
+          "author": {
+              "@type": "Person",
+              "name": "Pratham Kumar"
+          },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://rajpratham1.github.io/my-portfolio/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "name": "About Me",
+          "url": "https://rajpratham1.github.io/my-portfolio/#aboutOverlay"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "name": "Projects",
+          "url": "https://rajpratham1.github.io/my-portfolio/#projects"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "name": "Certificates",
+          "url": "https://rajpratham1.github.io/my-portfolio/#certificates"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "name": "Contact",
+          "url": "https://rajpratham1.github.io/my-portfolio/#contact"
+        }
+      ]
+    }
+    </script>
 
     <link rel="icon" type="image/png" href="assets/images/logo.png.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="scroll-top.css">
+    <link rel="stylesheet" href="adaptive-layout.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="github-skills.css">
+    <link rel="stylesheet" href="hire-me.css">
     <link rel="stylesheet" href="overlay-fix.css">
+    <link rel="stylesheet" href="mobile-fixes.css">
 </head>
 
 <body>
@@ -48,7 +113,7 @@
 
             <!-- Mobile Menu Toggle -->
             <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-                <i class="fas fa-bars"></i>
+                <i class="fas fa-ellipsis-v"></i>
             </button>
         </div>
 
@@ -114,30 +179,144 @@
                 <p class="about-intro">I am a passionate <strong>Full-Stack Developer</strong> and a <strong>Quick
                         Learner</strong> who believes that the best way to master technology is by building it.</p>
                 <div class="about-grid">
+                    <!-- 1. Continuous Innovation -->
                     <div class="about-card">
                         <h4><i class="fas fa-sync-alt" style="color: #00aeff;"></i> Continuous Innovation</h4>
                         <p>I am always working on different projects simultaneously. I don't believe in stagnation; the
                             moment I finish one project, I am already architecting the next. This constant cycle of
                             creation helps me stay ahead of the curve.</p>
                     </div>
+
+                    <!-- 2. Security Focus -->
                     <div class="about-card">
                         <h4><i class="fas fa-lock" style="color: #e74c3c;"></i> Security Focus</h4>
                         <p>Recently, I have started learning Cyber Security. My goal is to evolve from building apps
                             that <em>work</em> to building apps that are <em>secure</em>, resilient, and unbreakable.
                         </p>
                     </div>
+
+                    <!-- 3. Frontend Mastery -->
                     <div class="about-card">
-                        <h4><i class="fas fa-bolt" style="color: #f1c40f;"></i> AI-Augmented Workflow</h4>
-                        <p>I leverage the power of advanced AI models to accelerate my development. By integrating AI
-                            into my workflow, I save time on boilerplate and focus entirely on complex logic and system
-                            architecture.</p>
+                        <h4><i class="fas fa-code" style="color: #2ecc71;"></i> Frontend Mastery</h4>
+                        <p>Crafting responsive, interactive, and pixel-perfect interfaces is my forte. I ensure every
+                            pixel serves a purpose and every interaction feels fluid and natural.</p>
                     </div>
+
+                    <!-- 4. Backend Scalability -->
                     <div class="about-card">
-                        <h4><i class="fas fa-lightbulb" style="color: #00aeff;"></i> Strategic Planning</h4>
-                        <p>Before writing the first line of code, I focus on system architecture and scalability. This
-                            <strong>strategic planning</strong> ensures that every project is built on a solid,
-                            future-proof foundation, minimizing technical debt.
+                        <h4><i class="fas fa-server" style="color: #f39c12;"></i> Backend Scalability</h4>
+                        <p>Designing robust APIs and databases that scale. I focus on performance optimization and
+                            data integrity to ensure systems can handle growth effortlessly.</p>
+                    </div>
+
+                    <!-- 5. Security Awareness -->
+                    <div class="about-card">
+                        <h4><i class="fas fa-lock" style="color: #9b59b6;"></i> Security Awareness</h4>
+                        <p>Proactively identifying vulnerabilities and securing applications. I follow best practices
+                            to protect systems and data from potential threats.</p>
+                    </div>
+
+                    <!-- 6. Network Defense -->
+                    <div class="about-card">
+                        <h4><i class="fas fa-shield-alt" style="color: #34495e;"></i> Network Defense</h4>
+                        <p>Understanding the flow of data is crucial. I study network protocols and firewalls to build
+                            fortresses around the digital assets I create.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub Stats Dashboard Section -->
+    <section class="github-stats-section">
+        <div class="container">
+            <h2 class="section-title"><span class="title-line"><i class="fab fa-github"></i> GitHub Activity</span></h2>
+
+            <div class="github-stats-container">
+                <!-- GitHub Stats Cards -->
+                <div class="github-stats-grid">
+                    <div class="github-stat-card">
+                        <img src="https://github-readme-stats.vercel.app/api?username=rajpratham1&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0d1117"
+                            alt="GitHub Stats" loading="lazy">
+                    </div>
+                    <div class="github-stat-card">
+                        <img src="https://github-readme-streak-stats.herokuapp.com/?user=rajpratham1&theme=tokyonight&hide_border=true&background=0d1117"
+                            alt="GitHub Streak" loading="lazy">
+                    </div>
+                    <div class="github-stat-card">
+                        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=rajpratham1&layout=compact&theme=tokyonight&hide_border=true&bg_color=0d1117"
+                            alt="Top Languages" loading="lazy">
+                    </div>
+                </div>
+
+                <!-- Contribution Graph -->
+                <div class="contribution-graph">
+                    <img src="https://github-readme-activity-graph.vercel.app/graph?username=rajpratham1&theme=tokyo-night&hide_border=true&area=true"
+                        alt="Contribution Graph" loading="lazy">
+                </div>
+
+                <!-- GitHub Calendar Heatmap -->
+                <div class="github-calendar-section">
+                    <h3><i class="fas fa-calendar-alt"></i> Contribution Heatmap</h3>
+                    <p class="calendar-note">Updates daily from GitHub</p>
+                    <img src="https://ghchart.rshah.org/00aeff/rajpratham1" alt="GitHub Contributions"
+                        class="github-heatmap-img" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🚀 Open to Opportunities Section -->
+    <section class="hire-me-section">
+        <div class="container">
+            <div class="hire-me-card">
+                <div class="hire-me-badge">
+                    <span class="pulse-dot"></span>
+                    Open to Work
+                </div>
+
+                <div class="hire-me-content">
+                    <h2><i class="fas fa-handshake"></i> Looking for Opportunities</h2>
+
+                    <div class="hire-me-message">
+                        <p>
+                            <strong>"Hello! I'm Pratham Kumar</strong> — a passionate Full Stack Developer and
+                            Cybersecurity
+                            enthusiast actively seeking opportunities where I can contribute, learn, and grow.
                         </p>
+                        <p>
+                            With hands-on experience in building scalable web applications, secure systems, and
+                            AI-powered solutions, I'm eager to bring my skills to a dynamic team that values
+                            innovation and continuous improvement.
+                        </p>
+                        <p>
+                            Whether it's a <strong>full-time role</strong>, <strong>internship</strong>, or an exciting
+                            <strong>freelance project</strong> — I'd love to connect and explore how we can create
+                            something amazing together!"
+                        </p>
+                        <p class="signature">— Pratham Kumar 🚀</p>
+                    </div>
+
+                    <div class="hire-me-cta">
+                        <a href="#" onclick="openContact(); return false;" class="hire-btn primary">
+                            <i class="fas fa-envelope"></i> Let's Connect
+                        </a>
+                        <a href="https://www.linkedin.com/in/pratham-kumar-2a4b151a7/" target="_blank"
+                            class="hire-btn secondary">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                        <a href="assets/documents/resume.pdf" download class="hire-btn outline">
+                            <i class="fas fa-download"></i> Download Resume
+                        </a>
+                    </div>
+
+                    <div class="hire-me-tags">
+                        <span>Full Stack Development</span>
+                        <span>Cybersecurity</span>
+                        <span>React / Next.js</span>
+                        <span>Python</span>
+                        <span>Node.js</span>
+                        <span>Remote Friendly</span>
                     </div>
                 </div>
             </div>
@@ -419,152 +598,9 @@
         </div>
     </section>
 
-    <!-- Get In Touch Section -->
-    <section class="contact-section">
-        <div class="container">
-            <h2 class="section-title"><span class="title-line">Get In Touch</span></h2>
 
-            <div class="contact-container">
-                <!-- Left Side - Laptop Mockup -->
-                <div class="contact-visual">
-                    <div class="laptop-mockup">
-                        <div class="laptop-screen">
-                            <h3 class="laptop-text">Get In Touch</h3>
-                        </div>
-                        <div class="laptop-base"></div>
-                    </div>
 
-                    <!-- Social Media Links -->
-                    <div class="social-links-container">
-                        <h4 class="social-title">Connect With Me</h4>
-                        <div class="social-links">
-                            <a href="https://www.linkedin.com/in/pratham-kumar-2a4b151a7/" target="_blank"
-                                class="social-link linkedin">
-                                <i class="fab fa-linkedin"></i>
-                                <span>LinkedIn</span>
-                            </a>
-                            <a href="https://github.com/rajpratham1" target="_blank" class="social-link github">
-                                <i class="fab fa-github"></i>
-                                <span>GitHub</span>
-                            </a>
-                            <a href="https://www.facebook.com/" target="_blank" class="social-link facebook">
-                                <i class="fab fa-facebook"></i>
-                                <span>Facebook</span>
-                            </a>
-                            <a href="https://www.instagram.com/" target="_blank" class="social-link instagram">
-                                <i class="fab fa-instagram"></i>
-                                <span>Instagram</span>
-                            </a>
-                            <a href="https://x.com/" target="_blank" class="social-link twitter">
-                                <i class="fab fa-x-twitter"></i>
-                                <span>X (Twitter)</span>
-                            </a>
-                            <a href="https://wa.me/918318089403" target="_blank" class="social-link whatsapp">
-                                <i class="fab fa-whatsapp"></i>
-                                <span>WhatsApp</span>
-                            </a>
-                            <a href="mailto:rajpratham40@gmail.com" target="_blank" class="social-link gmail">
-                                <i class="fas fa-envelope"></i>
-                                <span>Gmail</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Right Side - Contact Form -->
-                <div class="contact-form-container">
-                    <form class="contact-form" id="contactForm">
-                        <input type="hidden" name="access_key" value="bae4969a-76af-40e4-86d7-d87fcbece11e">
-                        <div class="form-group">
-                            <input type="text" name="name" class="form-input" placeholder="Your Name" required>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="email" name="email" class="form-input" placeholder="Your Email" required>
-                        </div>
-
-                        <div class="form-group">
-                            <textarea name="message" class="form-input form-textarea"
-                                placeholder="Type your message here..." rows="6" required></textarea>
-                        </div>
-
-                        <!-- Math Captcha -->
-                        <div class="form-group"
-                            style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; border: 1px solid rgba(0,174,255,0.2);">
-                            <label style="color: #00aeff; margin-bottom: 10px; display: block; font-weight: 500;">Verify
-                                you are human:</label>
-                            <div style="display: flex; gap: 15px; align-items: center;">
-                                <span id="math-question"
-                                    style="font-size: 1.2rem; font-weight: bold; color: white; min-width: 80px;"></span>
-                                <input type="number" id="math-answer" class="form-input" placeholder="?" required
-                                    style="width: 80px; text-align: center;">
-                            </div>
-                        </div>
-
-                        <button type="submit" class="send-btn">
-                            <span>Send</span>
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer Section -->
-    <footer class="main-footer">
-        <div class="footer-container">
-            <div class="footer-grid">
-                <!-- Column 1: Explore -->
-                <div class="footer-column">
-                    <h3 class="footer-title">Explore</h3>
-                    <ul class="footer-links">
-                        <li><a href="#" onclick="openAbout(); return false;"><i class="fas fa-user"></i> About Me</a>
-                        </li>
-                        <li><a href="#" onclick="openPublications(); return false;"><i class="fas fa-book"></i>
-                                Publications</a></li>
-                        <li><a href="#" onclick="openProjects(); return false;"><i class="fas fa-folder-open"></i>
-                                Projects</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 2: Resources -->
-                <div class="footer-column">
-                    <h3 class="footer-title">Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#" onclick="openWebsites(); return false;"><i class="fas fa-globe"></i>
-                                Websites</a></li>
-                        <li><a href="#" onclick="openCertificates(); return false;"><i class="fas fa-certificate"></i>
-                                Certificates</a></li>
-                        <li><a href="raj-pratham cv.pdf" download><i class="fas fa-download"></i> Resume</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 3: Connect -->
-                <div class="footer-column">
-                    <h3 class="footer-title" style="cursor: pointer;" onclick="openContact()">Let's Connect</h3>
-                    <div class="footer-social">
-                        <a href="https://www.linkedin.com/in/pratham-kumar-2a4b151a7/" target="_blank"
-                            class="footer-social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://github.com/rajpratham1" target="_blank" class="footer-social-link"
-                            title="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="https://wa.me/918318089403" target="_blank" class="footer-social-link"
-                            title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                        <a href="mailto:rajpratham40@gmail.com" target="_blank" class="footer-social-link"
-                            title="Email"><i class="fas fa-envelope"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Footer Bottom -->
-        <div class="footer-bottom">
-            <p>&copy; 2026 Pratham Kumar. All rights reserved.</p>
-            <p>Built with <i class="fas fa-heart" style="color: #e74c3c;"></i> and <i class="fas fa-coffee"
-                    style="color: #00aeff;"></i></p>
-        </div>
-        </div>
-    </footer>
 
     <!-- ========== OVERLAYS ========== -->
 
@@ -594,7 +630,7 @@
                 <div class="pub-grid">
                     <!-- Excel with Copilot -->
                     <div class="pub-card">
-                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=Excel+Copilot"
+                        <img loading="lazy" src="https://placehold.co/600x400/1e1e1e/00aeff?text=Excel+Copilot"
                             alt="Excel with Copilot" class="pub-image">
                         <div class="pub-content">
                             <h3 class="pub-title">Excel with Copilot : AI-Driven Data Analysis</h3>
@@ -606,7 +642,7 @@
                     </div>
                     <!-- Data Analysis with Python -->
                     <div class="pub-card">
-                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=Data+Analysis"
+                        <img loading="lazy" src="https://placehold.co/600x400/1e1e1e/00aeff?text=Data+Analysis"
                             alt="Data Analysis with Python" class="pub-image">
                         <div class="pub-content">
                             <h3 class="pub-title">Data Analysis with Python (IBM)</h3>
@@ -618,7 +654,7 @@
                     </div>
                     <!-- Intro to Web Dev -->
                     <div class="pub-card">
-                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=Web+Dev"
+                        <img loading="lazy" src="https://placehold.co/600x400/1e1e1e/00aeff?text=Web+Dev"
                             alt="Introduction to Web Development" class="pub-image">
                         <div class="pub-content">
                             <h3 class="pub-title">Introduction to Web Development</h3>
@@ -630,7 +666,7 @@
                     </div>
                     <!-- Web Dev Beginners -->
                     <div class="pub-card">
-                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=Frontend"
+                        <img loading="lazy" src="https://placehold.co/600x400/1e1e1e/00aeff?text=Frontend"
                             alt="Web Development for Beginners" class="pub-image">
                         <div class="pub-content">
                             <h3 class="pub-title">Web Development for Beginners</h3>
@@ -642,7 +678,7 @@
                     </div>
                     <!-- ML with Python -->
                     <div class="pub-card">
-                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=ML+Python"
+                        <img loading="lazy" src="https://placehold.co/600x400/1e1e1e/00aeff?text=ML+Python"
                             alt="Machine Learning with Python" class="pub-image">
                         <div class="pub-content">
                             <h3 class="pub-title">Machine Learning with Python (IBM)</h3>
@@ -654,7 +690,7 @@
                     </div>
                     <!-- Networking -->
                     <div class="pub-card">
-                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=Networking"
+                        <img loading="lazy" src="https://placehold.co/600x400/1e1e1e/00aeff?text=Networking"
                             alt="Networking and Web Technology" class="pub-image">
                         <div class="pub-content">
                             <h3 class="pub-title">Networking and Web Technology</h3>
@@ -666,8 +702,8 @@
                     </div>
                     <!-- GenAI -->
                     <div class="pub-card">
-                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=GenAI" alt="GenAI for Professionals"
-                            class="pub-image">
+                        <img loading="lazy" src="https://placehold.co/600x400/1e1e1e/00aeff?text=GenAI"
+                            alt="GenAI for Professionals" class="pub-image">
                         <div class="pub-content">
                             <h3 class="pub-title">GenAI for Professionals</h3>
                             <p class="pub-desc">10x Your Productivity by Luxmi Narayan on Udemy. Explored Generative AI
@@ -678,7 +714,7 @@
                     </div>
                     <!-- Data Privacy -->
                     <div class="pub-card">
-                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=Data+Privacy"
+                        <img loading="lazy" src="https://placehold.co/600x400/1e1e1e/00aeff?text=Data+Privacy"
                             alt="Data Privacy Control" class="pub-image">
                         <div class="pub-content">
                             <h3 class="pub-title">Data Privacy & User Control</h3>
@@ -971,7 +1007,7 @@
                 <!-- Search-GPT -->
                 <div class="project-card">
                     <div class="project-content">
-                        <img src="assets/images/mywebsite-searchgpt.jpg.png" alt="Search-GPT"
+                        <img loading="lazy" src="assets/images/mywebsite-searchgpt.jpg.png" alt="Search-GPT"
                             onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Search-GPT'">
                         <div class="project-info">
                             <h3>Search-GPT</h3>
@@ -990,7 +1026,7 @@
                 <!-- WebFolio -->
                 <div class="project-card">
                     <div class="project-content">
-                        <img src="assets/images/mywebsite-WebFolio.jpg.png" alt="WebFolio"
+                        <img loading="lazy" src="assets/images/mywebsite-WebFolio.jpg.png" alt="WebFolio"
                             onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=WebFolio'">
                         <div class="project-info">
                             <h3>WebFolio</h3>
@@ -1038,7 +1074,7 @@
                 <!-- Smoke Detector Sensor -->
                 <div class="project-card">
                     <div class="project-content">
-                        <img src="assets/images/project-smoke.jpg.jpg" alt="Smoke Detector Sensor"
+                        <img loading="lazy" src="assets/images/project-smoke.jpg.jpg" alt="Smoke Detector Sensor"
                             onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Smoke+Detector'">
                         <div class="project-info">
                             <div
@@ -1062,7 +1098,7 @@
                 <!-- Retail Sales Analytics -->
                 <div class="project-card">
                     <div class="project-content">
-                        <img src="assets/images/retailsales.jpg.png" alt="Retail Sales Analytics"
+                        <img loading="lazy" src="assets/images/retailsales.jpg.png" alt="Retail Sales Analytics"
                             onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Retail+Analytics'">
                         <div class="project-info">
                             <div
@@ -1087,7 +1123,8 @@
                 <!-- Smart Agriculture System -->
                 <div class="project-card">
                     <div class="project-content">
-                        <img src="assets/images/project-smartagriculture.jpg.webp" alt="Smart Agriculture System"
+                        <img loading="lazy" src="assets/images/project-smartagriculture.jpg.webp"
+                            alt="Smart Agriculture System"
                             onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Smart+Agriculture'">
                         <div class="project-info">
                             <div
@@ -1107,7 +1144,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="projects-grid" id="projectsList"></div>
+
 
                     <!-- Full Stack Skills Overlay -->
                 </div>
@@ -1306,7 +1343,7 @@
                             <p>Direct & instant messaging. Feel free to reach out for quick queries,
                                 collaboration
                                 discussions, or just to say hi!</p>
-                            <a href="https://wa.me/918318089403" target="_blank" class="contact-card-btn"
+                            <a href="https://wa.me/916200892887" target="_blank" class="contact-card-btn"
                                 style="background: linear-gradient(90deg, #25D366, #128C7E);">Chat on
                                 WhatsApp</a>
                         </div>
@@ -1336,7 +1373,7 @@
             <div class="overlay-footer">
                 <p style="text-align: center; color: var(--secondary-text); margin-top: 3rem; font-size: 1.1rem;">
                     <i class="fas fa-envelope"></i> rajpratham40@gmail.com &nbsp;|&nbsp; <i class="fas fa-phone"></i>
-                    +91 831-808-9403
+                    +91 6200892887
                 </p>
             </div>
         </div>
@@ -1732,6 +1769,78 @@
     </div>
 
 
+    <!-- About Overlay -->
+    <div id="aboutOverlay" class="projects-overlay">
+        <button class="close-btn" onclick="closeAbout()">&times;</button>
+        <div class="projects-container">
+            <h1 class="projects-title">
+                <i class="fas fa-user"></i> About Me
+            </h1>
+
+            <div class="about-overlay-content">
+                <p style="text-align: center; font-size: 1.2rem; margin-bottom: 30px;">
+                    I am a passionate <strong>Full-Stack Developer</strong> and a <strong>Quick Learner</strong> who
+                    believes that the
+                    best way to master technology is by building it.
+                </p>
+
+                <div class="about-grid">
+                    <!-- 1. Continuous Innovation -->
+                    <div class="about-card">
+                        <h4><i class="fas fa-sync-alt" style="color: #00aeff;"></i> Continuous Innovation</h4>
+                        <p>I am always working on different projects simultaneously. I don't believe in stagnation; the
+                            moment I finish one project, I am already architecting the next. This constant cycle of
+                            creation helps me stay ahead of the curve.</p>
+                    </div>
+
+                    <!-- 2. Security Focus -->
+                    <div class="about-card">
+                        <h4><i class="fas fa-lock" style="color: #e74c3c;"></i> Security Focus</h4>
+                        <p>Recently, I have started learning Cyber Security. My goal is to evolve from building apps
+                            that <em>work</em> to building apps that are <em>secure</em>, resilient, and unbreakable.
+                        </p>
+                    </div>
+
+                    <!-- 3. Frontend Mastery -->
+                    <div class="about-card">
+                        <h4><i class="fas fa-code" style="color: #2ecc71;"></i> Frontend Mastery</h4>
+                        <p>Crafting responsive, interactive, and pixel-perfect interfaces is my forte. I ensure every
+                            pixel serves a purpose and every interaction feels fluid and natural.</p>
+                    </div>
+
+                    <!-- 4. Backend Scalability -->
+                    <div class="about-card">
+                        <h4><i class="fas fa-server" style="color: #f39c12;"></i> Backend Scalability</h4>
+                        <p>Designing robust APIs and databases that scale. I focus on performance optimization and
+                            data integrity to ensure systems can handle growth effortlessly.</p>
+                    </div>
+
+                    <!-- 5. Ethical Hacking -->
+                    <div class="about-card">
+                        <h4><i class="fas fa-user-secret" style="color: #9b59b6;"></i> Ethical Hacking</h4>
+                        <p>Proactively identifying vulnerabilities before malicious actors do. I use industry-standard
+                            tools to penetration test and secure applications against threats.</p>
+                    </div>
+
+                    <!-- 6. Network Defense -->
+                    <div class="about-card">
+                        <h4><i class="fas fa-shield-alt" style="color: #34495e;"></i> Network Defense</h4>
+                        <p>Understanding the flow of data is crucial. I study network protocols and firewalls to build
+                            fortresses around the digital assets I create.</p>
+                    </div>
+                </div>
+
+                <div class="about-footer-text" style="margin-top: 30px; text-align: center; color: #ddd;">
+                    <p>I leverage the power of advanced AI models to accelerate my development. By integrating AI into
+                        my workflow, I save time on boilerplate and focus entirely on complex logic and system
+                        architecture.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <!-- Contact Section -->
     <section class="contact-section">
         <div class="contact-container">
@@ -1763,18 +1872,33 @@
 
             <!-- Right Side: Contact Form -->
             <div class="contact-form-container">
-                <form class="contact-form">
+                <form class="contact-form" id="contactForm">
+                    <input type="hidden" name="access_key" value="bae4969a-76af-40e4-86d7-d87fcbece11e">
                     <div class="form-group">
-                        <input type="text" class="form-input" placeholder="Your Name" required>
+                        <input type="text" name="name" class="form-input" placeholder="Your Name" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-input" placeholder="Your Email" required>
+                        <input type="email" name="email" class="form-input" placeholder="Your Email" required>
                     </div>
                     <div class="form-group">
-                        <textarea class="form-input form-textarea" placeholder="Your Message" required></textarea>
+                        <textarea name="message" class="form-input form-textarea" placeholder="Your Message"
+                            required></textarea>
+                    </div>
+                    <!-- Math Captcha -->
+                    <div class="form-group"
+                        style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; border: 1px solid rgba(0,174,255,0.2);">
+                        <label style="color: #00aeff; margin-bottom: 10px; display: block; font-weight: 500;">Verify
+                            you are human:</label>
+                        <div style="display: flex; gap: 15px; align-items: center;">
+                            <span id="math-question"
+                                style="font-size: 1.2rem; font-weight: bold; color: white; min-width: 80px;"></span>
+                            <input type="number" id="math-answer" class="form-input" placeholder="?" required
+                                style="width: 80px; text-align: center;">
+                        </div>
                     </div>
                     <button type="submit" class="send-btn">
-                        <i class="fas fa-paper-plane"></i> Send Message
+                        <span>Send</span>
+                        <i class="fas fa-paper-plane"></i>
                     </button>
                 </form>
             </div>
@@ -1845,6 +1969,11 @@
     <!-- Custom Cursor -->
     <div class="cursor-dot" data-cursor-dot></div>
     <div class="cursor-outline" data-cursor-outline></div>
+
+    <!-- Scroll to Top Button -->
+    <a href="#" class="scroll-top-btn" id="scrollTopBtn" title="Go to top">
+        <i class="fas fa-chevron-up"></i>
+    </a>
 
     <script src="script.js"></script>
 </body>

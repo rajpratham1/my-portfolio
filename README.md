@@ -1,46 +1,121 @@
-# 🛡️ Pratham Kumar | Full Stack Developer & Security Analyst Portfolio
+# 🚀 Pratham Kumar | Full Stack Developer & Cybersecurity Enthusiast
 
-![Portfolio Preview](https://via.placeholder.com/1200x600?text=Portfolio+Preview+Image) 
-A high-performance, **Cyber Security-themed** personal portfolio website designed to showcase projects, publications, and technical skills. This site features a "Glassmorphism" UI, 3D interactive backgrounds, and smooth scroll animations, optimized for both desktop and mobile devices.
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_Site-00aeff?style=for-the-badge)](https://rajpratham1.github.io/my-portfolio/)
+[![GitHub](https://img.shields.io/badge/GitHub-rajpratham1-181717?style=for-the-badge&logo=github)](https://github.com/rajpratham1)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/pratham-kumar-2a4b151a7/)
 
-## 🚀 Live Demo
-**[View Live Site](https://your-username.github.io/your-repo-name)**
+A premium, **Cybersecurity-themed** portfolio website featuring modern glassmorphism UI, interactive animations, and adaptive layouts optimized for all devices.
 
 ---
 
-## ⚡ Key Features
+## ✨ Features
 
-* **🎨 Cyber-Professional Design:** A deep navy/black theme with neon cyber accents (Blue/Green) and glassmorphism cards.
-* **🌗 Dark/Light Mode:** Fully functional theme toggler with persistent state.
-* **✨ 3D Interactive Background:** Built with **Three.js**, featuring a floating particle network that reacts to mouse movement.
-* **🎬 Advanced Animations:** Smooth scroll reveals and timeline animations powered by **GSAP (GreenSock)**.
-* **📱 Fully Responsive:** Optimized layout for Mobile, Tablet, and Desktop.
-* **📧 Working Contact Form:** Integrated via Web3Forms (No backend required).
-* **🔍 Strategic Layout:** Sections for "Strategic Approach," "Featured Projects," "Live Deployments," and "Publications."
+### 🎨 Design & UI
+- **Glassmorphism Effects** - Frosted glass cards with backdrop blur
+- **Dark Cyber Theme** - Navy/black with neon cyan/blue accents
+- **Animated Gradient Text** - Flowing gradients on headings
+- **Hover Glow Effects** - Cyan glow on interactive elements
+
+### 🎬 Animations & Effects
+- **Page Loader** - Animated logo with progress bar
+- **Scroll Progress Bar** - Visual scroll position indicator
+- **3D Card Tilt** - Mouse-following 3D perspective on cards
+- **Button Ripple Effect** - Material Design-style ripple on clicks
+- **Staggered Reveal** - Cards fade in sequentially on scroll
+- **Floating Elements** - Gentle floating animation on icons
+- **Intersection Observer** - Smooth fade-in as sections enter viewport
+
+### 📱 Responsive Design
+- **Adaptive Layout** - Vertical on desktop, horizontal scroll on mobile
+- **Mobile Navigation** - Hamburger menu with slide-down overlay
+- **Touch-Friendly** - Scroll-snap carousels for mobile
+- **60FPS Performance** - Optimized canvas particles on mobile
+
+### 🛠️ Technical Features
+- **SEO Optimized** - JSON-LD structured data, meta tags, robots.txt
+- **Custom 404 Page** - Branded error page for GitHub Pages
+- **Lazy Loading** - Deferred image loading for performance
+- **Scroll-to-Top** - Smooth scroll button
+- **Working Contact Form** - Web3Forms integration
+
+---
+
+## 🗂️ Project Structure
+
+```
+my-portfolio/
+├── index.html              # Main HTML
+├── style.css               # Core styles
+├── script.js               # Main JavaScript
+├── adaptive-layout.css     # Responsive layouts
+├── animations.css          # Premium animations
+├── scroll-top.css          # Scroll-to-top button
+├── overlay-fix.css         # Overlay fixes
+├── 404.html                # Custom error page
+├── robots.txt              # SEO crawler config
+└── assets/
+    ├── images/             # Project & profile images
+    └── documents/          # PDFs & presentations
+```
 
 ---
 
 ## 🛠️ Tech Stack
 
-This project is built using modern web technologies without heavy framework dependencies, ensuring lightning-fast load times.
-
-* **Core:** ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
-* **Styling:** ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white) (CDN)
-* **3D & Motion:** ![Three.js](https://img.shields.io/badge/Three.js-black?style=flat&logo=three.js&logoColor=white) ![GSAP](https://img.shields.io/badge/GSAP-88CE02?style=flat&logo=greensock&logoColor=white)
-* **Icons & Fonts:** FontAwesome 6, Google Fonts (Outfit & Space Grotesk).
+| Category | Technologies |
+|----------|-------------|
+| **Core** | HTML5, CSS3, JavaScript (ES6+) |
+| **Fonts** | Google Fonts (Poppins) |
+| **Icons** | Font Awesome 6 |
+| **Forms** | Web3Forms API |
+| **Hosting** | GitHub Pages |
 
 ---
 
-## 📂 Project Structure
+## 🚀 Quick Start
 
-```text
-/
-├── index.html          # Main HTML structure (contains all CSS/JS)
-├── logo.png.jpg        # Website Favicon
-├── profile-photo.jpg   # Your Profile Picture
-├── assets/             # (Optional) Store project images/PDFs here
-│   ├── Cyber.png
-│   ├── crime.png
-│   ├── mediscan.png
-│   └── ... (Project Images)
-└── README.md           # Documentation
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/rajpratham1/my-portfolio.git
+   ```
+
+2. **Open locally**
+   ```bash
+   cd my-portfolio
+   # Open index.html in browser
+   ```
+
+3. **Deploy to GitHub Pages**
+   - Push to `main` branch
+   - Enable GitHub Pages in repository settings
+
+---
+
+## 📸 Sections
+
+- **Hero** - Animated intro with profile photo
+- **About Me** - Skills cards with horizontal scroll
+- **Featured Projects** - Hardware & software projects
+- **My Websites** - Live deployed web apps
+- **Certificates** - Professional certifications
+- **Publications** - Books & technical writing
+- **Contact** - Social links & contact form
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+## 👤 Author
+
+**Pratham Kumar**
+- GitHub: [@rajpratham1](https://github.com/rajpratham1)
+- LinkedIn: [Pratham Kumar](https://www.linkedin.com/in/pratham-kumar-2a4b151a7/)
+- Portfolio: [rajpratham1.github.io/my-portfolio](https://rajpratham1.github.io/my-portfolio/)
+
+---
+
+⭐ **Star this repo if you found it helpful!**
