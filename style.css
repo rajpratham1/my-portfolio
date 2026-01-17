@@ -102,7 +102,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             padding: 8px 15px;
             border-radius: 8px;
         }
@@ -323,7 +323,7 @@
             border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: inline-block;
         }
 
@@ -1230,7 +1230,7 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 1.1rem;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .github-btn:hover {
@@ -1335,7 +1335,7 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 1.1rem;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .linkedin-btn:hover {
@@ -1366,7 +1366,7 @@
             cursor: pointer;
             font-weight: 600;
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -1611,84 +1611,156 @@
             width: var(--skill-width);
         }
 
-        /* VIRU Special Styling */
+        /* VIRU Special Styling - Premium Layout */
         .viru-item {
-            border-color: rgba(138, 43, 226, 0.5);
-            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(75, 0, 130, 0.05));
+            position: relative;
+            background: linear-gradient(135deg, rgba(20, 0, 30, 0.9), rgba(10, 0, 20, 0.95));
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1;
+        }
+
+        /* Animated Gradient Border using pseudo-element */
+        .viru-item::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg,
+                    #ff00cc, #3333ff, #8b2be2, #ff00cc);
+            z-index: -1;
+            border-radius: 14px;
+            background-size: 400% 400%;
+            animation: border-flow 4s ease infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes border-flow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .viru-item:hover {
-            border-color: rgba(138, 43, 226, 0.8);
-            box-shadow: 0 10px 40px rgba(138, 43, 226, 0.3);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 50px rgba(139, 43, 226, 0.4);
+        }
+
+        .viru-item:hover::before {
+            opacity: 1;
+            filter: blur(5px);
         }
 
         .my-creation-badge {
             display: inline-block;
-            padding: 3px 10px;
-            background: linear-gradient(135deg, #8b2be2, #9370db);
-            border-radius: 12px;
-            font-size: 0.7rem;
-            margin-left: 8px;
-            font-weight: 700;
+            padding: 4px 12px;
+            background: linear-gradient(90deg, #ff00cc, #3333ff);
+            border-radius: 20px;
+            font-size: 0.65rem;
+            margin-left: 10px;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            animation: pulse 2s infinite;
+            letter-spacing: 0.8px;
+            color: white;
+            box-shadow: 0 0 10px rgba(255, 0, 204, 0.5);
+            animation: badge-pulse 2s infinite;
+            vertical-align: middle;
         }
 
-        @keyframes pulse {
+        @keyframes badge-pulse {
 
             0%,
             100% {
-                box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+                transform: scale(1);
+                box-shadow: 0 0 10px rgba(255, 0, 204, 0.5);
             }
 
             50% {
-                box-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
+                transform: scale(1.05);
+                box-shadow: 0 0 20px rgba(51, 51, 255, 0.8);
             }
         }
 
         .viru-features {
             display: flex;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 12px;
+            margin-top: 18px;
             flex-wrap: wrap;
             align-items: center;
         }
 
         .viru-feature {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(139, 43, 226, 0.2);
         }
 
         .viru-feature i {
-            color: #8b2be2;
+            color: #d28cff;
         }
 
+        /* Premium 'Try VIRU' Button */
         .viru-link {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            background: linear-gradient(135deg, #8b2be2, #9370db);
-            border-radius: 15px;
+            gap: 8px;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #8b2be2, #4b0082);
+            border-radius: 25px;
             color: white;
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             margin-left: auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(139, 43, 226, 0.4);
+        }
+
+        .viru-link::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
         }
 
         .viru-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 43, 226, 0.6);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .viru-link:hover::after {
+            left: 100%;
+            transition: 0.5s;
         }
 
         .viru-link i {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
         }
 
         /* Skills Overlay Grid */
@@ -3448,19 +3520,146 @@
             border-color: #00aeff;
             color: #00aeff;
         }
-/* Skill Bar Styles */
-.skill-bar-container {
-    width: 100%;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-    margin-top: 10px;
-    overflow: hidden;
-}
 
-.skill-bar-fill {
-    height: 100%;
-    background: #00aeff;
-    border-radius: 4px;
-    transition: width 1s ease-in-out;
-}
+        /* Skill Bar Styles */
+        .skill-bar-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            background: #00aeff;
+            border-radius: 4px;
+            transition: width 1s ease-in-out;
+        }
+
+        /* ... existing styles ... */
+
+        /* Blur Content Effect */
+        .blur-content {
+            filter: blur(5px);
+            transition: filter 0.3s ease;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* Glassmorphism Utilities */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-dark {
+            background: rgba(10, 22, 40, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 174, 255, 0.1);
+        }
+
+        /* Refined Spring Animation Utility */
+        .spring-hover {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .spring-hover:hover {
+            transform: translateY(-5px);
+        }
+
+        /* --- CONTACT OVERLAY STYLES (Added to Fix Visiblity) --- */
+        .contact-scroll-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .contact-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(0, 174, 255, 0.3);
+        }
+
+        .contact-card-content {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .contact-card-content img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 5px;
+        }
+
+        .contact-card-content i.large-icon {
+            font-size: 3rem;
+            color: #00aeff;
+            width: 60px;
+            text-align: center;
+        }
+
+        .contact-card-text {
+            flex: 1;
+        }
+
+        .contact-card-text h3 {
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .contact-card-text p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .contact-card-btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(0, 174, 255, 0.1);
+            color: #00aeff;
+            border: 1px solid rgba(0, 174, 255, 0.3);
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: auto;
+        }
+
+        .contact-card-btn:hover {
+            background: #00aeff;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 174, 255, 0.3);
+            transform: translateY(-2px);
+        }

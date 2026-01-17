@@ -510,36 +510,43 @@ window.openCybersecuritySkills = function () {
 window.closeCybersecuritySkills = function () {
     document.getElementById('cybersecurityOverlay').classList.remove('show');
     document.body.style.overflow = 'auto';
+    toggleBlur(false);
 };
 
 // About (Already exists in HTML onclick="openAbout()")
 window.openAbout = function () {
     document.getElementById('aboutOverlay').classList.add('show');
     document.body.style.overflow = 'hidden';
+    toggleBlur(true);
 };
 window.closeAbout = function () {
     document.getElementById('aboutOverlay').classList.remove('show');
     document.body.style.overflow = 'auto';
+    toggleBlur(false);
 };
 
 // Publications
 window.openPublications = function () {
     document.getElementById('publicationsOverlay').classList.add('show');
     document.body.style.overflow = 'hidden';
+    toggleBlur(true);
 };
 window.closePublications = function () {
     document.getElementById('publicationsOverlay').classList.remove('show');
     document.body.style.overflow = 'auto';
+    toggleBlur(false);
 };
 
 // Contact
 window.openContact = function () {
     document.getElementById('contactOverlay').classList.add('show');
     document.body.style.overflow = 'hidden';
+    toggleBlur(true);
 };
 window.closeContact = function () {
     document.getElementById('contactOverlay').classList.remove('show');
     document.body.style.overflow = 'auto';
+    toggleBlur(false);
 };
 
 // Close all on ESC
@@ -554,16 +561,52 @@ document.addEventListener('keydown', (e) => {
 
 // --- OTHER GRAPHICS & LOGIC ---
 
+// --- UI INTERACTION FUNCTIONS ---
+
+function toggleMobileMenu() {
+    const header = document.querySelector('.main-header');
+    header.classList.toggle('mobile-menu-open');
+
+    // Animate hamburger icon
+    const icon = document.querySelector('.mobile-menu-toggle i');
+    if (header.classList.contains('mobile-menu-open')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+    } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+}
+
+function toggleBlur(active) {
+    const mainContent = document.querySelectorAll('.hero-section, .about-section, .featured-projects-section, .websites-section, .skills-section, .contact-section, footer');
+    mainContent.forEach(el => {
+        if (active) {
+            el.classList.add('blur-content');
+        } else {
+            el.classList.remove('blur-content');
+        }
+    });
+}
+
+
+// --- OTHER GRAPHICS & LOGIC ---
+
 // Particles
 function initParticles() {
     const canvas = document.getElementById('tech-canvas');
     if (!canvas) return;
 
-    // ... (Keep existing particle logic if possible, or simplified version)
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
     let height = canvas.height = window.innerHeight;
     let particles = [];
+
+    // Optimize for mobile: Reduce particle count
+    const isMobile = window.innerWidth < 768;
+    const particleCount = isMobile ? 25 : 50;
 
     class Particle {
         constructor() {
@@ -587,7 +630,7 @@ function initParticles() {
         }
     }
 
-    for (let i = 0; i < 50; i++) particles.push(new Particle());
+    for (let i = 0; i < particleCount; i++) particles.push(new Particle());
 
     function animate() {
         ctx.clearRect(0, 0, width, height);
