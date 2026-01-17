@@ -1,0 +1,30 @@
+{
+  "name": "Pratham Kumar | Portfolio",
+  "short_name": "PK Portfolio",
+  "description": "Full Stack Developer & Cybersecurity Enthusiast Portfolio",
+  "start_url": "/my-portfolio/",
+  "display": "standalone",
+  "background_color": "#0a0a1a",
+  "theme_color": "#00aeff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "assets/images/logo.png.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/images/logo.png.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "development", "technology"],
+  "lang": "en",
+  "dir": "ltr",
+  "scope": "/my-portfolio/",
+  "screenshots": [],
+  "prefer_related_applications": false
+}

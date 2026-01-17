@@ -75,6 +75,13 @@
     </script>
 
     <link rel="icon" type="image/png" href="assets/images/logo.png.jpg">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00aeff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="PK Portfolio">
+    <link rel="apple-touch-icon" href="assets/images/logo.png.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -126,7 +133,8 @@
                     class="fas fa-globe"></i> Websites</a>
             <a href="#" onclick="openCertificates(); toggleMobileMenu(); return false;" class="nav-link"><i
                     class="fas fa-certificate"></i> Certificates</a>
-            <a href="raj-pratham cv.pdf" download class="nav-link"><i class="fas fa-file-pdf"></i> Resume</a>
+            <a href="assets/documents/raj-pratham cv.pdf" download class="nav-link"><i class="fas fa-file-pdf"></i>
+                Resume</a>
             <button class="theme-toggle-mobile" onclick="toggleTheme()">
                 <i class="fas fa-moon"></i> Toggle Theme
             </button>
@@ -1976,6 +1984,21 @@
     </a>
 
     <script src="script.js"></script>
+
+    <!-- Service Worker Registration for PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/my-portfolio/service-worker.js')
+                    .then((registration) => {
+                        console.log('✅ Service Worker registered:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.log('❌ Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
 </body>
 
 </html>
