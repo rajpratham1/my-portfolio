@@ -1,0 +1,1678 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="google-site-verification" content="google410e9a3399195645.html" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pratham Kumar | Developer & Learning CyberSecurity</title>
+
+    <meta name="description" content="Portfolio of Pratham Kumar, a Full Stack Developer and CyberSecurity Enthusiast.">
+    <meta property="og:title" content="Pratham Kumar | Developer Portfolio">
+    <meta property="og:description"
+        content="Explore my projects, publications, and skills in web development, AI/ML, and cybersecurity.">
+    <meta property="og:image" content="assets/images/profile-photo.jpg.jpg">
+    <meta property="og:url" content="https://your-domain.com">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" type="image/png" href="assets/images/logo.png.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="overlay-fix.css">
+    <style>
+        /* CRITICAL INLINE FIX FOR OVERLAYS */
+        .projects-overlay {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            background: rgba(10, 22, 40, 0.98) !important;
+            z-index: 2147483647 !important;
+            /* Max integer value */
+            display: none;
+            justify-content: center;
+            align-items: flex-start;
+            /* Better for scrolling */
+            padding-top: 50px;
+            overflow-y: auto !important;
+            backdrop-filter: blur(5px);
+        }
+
+        .projects-overlay.show {
+            display: flex !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+        }
+
+        .projects-container {
+            position: relative;
+            background: #0a1628;
+            width: 90%;
+            max-width: 1000px;
+            margin-bottom: 50px;
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(0, 174, 255, 0.3);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            z-index: 2147483648;
+        }
+
+        /* Badge Fixes */
+        .fullstack-badge,
+        .cybersecurity-badge {
+            cursor: pointer !important;
+            z-index: 1000 !important;
+            position: relative;
+            pointer-events: auto !important;
+        }
+
+        /* Ensure nothing covers the badges */
+        canvas {
+            pointer-events: none !important;
+            z-index: -1 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Floating Action Menu -->
+    <!-- Navigation Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">PK</div>
+
+            <!-- Desktop Menu -->
+            <nav class="desktop-nav">
+                <a href="#" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="#" onclick="openProjects(); return false;" class="nav-link"><i class="fas fa-folder-open"></i>
+                    Projects</a>
+                <a href="#" onclick="openWebsites(); return false;" class="nav-link"><i class="fas fa-globe"></i>
+                    Websites</a>
+                <a href="#" onclick="openCertificates(); return false;" class="nav-link"><i
+                        class="fas fa-certificate"></i> Certificates</a>
+                <a href="assets/documents/raj-pratham cv.pdf" download class="nav-link"><i class="fas fa-file-pdf"></i>
+                    Resume</a>
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </nav>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <nav class="mobile-nav">
+            <a href="#" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="#" onclick="openProjects(); toggleMobileMenu(); return false;" class="nav-link"><i
+                    class="fas fa-folder-open"></i> Projects</a>
+            <a href="#" onclick="openWebsites(); toggleMobileMenu(); return false;" class="nav-link"><i
+                    class="fas fa-globe"></i> Websites</a>
+            <a href="#" onclick="openCertificates(); toggleMobileMenu(); return false;" class="nav-link"><i
+                    class="fas fa-certificate"></i> Certificates</a>
+            <a href="raj-pratham cv.pdf" download class="nav-link"><i class="fas fa-file-pdf"></i> Resume</a>
+            <button class="theme-toggle-mobile" onclick="toggleTheme()">
+                <i class="fas fa-moon"></i> Toggle Theme
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-container">
+            <canvas id="tech-canvas"></canvas>
+            <div class="hero-text">
+                <h1>Pratham Kumar</h1>
+                <p class="subtitle-wrapper">I am a <span id="primary-typing"></span><span class="typing-cursor"></span>
+                </p>
+                <p class="about-me">I'm a passionate Full-Stack Developer and quick learner who constantly builds new
+                    projects, focuses on secure and resilient development, and leverages AI to work smarter and innovate
+                    faster.</p>
+                <p class="email"><i class="fa-solid fa-envelope"></i> rajpratham40@gmail.com</p>
+
+                <!-- Expertise Badges -->
+                <div class="expertise-badges">
+                    <div class="expertise-badge">
+                        <i class="fas fa-shield-halved"></i>
+                        <span>Cybersecurity Enthusiast</span>
+                    </div>
+                    <div class="expertise-badge">
+                        <i class="fas fa-brain"></i>
+                        <span>AI/ML Enthusiast</span>
+                    </div>
+                </div>
+
+                <div class="hero-buttons">
+                    <a href="#" onclick="openProjects(); return false;" class="cta-button">View My Work</a>
+                    <a href="raj-pratham cv.pdf" download="Pratham_Kumar_Resume.pdf"
+                        class="cta-button secondary">Download Resume</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="assets/images/profile-photo.jpg.jpg" alt="Pratham Kumar"
+                    onerror="this.src='https://placehold.co/320x320/1e1e1e/00aeff?text=PK'">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <h2 class="section-title"><span class="title-line">About Me</span></h2>
+            <div class="about-container">
+                <p class="about-intro">I am a passionate <strong>Full-Stack Developer</strong> and a <strong>Quick
+                        Learner</strong> who believes that the best way to master technology is by building it.</p>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <h4><i class="fas fa-sync-alt" style="color: #00aeff;"></i> Continuous Innovation</h4>
+                        <p>I am always working on different projects simultaneously. I don't believe in stagnation; the
+                            moment I finish one project, I am already architecting the next. This constant cycle of
+                            creation helps me stay ahead of the curve.</p>
+                    </div>
+                    <div class="about-card">
+                        <h4><i class="fas fa-lock" style="color: #e74c3c;"></i> Security Focus</h4>
+                        <p>Recently, I have started learning Cyber Security. My goal is to evolve from building apps
+                            that <em>work</em> to building apps that are <em>secure</em>, resilient, and unbreakable.
+                        </p>
+                    </div>
+                    <div class="about-card">
+                        <h4><i class="fas fa-bolt" style="color: #f1c40f;"></i> AI-Augmented Workflow</h4>
+                        <p>I leverage the power of advanced AI models to accelerate my development. By integrating AI
+                            into my workflow, I save time on boilerplate and focus entirely on complex logic and system
+                            architecture.</p>
+                    </div>
+                    <div class="about-card">
+                        <h4><i class="fas fa-lightbulb" style="color: #00aeff;"></i> Strategic Planning</h4>
+                        <p>Before writing the first line of code, I focus on system architecture and scalability. This
+                            <strong>strategic planning</strong> ensures that every project is built on a solid,
+                            future-proof foundation, minimizing technical debt.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section class="featured-projects-section">
+        <div class="container">
+            <!-- Featured Projects (Split Layout - Left) -->
+            <div class="split-section animate-on-scroll slide-from-left" onclick="openProjects()">
+                <div class="split-card projects-card-bg">
+                    <div class="icon-container">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="card-badge">6 Projects</div>
+                </div>
+                <div class="split-content">
+                    <h2>Featured Projects</h2>
+                    <p>Innovative solutions built with modern tech stacks.</p>
+                    <ul class="clean-list">
+                        <li><i class="fas fa-check-circle"></i> Full Stack Applications</li>
+                        <li><i class="fas fa-check-circle"></i> AI Integrations</li>
+                        <li><i class="fas fa-check-circle"></i> Real-world Usage</li>
+                    </ul>
+                    <div class="cta-text">
+                        <i class="fas fa-mouse-pointer"></i> Click card to explore
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- My Websites Section -->
+    <section class="websites-section">
+        <div class="container">
+            <h2 class="section-title"><span class="title-line">My Websites</span></h2>
+
+            <!-- Favorite Websites Showcase -->
+            <div class="fav-websites-grid">
+                <div class="fav-website-item">
+                    <div class="fav-star"><i class="fas fa-star"></i></div>
+                    <div class="fav-site-image">
+                        <img src="assets/images/privychat.png.jpeg" alt="PrivyChat"
+                            onerror="this.src='https://placehold.co/400x300/1e1e1e/00aeff?text=PrivyChat'">
+                    </div>
+                    <div class="fav-site-info">
+                        <h3>PrivyChat</h3>
+                        <p>PrivyChat was born from the need for simple, quick, and anonymous communication. In an age of
+                            surveillance capitalism, we wanted a tool that respects your right to whisper.</p>
+                        <div class="tech-tags">
+                            <span>Privacy</span>
+                            <span>Real-time</span>
+                            <span>Anonymous</span>
+                        </div>
+                        <a href="https://privy-chat.onrender.com/" target="_blank" class="fav-btn">
+                            <i class="fas fa-globe"></i> Visit Website
+                        </a>
+                    </div>
+                </div>
+
+                <div class="fav-website-item">
+                    <div class="fav-star"><i class="fas fa-star"></i></div>
+                    <div class="fav-site-image">
+                        <img src="assets/images/billorax.png.jpeg" alt="BilloraX"
+                            onerror="this.src='https://placehold.co/400x300/1e1e1e/00aeff?text=BilloraX'">
+                    </div>
+                    <div class="fav-site-info">
+                        <h3>BilloraX</h3>
+                        <p>Complete billing and inventory management solution for Indian small businesses. Get GST
+                            reports, online store, thermal printing, and more.</p>
+                        <div class="tech-tags">
+                            <span>Billing</span>
+                            <span>GST</span>
+                            <span>Inventory</span>
+                        </div>
+                        <a href="https://billorax.vercel.app/" target="_blank" class="fav-btn">
+                            <i class="fas fa-globe"></i> Visit Website
+                        </a>
+                    </div>
+                </div>
+
+                <div class="fav-website-item">
+                    <div class="fav-star"><i class="fas fa-star"></i></div>
+                    <div class="fav-site-image">
+                        <img src="assets/images/viru.png.jpeg" alt="VIRU"
+                            onerror="this.src='https://placehold.co/400x300/1e1e1e/00aeff?text=VIRU'">
+                    </div>
+                    <div class="fav-site-info">
+                        <h3>VIRU</h3>
+                        <p>VIRU isn't just another AI chatbot. It's a complete autonomous coding system designed from
+                            the ground up to give you superhuman development capabilitiesâ€”all while keeping your code
+                            100% private and local.</p>
+                        <div class="tech-tags">
+                            <span>AI</span>
+                            <span>Autonomous</span>
+                            <span>Private</span>
+                        </div>
+                        <a href="https://viru-ptif.vercel.app/index.html" target="_blank" class="fav-btn">
+                            <i class="fas fa-globe"></i> Visit Website
+                        </a>
+                    </div>
+                </div>
+
+                <div class="fav-website-item">
+                    <div class="fav-star"><i class="fas fa-star"></i></div>
+                    <div class="fav-site-image">
+                        <img src="assets/images/pravi.png" alt="Pravi"
+                            onerror="this.src='https://placehold.co/400x300/1e1e1e/00aeff?text=Pravi'">
+                    </div>
+                    <div class="fav-site-info">
+                        <h3>Pravi</h3>
+                        <p>A secure marketplace to buy and sell ready-made websites. Full-featured platform with user
+                            authentication, payment integration, and admin dashboard.</p>
+                        <div class="tech-tags">
+                            <span>Marketplace</span>
+                            <span>Full Stack</span>
+                            <span>Payment</span>
+                        </div>
+                        <a href="https://pravi-phi.vercel.app" target="_blank" class="fav-btn">
+                            <i class="fas fa-globe"></i> Visit Website
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Websites Section (Split Layout - Right) -->
+            <div class="split-section animate-on-scroll slide-from-right" onclick="openWebsites()">
+                <div class="split-content">
+                    <h2>Other Websites</h2>
+                    <p>Explore my diverse collection of live projects.</p>
+                    <ul class="clean-list">
+                        <li><i class="fas fa-check-circle"></i> 8+ Live Projects</li>
+                        <li><i class="fas fa-check-circle"></i> Various Tech Stacks</li>
+                        <li><i class="fas fa-check-circle"></i> Constantly Updating</li>
+                    </ul>
+                    <div class="cta-text">
+                        <i class="fas fa-mouse-pointer"></i> Click card to view all
+                    </div>
+                </div>
+                <div class="split-card websites-card-bg">
+                    <div class="icon-container">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="card-badge">8 Projects</div>
+                </div>
+            </div>
+
+            <!-- Certificates Section (Split Layout - Left) -->
+            <div class="split-section animate-on-scroll slide-from-left" onclick="openCertificates()">
+                <div class="split-card certificates-card-bg">
+                    <div class="icon-container">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="card-badge">16 Certifications</div>
+                </div>
+                <div class="split-content">
+                    <h2>Professional Certifications</h2>
+                    <p>Validation of my skills and continuous learning journey.</p>
+                    <ul class="clean-list">
+                        <li><i class="fas fa-check-circle"></i> Learning & Development</li>
+                        <li><i class="fas fa-check-circle"></i> Soft Skills & Leadership</li>
+                        <li><i class="fas fa-check-circle"></i> Professional Experience</li>
+                    </ul>
+                    <div class="cta-text">
+                        <i class="fas fa-mouse-pointer"></i> Click card to view all
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills & Expertise Section -->
+    <section class="skills-section">
+        <div class="container">
+            <h2 class="section-title"><span class="title-line">My Skills & Expertise</span></h2>
+
+            <!-- Expertise Badges Grid -->
+            <div class="expertise-badges-grid">
+                <div id="btn-fullstack" class="fullstack-badge"
+                    onclick="document.getElementById('fullstackOverlay').classList.add('show'); document.body.style.overflow='hidden';"
+                    style="cursor: pointer; pointer-events: auto;">
+                    <i class="fas fa-layer-group"></i>
+                    <h3>Full Stack Developer</h3>
+                    <p>End-to-end web development expertise from frontend to backend</p>
+                    <div class="click-hint">Click to view detailed skills</div>
+                </div>
+
+                <div id="btn-cybersecurity" class="fullstack-badge cybersecurity-badge"
+                    onclick="document.getElementById('cybersecurityOverlay').classList.add('show'); document.body.style.overflow='hidden';"
+                    style="cursor: pointer; pointer-events: auto;">
+                    <i class="fas fa-shield-halved"></i>
+                    <h3>Cybersecurity Enthusiast</h3>
+                    <p>Focused on secure development and cybersecurity best practices</p>
+                    <div class="click-hint">Click to view detailed skills</div>
+                </div>
+            </div>
+
+            <!-- AI Tools Section -->
+            <div class="skills-category">
+                <h3 class="category-title"><i class="fas fa-robot"></i> AI Tools That Empower My Development</h3>
+                <p class="ai-description">These AI assistants help me understand complex concepts easily and act like
+                    the best teachers and friends, always available to guide and support my learning journey.</p>
+
+                <div class="skills-grid">
+                    <div class="skill-item viru-item" data-percent="85">
+                        <div class="skill-header">
+                            <div class="skill-info">
+                                <i class="fas fa-microchip"></i>
+                                <span class="skill-name">VIRU <span class="my-creation-badge">My Creation</span></span>
+                            </div>
+                            <span class="skill-percent">85%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-fill"></div>
+                        </div>
+                        <div class="viru-features">
+                            <span class="viru-feature"><i class="fas fa-infinity"></i> Free Forever</span>
+                            <span class="viru-feature"><i class="fas fa-lock"></i> 100% Private & Local</span>
+                            <a href="https://viru-ptif.vercel.app/" target="_blank" class="viru-link">
+                                <i class="fas fa-external-link-alt"></i> Try VIRU
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="skill-item" data-percent="75">
+                        <div class="skill-header">
+                            <div class="skill-info">
+                                <i class="fas fa-comments"></i>
+                                <span class="skill-name">ChatGPT</span>
+                            </div>
+                            <span class="skill-percent">75%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item" data-percent="70">
+                        <div class="skill-header">
+                            <div class="skill-info">
+                                <i class="fas fa-star"></i>
+                                <span class="skill-name">Gemini</span>
+                            </div>
+                            <span class="skill-percent">70%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item" data-percent="70">
+                        <div class="skill-header">
+                            <div class="skill-info">
+                                <i class="fas fa-brain"></i>
+                                <span class="skill-name">Claude Sonnet</span>
+                            </div>
+                            <span class="skill-percent">70%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item" data-percent="65">
+                        <div class="skill-header">
+                            <div class="skill-info">
+                                <i class="fas fa-code"></i>
+                                <span class="skill-name">GitHub Copilot</span>
+                            </div>
+                            <span class="skill-percent">65%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Get In Touch Section -->
+    <section class="contact-section">
+        <div class="container">
+            <h2 class="section-title"><span class="title-line">Get In Touch</span></h2>
+
+            <div class="contact-container">
+                <!-- Left Side - Laptop Mockup -->
+                <div class="contact-visual">
+                    <div class="laptop-mockup">
+                        <div class="laptop-screen">
+                            <h3 class="laptop-text">Get In Touch</h3>
+                        </div>
+                        <div class="laptop-base"></div>
+                    </div>
+
+                    <!-- Social Media Links -->
+                    <div class="social-links-container">
+                        <h4 class="social-title">Connect With Me</h4>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/in/pratham-kumar-2a4b151a7/" target="_blank"
+                                class="social-link linkedin">
+                                <i class="fab fa-linkedin"></i>
+                                <span>LinkedIn</span>
+                            </a>
+                            <a href="https://github.com/rajpratham1" target="_blank" class="social-link github">
+                                <i class="fab fa-github"></i>
+                                <span>GitHub</span>
+                            </a>
+                            <a href="https://www.facebook.com/" target="_blank" class="social-link facebook">
+                                <i class="fab fa-facebook"></i>
+                                <span>Facebook</span>
+                            </a>
+                            <a href="https://www.instagram.com/" target="_blank" class="social-link instagram">
+                                <i class="fab fa-instagram"></i>
+                                <span>Instagram</span>
+                            </a>
+                            <a href="https://x.com/" target="_blank" class="social-link twitter">
+                                <i class="fab fa-x-twitter"></i>
+                                <span>X (Twitter)</span>
+                            </a>
+                            <a href="https://wa.me/918318089403" target="_blank" class="social-link whatsapp">
+                                <i class="fab fa-whatsapp"></i>
+                                <span>WhatsApp</span>
+                            </a>
+                            <a href="mailto:rajpratham40@gmail.com" target="_blank" class="social-link gmail">
+                                <i class="fas fa-envelope"></i>
+                                <span>Gmail</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side - Contact Form -->
+                <div class="contact-form-container">
+                    <form class="contact-form" id="contactForm">
+                        <input type="hidden" name="access_key" value="bae4969a-76af-40e4-86d7-d87fcbece11e">
+                        <div class="form-group">
+                            <input type="text" name="name" class="form-input" placeholder="Your Name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-input" placeholder="Your Email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea name="message" class="form-input form-textarea"
+                                placeholder="Type your message here..." rows="6" required></textarea>
+                        </div>
+
+                        <!-- Math Captcha -->
+                        <div class="form-group"
+                            style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; border: 1px solid rgba(0,174,255,0.2);">
+                            <label style="color: #00aeff; margin-bottom: 10px; display: block; font-weight: 500;">Verify
+                                you are human:</label>
+                            <div style="display: flex; gap: 15px; align-items: center;">
+                                <span id="math-question"
+                                    style="font-size: 1.2rem; font-weight: bold; color: white; min-width: 80px;"></span>
+                                <input type="number" id="math-answer" class="form-input" placeholder="?" required
+                                    style="width: 80px; text-align: center;">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="send-btn">
+                            <span>Send</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Column 1: Explore -->
+                <div class="footer-column">
+                    <h3 class="footer-title">Explore</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="openAbout(); return false;"><i class="fas fa-user"></i> About Me</a>
+                        </li>
+                        <li><a href="#" onclick="openPublications(); return false;"><i class="fas fa-book"></i>
+                                Publications</a></li>
+                        <li><a href="#" onclick="openProjects(); return false;"><i class="fas fa-folder-open"></i>
+                                Projects</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 2: Resources -->
+                <div class="footer-column">
+                    <h3 class="footer-title">Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="openWebsites(); return false;"><i class="fas fa-globe"></i>
+                                Websites</a></li>
+                        <li><a href="#" onclick="openCertificates(); return false;"><i class="fas fa-certificate"></i>
+                                Certificates</a></li>
+                        <li><a href="raj-pratham cv.pdf" download><i class="fas fa-download"></i> Resume</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Connect -->
+                <div class="footer-column">
+                    <h3 class="footer-title" style="cursor: pointer;" onclick="openContact()">Let's Connect</h3>
+                    <div class="footer-social">
+                        <a href="https://www.linkedin.com/in/pratham-kumar-2a4b151a7/" target="_blank"
+                            class="footer-social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/rajpratham1" target="_blank" class="footer-social-link"
+                            title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://wa.me/918318089403" target="_blank" class="footer-social-link"
+                            title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="mailto:rajpratham40@gmail.com" target="_blank" class="footer-social-link"
+                            title="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <p>&copy; 2026 Pratham Kumar. All rights reserved.</p>
+            <p>Built with <i class="fas fa-heart" style="color: #e74c3c;"></i> and <i class="fas fa-coffee"
+                    style="color: #00aeff;"></i></p>
+        </div>
+        </div>
+    </footer>
+
+    <!-- ========== OVERLAYS ========== -->
+
+    <!-- Certificates Overlay -->
+    <div id="certificatesOverlay" class="projects-overlay">
+        <button class="close-btn" onclick="closeCertificates()">&times;</button>
+        <div class="projects-container">
+            <h1 class="projects-title">
+                <i class="fas fa-certificate"></i> My Certifications
+            </h1>
+
+            <!-- Tabs -->
+            <div class="cert-tabs">
+                <button class="cert-tab active" onclick="showCertTab('learning')">
+                    <i class="fas fa-graduation-cap"></i> Learning Certificates
+                </button>
+                <button class="cert-tab" onclick="showCertTab('softskills')">
+                    <i class="fas fa-users"></i> Soft Skills
+                </button>
+                <button class="cert-tab" onclick="showCertTab('working')">
+                    <i class="fas fa-briefcase"></i> Working Experience
+                </button>
+            </div>
+
+            <!-- Tab Content: Learning Certificates -->
+            <div id="cert-learning" class="cert-section active">
+                <div class="pub-grid">
+                    <!-- Excel with Copilot -->
+                    <div class="pub-card">
+                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=Excel+Copilot"
+                            alt="Excel with Copilot" class="pub-image">
+                        <div class="pub-content">
+                            <h3 class="pub-title">Excel with Copilot : AI-Driven Data Analysis</h3>
+                            <p class="pub-desc">Delighted to announce my achievement of earning Excel with Copilot
+                                certificate. #msexcel #Excelwithcopilot</p>
+                            <a href="https://lnkd.in/g47MTzS7" target="_blank" class="pub-btn"><i
+                                    class="fab fa-linkedin"></i> View Certificate</a>
+                        </div>
+                    </div>
+                    <!-- Data Analysis with Python -->
+                    <div class="pub-card">
+                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=Data+Analysis"
+                            alt="Data Analysis with Python" class="pub-image">
+                        <div class="pub-content">
+                            <h3 class="pub-title">Data Analysis with Python (IBM)</h3>
+                            <p class="pub-desc">Turning data into insights—one line of Python at a time. Proud to have
+                                completed IBM's Data Analysis with Python course!</p>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_turning-data-into-insightsone-line-of-python-activity-7318332681845387264-O16l?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn"><i class="fab fa-linkedin"></i> View Post</a>
+                        </div>
+                    </div>
+                    <!-- Intro to Web Dev -->
+                    <div class="pub-card">
+                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=Web+Dev"
+                            alt="Introduction to Web Development" class="pub-image">
+                        <div class="pub-content">
+                            <h3 class="pub-title">Introduction to Web Development</h3>
+                            <p class="pub-desc">Took the first step into the world of web development with IBM's
+                                Cognitive Class — built my first web page in just 10 minutes!</p>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_every-expert-was-once-a-beginner-took-the-activity-7318334188351377408-WZSS?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn"><i class="fab fa-linkedin"></i> View Post</a>
+                        </div>
+                    </div>
+                    <!-- Web Dev Beginners -->
+                    <div class="pub-card">
+                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=Frontend"
+                            alt="Web Development for Beginners" class="pub-image">
+                        <div class="pub-content">
+                            <h3 class="pub-title">Web Development for Beginners</h3>
+                            <p class="pub-desc">Completed the Web Development for Beginners course by LearnCode.academy
+                                on Cursa. Strengthened skills in HTML, CSS & JS.</p>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_webdevelopment-frontenddevelopment-cursa-activity-7342090003495206912-ECcU?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn"><i class="fab fa-linkedin"></i> View Post</a>
+                        </div>
+                    </div>
+                    <!-- ML with Python -->
+                    <div class="pub-card">
+                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=ML+Python"
+                            alt="Machine Learning with Python" class="pub-image">
+                        <div class="pub-content">
+                            <h3 class="pub-title">Machine Learning with Python (IBM)</h3>
+                            <p class="pub-desc">Hands-on experience with ML concepts like supervised/unsupervised
+                                learning and model evaluation using Python.</p>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_machinelearning-python-ibm-activity-7342515749904662528-fgw9?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn"><i class="fab fa-linkedin"></i> View Post</a>
+                        </div>
+                    </div>
+                    <!-- Networking -->
+                    <div class="pub-card">
+                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=Networking"
+                            alt="Networking and Web Technology" class="pub-image">
+                        <div class="pub-content">
+                            <h3 class="pub-title">Networking and Web Technology</h3>
+                            <p class="pub-desc">Infosys Springboard: Deepened understanding of networking principles and
+                                latest web technology.</p>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_networking-webtechnology-infosysspringboard-activity-7343130098574794752-ZhQy?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn"><i class="fab fa-linkedin"></i> View Post</a>
+                        </div>
+                    </div>
+                    <!-- GenAI -->
+                    <div class="pub-card">
+                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=GenAI" alt="GenAI for Professionals"
+                            class="pub-image">
+                        <div class="pub-content">
+                            <h3 class="pub-title">GenAI for Professionals</h3>
+                            <p class="pub-desc">10x Your Productivity by Luxmi Narayan on Udemy. Explored Generative AI
+                                tools to streamline workflows.</p>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_genai-productivity-artificialintelligence-activity-7343614678993915904-hIKh?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn"><i class="fab fa-linkedin"></i> View Post</a>
+                        </div>
+                    </div>
+                    <!-- Data Privacy -->
+                    <div class="pub-card">
+                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=Data+Privacy"
+                            alt="Data Privacy Control" class="pub-image">
+                        <div class="pub-content">
+                            <h3 class="pub-title">Data Privacy & User Control</h3>
+                            <p class="pub-desc">Completed the Data Privacy pathway. Understanding privacy controls and
+                                challenges is crucial in this era.</p>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_userdatacontrol-privacyfirst-professionaldevelopment-activity-7383550231596081152-Xi3Z?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn"><i class="fab fa-linkedin"></i> View Post</a>
+                        </div>
+                    </div>
+                    <!-- Software Engineering -->
+                    <div class="pub-card">
+                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=Software+Eng"
+                            alt="Advanced Software Engineering" class="pub-image">
+                        <div class="pub-content">
+                            <h3 class="pub-title">Advanced Software Engineering</h3>
+                            <p class="pub-desc">Forage Job Simulation: Worked on Data Structures, Architecture, DB
+                                Design, and Data Munging.</p>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_softwareengineering-learningjourney-forage-activity-7401939873089384449-oI7b?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn"><i class="fab fa-linkedin"></i> View Post</a>
+                        </div>
+                    </div>
+                    <!-- Certified in Cybersecurity -->
+                    <div class="pub-card">
+                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=ISC2+CC"
+                            alt="Certified in Cybersecurity" class="pub-image">
+                        <div class="pub-content">
+                            <h3 class="pub-title">Certified in Cybersecurity (CC)</h3>
+                            <p class="pub-desc">Completed CC program by ISC2. Strengthened foundation in Security
+                                Principles, Incident Response & Network Security.</p>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_cybersecurity-isc2-invertisuniversity-activity-7415050712558292992-REfN?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn"><i class="fab fa-linkedin"></i> View Post</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Soft Skills -->
+            <div id="cert-softskills" class="cert-section">
+                <div class="pub-grid">
+                    <!-- Job Fest -->
+                    <div class="pub-card">
+                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=Job+Fest" alt="Job Fest"
+                            class="pub-image">
+                        <div class="pub-content">
+                            <h3 class="pub-title">Empowering Job Seekers</h3>
+                            <p class="pub-desc">Dedicated my day to empowering job seekers at the job fest organized in
+                                Invertis University with CTPL.</p>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_hello-connections-dedicated-my-day-to-empowering-activity-7196390435899031553-zaKy?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn"><i class="fab fa-linkedin"></i> View Post</a>
+                        </div>
+                    </div>
+                    <!-- Discipline Coordinator -->
+                    <div class="pub-card">
+                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=Coordinator"
+                            alt="Discipline Coordinator" class="pub-image">
+                        <div class="pub-content">
+                            <h3 class="pub-title">Discipline Coordinator</h3>
+                            <p class="pub-desc">Certificate of Appreciation from Invertis University for fulfilling
+                                responsibilities as Discipline Coordinator 2024–2025.</p>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_disciplinecoordinator-leadershipjourney-certificateofappreciation-activity-7341817788568653825-R-LW?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn"><i class="fab fa-linkedin"></i> View Post</a>
+                        </div>
+                    </div>
+                    <!-- Communication Skills -->
+                    <div class="pub-card">
+                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=Communication"
+                            alt="Communication Skills" class="pub-image">
+                        <div class="pub-content">
+                            <h3 class="pub-title">Communication Skills (TCS iON)</h3>
+                            <p class="pub-desc">Completed Communication Skills course designed to strengthen effective
+                                communication for professional growth.</p>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_tcsion-communicationskills-certificateofachievement-activity-7342831728337612800-ZMQ-?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn"><i class="fab fa-linkedin"></i> View Post</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Working Experience -->
+            <div id="cert-working" class="cert-section">
+                <div class="pub-grid">
+                    <!-- Android Internship -->
+                    <div class="pub-card">
+                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=Android+Dev"
+                            alt="Android Developer Internship" class="pub-image">
+                        <div class="pub-content">
+                            <h3 class="pub-title">Android Developer Virtual Internship</h3>
+                            <p class="pub-desc">10-week internship under AICTE-EduSkills & Google. Worked on real-world
+                                projects and fundamentals of Android dev.</p>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_androiddevelopment-googlefordevelopers-eduskills-activity-7341730129322131456-rV3C?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn"><i class="fab fa-linkedin"></i> View Post</a>
+                        </div>
+                    </div>
+                    <!-- Web Dev Internship -->
+                    <div class="pub-card">
+                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=Web+Intern"
+                            alt="Web Development Internship" class="pub-image">
+                        <div class="pub-content">
+                            <h3 class="pub-title">Web Development Virtual Internship</h3>
+                            <p class="pub-desc">4-week internship at CodSoft. Enhanced skills in HTML, CSS, JS,
+                                responsive design, and deployment.</p>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_webdevelopment-internshipcompletion-codsoft-activity-7355621630854795267-KQp8?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn"><i class="fab fa-linkedin"></i> View Post</a>
+                        </div>
+                    </div>
+                    <!-- HackBhoomi -->
+                    <div class="pub-card">
+                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=Hackathon" alt="HackBhoomi Hackathon"
+                            class="pub-image">
+                        <div class="pub-content">
+                            <h3 class="pub-title">HackBhoomi Hackathon 2025</h3>
+                            <p class="pub-desc">Secured 4th rank with team. Worked as Team Leader on Backend,
+                                Integration, and Deployment.</p>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_hackbhoomi-smartindiahackathon-backenddevelopment-activity-7376190388509986816-v0jS?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn"><i class="fab fa-linkedin"></i> View Post</a>
+                        </div>
+                    </div>
+                    <!-- AI-ML Internship -->
+                    <div class="pub-card">
+                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=AI+ML" alt="AI-ML Internship"
+                            class="pub-image">
+                        <div class="pub-content">
+                            <h3 class="pub-title">AI-ML Virtual Internship</h3>
+                            <p class="pub-desc">10-week internship by AICTE-EduSkills. Building ML models, Python data
+                                analysis, and core AI concepts.</p>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_certified-in-ai-ml-aicte-x-eduskills-activity-7392548543561072640-qxef?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn"><i class="fab fa-linkedin"></i> View Post</a>
+                        </div>
+                    </div>
+                    <!-- BilloraX Internship -->
+                    <div class="pub-card">
+                        <img src="https://placehold.co/600x400/1e1e1e/00aeff?text=BilloraX" alt="BilloraX Internship"
+                            class="pub-image">
+                        <div class="pub-content">
+                            <h3 class="pub-title">BilloraX Internship Launch</h3>
+                            <p class="pub-desc">Announced launch of internship opportunities at BilloraX to support
+                                young talent with real-world projects.</p>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_billorax-internshipopportunity-fullstackdeveloper-activity-7408138246700003328-ZoYo?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn"><i class="fab fa-linkedin"></i> View Post</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LinkedIn Footer -->
+            <div class="overlay-footer">
+                <div class="linkedin-card">
+                    <div class="linkedin-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <div class="linkedin-content">
+                        <h3>Connect With Me on LinkedIn</h3>
+                        <p>Check out my professional journey, projects, and achievements</p>
+                        <a href="https://www.linkedin.com/in/pratham-kumar-2a4b151a7/" target="_blank"
+                            class="linkedin-btn">
+                            <i class="fab fa-linkedin"></i>
+                            Visit My LinkedIn Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Websites Overlay -->
+    <div id="websitesOverlay" class="projects-overlay">
+        <button class="close-btn" onclick="closeWebsites()">&times;</button>
+        <div class="projects-container">
+            <h1 class="projects-title">
+                <i class="fas fa-globe"></i> My Live Websites
+            </h1>
+            <div id="websitesList">
+                <!-- Aether Tools -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <img src="assets/images/mywebsite-Aether Tools.jpg.png" alt="Aether Tools"
+                            onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Aether+Tools'">
+                        <div class="project-info">
+                            <h3>Aether Tools</h3>
+                            <p>Check air condition, date, time, stopwatch/alarm with real-time API integration. A
+                                comprehensive dashboard for daily utilities.</p>
+                            <div class="tech-stack">
+                                <span>Full Stack</span><span>API</span><span>User Auth</span><span>Weather API</span>
+                            </div>
+                            <div class="project-buttons">
+                                <a href="https://rajpratham1.github.io/Aether-Tools/" target="_blank"
+                                    class="project-link primary">Visit Site <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Auto Portfolio -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <img src="assets/images/AutoPortfolio.png" alt="Auto Portfolio"
+                            onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Auto+Portfolio'">
+                        <div class="project-info">
+                            <h3>Auto Portfolio</h3>
+                            <p>An instant portfolio generator built with Next.js and Firebase. Create and deploy a
+                                professional portfolio in minutes with real-time updates.</p>
+                            <div class="tech-stack">
+                                <span>Next.js</span><span>Firebase</span><span>Full Stack</span><span>Databases</span>
+                            </div>
+                            <div class="project-buttons">
+                                <a href="https://auto-portfolio-ufmx.vercel.app/" target="_blank"
+                                    class="project-link primary">Visit Site <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- EduScheduler -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <img src="assets/images/EduScheduler.png" alt="EduScheduler"
+                            onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=EduScheduler'">
+                        <div class="project-info">
+                            <h3>EduScheduler</h3>
+                            <p>EduScheduler is a web-based application that manages School digitally. Features include
+                                automated schedule generation, class management, and teacher assignments.</p>
+                            <div class="tech-stack">
+                                <span>Full Stack</span><span>Schedule
+                                    Generator</span><span>JavaScript</span><span>Database</span>
+                            </div>
+                            <div class="project-buttons">
+                                <a href="https://edu-scheduler.onrender.com/" target="_blank"
+                                    class="project-link primary">Visit Site <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Health Care -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <img src="assets/images/mywebsite-healthcare.jpg.png" alt="Health Care"
+                            onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Health+Care'">
+                        <div class="project-info">
+                            <h3>Health Care</h3>
+                            <p>Web app providing health analysis, personalized routines, and connecting users with
+                                doctors. Includes health monitoring and consultation booking.</p>
+                            <div class="tech-stack">
+                                <span>Health Tech</span><span>APIs</span><span>JavaScript</span><span>Full Stack</span>
+                            </div>
+                            <div class="project-buttons">
+                                <a href="https://v0-new-project-j2bgprzpxzm.vercel.app/" target="_blank"
+                                    class="project-link primary">Visit Site <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Campus Clash -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <img src="assets/images/mywebsite-campusclash.jpg.png" alt="Campus Clash"
+                            onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Campus+Clash'">
+                        <div class="project-info">
+                            <h3>Campus Clash</h3>
+                            <p>Gaming site featuring interactive quizzes, a creative meme generator, and a competitive
+                                speed typing challenge. Built for college students.</p>
+                            <div class="tech-stack">
+                                <span>Gamification</span><span>JavaScript</span><span>HTML/CSS</span><span>Game
+                                    Engine</span>
+                            </div>
+                            <div class="project-buttons">
+                                <a href="https://v0-campus-clash-game.vercel.app/" target="_blank"
+                                    class="project-link primary">Visit Site <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- AI Maze -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <img src="assets/images/mywebsite-aimaze.jpg.png" alt="AI Maze"
+                            onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=AI+Maze'">
+                        <div class="project-info">
+                            <h3>AI Maze</h3>
+                            <p>Intelligent quiz platform powered by AI, covering multiple subjects. Features adaptive
+                                difficulty and personalized learning paths.</p>
+                            <div class="tech-stack">
+                                <span>AI Integration</span><span>JavaScript</span><span>APIs</span><span>Machine
+                                    Learning</span>
+                            </div>
+                            <div class="project-buttons">
+                                <a href="https://v0-new-project-ypz7qhvhpwv.vercel.app/" target="_blank"
+                                    class="project-link primary">Visit Site <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Search-GPT -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <img src="assets/images/mywebsite-searchgpt.jpg.png" alt="Search-GPT"
+                            onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Search-GPT'">
+                        <div class="project-info">
+                            <h3>Search-GPT</h3>
+                            <p>My first website not fully working condition, but includes tools like calculator and a
+                                game. A learning journey in web development.</p>
+                            <div class="tech-stack">
+                                <span>Fun</span><span>JavaScript</span><span>APIs</span><span>Basic Web</span>
+                            </div>
+                            <div class="project-buttons">
+                                <a href="https://rajpratham1.github.io/Search-GPT/" target="_blank"
+                                    class="project-link primary">Visit Site <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- WebFolio -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <img src="assets/images/mywebsite-WebFolio.jpg.png" alt="WebFolio"
+                            onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=WebFolio'">
+                        <div class="project-info">
+                            <h3>WebFolio</h3>
+                            <p>Website for developing custom websites and professional resumes. Offers templates,
+                                customization tools, and export functionality.</p>
+                            <div class="tech-stack">
+                                <span>Full Stack</span><span>API</span><span>User Auth</span><span>Templates</span>
+                            </div>
+                            <div class="project-buttons">
+                                <a href="https://rajpratham1.github.io/WebFolio/" target="_blank"
+                                    class="project-link primary">Visit Site <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GitHub Footer -->
+            <div class="overlay-footer">
+                <div class="github-card">
+                    <div class="github-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <div class="github-content">
+                        <h3>Check Out My Code</h3>
+                        <p>You can check all code from here</p>
+                        <a href="https://github.com/rajpratham1" target="_blank" class="github-btn">
+                            <i class="fab fa-github"></i>
+                            Visit GitHub Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects Overlay -->
+    <div id="projectsOverlay" class="projects-overlay">
+        <button class="close-btn" onclick="closeProjects()">&times;</button>
+        <div class="projects-container">
+            <h1 class="projects-title">
+                <i class="fas fa-rocket"></i> My Projects
+            </h1>
+            <div id="projectsList">
+                <!-- Smoke Detector Sensor -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <img src="assets/images/project-smoke.jpg.jpg" alt="Smoke Detector Sensor"
+                            onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Smoke+Detector'">
+                        <div class="project-info">
+                            <div
+                                style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                                <h3>Smoke Detector Sensor</h3>
+                                <span class="badge lead">Team Lead</span>
+                            </div>
+                            <p>A comprehensive fire safety solution using advanced sensor technology. This IoT-based
+                                system provides real-time smoke detection and alerts to prevent fire hazards.</p>
+                            <div class="tech-stack">
+                                <span>Arduino</span><span>IoT</span><span>C++</span><span>Safety Systems</span>
+                            </div>
+                            <div class="project-buttons">
+                                <a href="assets/documents/Smoke detector sensor.pdf" target="_blank"
+                                    class="project-link primary"><i class="fas fa-file-powerpoint"></i> View
+                                    Presentation</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Retail Sales Analytics -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <img src="assets/images/retailsales.jpg.png" alt="Retail Sales Analytics"
+                            onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Retail+Analytics'">
+                        <div class="project-info">
+                            <div
+                                style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                                <h3>Retail Sales Analytics</h3>
+                                <span class="badge current">Current</span>
+                            </div>
+                            <p>A powerful data analysis project using machine learning to predict sales trends and
+                                optimize inventory management. Implements linear regression models.</p>
+                            <div class="tech-stack">
+                                <span>Python</span><span>Pandas</span><span>Scikit-learn</span><span>Data
+                                    Visualization</span><span>ML</span>
+                            </div>
+                            <div class="project-buttons">
+                                <a href="assets/documents/Retail-Sales_Analytics.pdf" target="_blank"
+                                    class="project-link primary"><i class="fas fa-file-powerpoint"></i> View
+                                    Presentation</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Smart Agriculture System -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <img src="assets/images/project-smartagriculture.jpg.webp" alt="Smart Agriculture System"
+                            onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Smart+Agriculture'">
+                        <div class="project-info">
+                            <div
+                                style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                                <h3>Smart Agriculture System</h3>
+                            </div>
+                            <p>An IoT-based agricultural solution that monitors environmental conditions and automates
+                                farming processes. Features include soil moisture monitoring.</p>
+                            <div class="tech-stack">
+                                <span>Raspberry
+                                    Pi</span><span>Python</span><span>IoT</span><span>Sensors</span><span>Automation</span>
+                            </div>
+                            <div class="project-buttons">
+                                <a href="assets/documents/Smart Agriculture (2).pdf" target="_blank"
+                                    class="project-link primary"><i class="fas fa-file-powerpoint"></i> View
+                                    Presentation</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="projects-grid" id="projectsList"></div>
+
+                    <!-- Full Stack Skills Overlay -->
+                    <div id="fullstackOverlay" class="projects-overlay">
+                        <button class="close-btn" onclick="closeFullStackSkills()">&times;</button>
+                        <div class="projects-container">
+                            <h1 class="projects-title">
+                                <i class="fas fa-layer-group"></i> Full Stack Development Skills
+                            </h1>
+
+                            <div class="skills-overlay-grid">
+                                <div class="skills-category">
+                                    <h3 class="category-title"><i class="fas fa-paint-brush"></i> Frontend Development
+                                    </h3>
+                                    <div id="fullstackFrontendSkills">
+                                        <!-- HTML5 -->
+                                        <div class="skill-card">
+                                            <div class="skill-icon-box"><i class="fab fa-html5"></i></div>
+                                            <div class="skill-info-box">
+                                                <h4>HTML5</h4>
+                                                <div class="skill-bar-container">
+                                                    <div class="skill-bar-fill" style="width: 80%;"></div>
+                                                </div>
+                                                <span class="skill-percentage">80%</span>
+                                            </div>
+                                        </div>
+                                        <!-- CSS3 -->
+                                        <div class="skill-card">
+                                            <div class="skill-icon-box"><i class="fab fa-css3-alt"></i></div>
+                                            <div class="skill-info-box">
+                                                <h4>CSS3</h4>
+                                                <div class="skill-bar-container">
+                                                    <div class="skill-bar-fill" style="width: 75%;"></div>
+                                                </div>
+                                                <span class="skill-percentage">75%</span>
+                                            </div>
+                                        </div>
+                                        <!-- JavaScript -->
+                                        <div class="skill-card">
+                                            <div class="skill-icon-box"><i class="fab fa-js"></i></div>
+                                            <div class="skill-info-box">
+                                                <h4>JavaScript</h4>
+                                                <div class="skill-bar-container">
+                                                    <div class="skill-bar-fill" style="width: 78%;"></div>
+                                                </div>
+                                                <span class="skill-percentage">78%</span>
+                                            </div>
+                                        </div>
+                                        <!-- React -->
+                                        <div class="skill-card">
+                                            <div class="skill-icon-box"><i class="fab fa-react"></i></div>
+                                            <div class="skill-info-box">
+                                                <h4>React.js</h4>
+                                                <div class="skill-bar-container">
+                                                    <div class="skill-bar-fill" style="width: 72%;"></div>
+                                                </div>
+                                                <span class="skill-percentage">72%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="skills-category">
+                                    <h3 class="category-title"><i class="fas fa-server"></i> Backend Development</h3>
+                                    <div id="fullstackBackendSkills">
+                                        <!-- Node.js -->
+                                        <div class="skill-card">
+                                            <div class="skill-icon-box"><i class="fab fa-node-js"></i></div>
+                                            <div class="skill-info-box">
+                                                <h4>Node.js</h4>
+                                                <div class="skill-bar-container">
+                                                    <div class="skill-bar-fill" style="width: 74%;"></div>
+                                                </div>
+                                                <span class="skill-percentage">74%</span>
+                                            </div>
+                                        </div>
+                                        <!-- Express -->
+                                        <div class="skill-card">
+                                            <div class="skill-icon-box"><i class="fas fa-server"></i></div>
+                                            <div class="skill-info-box">
+                                                <h4>Express.js</h4>
+                                                <div class="skill-bar-container">
+                                                    <div class="skill-bar-fill" style="width: 70%;"></div>
+                                                </div>
+                                                <span class="skill-percentage">70%</span>
+                                            </div>
+                                        </div>
+                                        <!-- MongoDB -->
+                                        <div class="skill-card">
+                                            <div class="skill-icon-box"><i class="fas fa-database"></i></div>
+                                            <div class="skill-info-box">
+                                                <h4>MongoDB</h4>
+                                                <div class="skill-bar-container">
+                                                    <div class="skill-bar-fill" style="width: 76%;"></div>
+                                                </div>
+                                                <span class="skill-percentage">76%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="skills-category">
+                                    <h3 class="category-title"><i class="fas fa-tools"></i> Development Tools</h3>
+                                    <div id="fullstackToolsSkills">
+                                        <!-- Git -->
+                                        <div class="skill-card">
+                                            <div class="skill-icon-box"><i class="fab fa-git-alt"></i></div>
+                                            <div class="skill-info-box">
+                                                <h4>Git</h4>
+                                                <div class="skill-bar-container">
+                                                    <div class="skill-bar-fill" style="width: 77%;"></div>
+                                                </div>
+                                                <span class="skill-percentage">77%</span>
+                                            </div>
+                                        </div>
+                                        <!-- VS Code -->
+                                        <div class="skill-card">
+                                            <div class="skill-icon-box"><i class="fas fa-code"></i></div>
+                                            <div class="skill-info-box">
+                                                <h4>VS Code</h4>
+                                                <div class="skill-bar-container">
+                                                    <div class="skill-bar-fill" style="width: 79%;"></div>
+                                                </div>
+                                                <span class="skill-percentage">79%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cybersecurity Skills Overlay -->
+                    <div id="cybersecurityOverlay" class="projects-overlay">
+                        <button class="close-btn" onclick="closeCybersecuritySkills()">&times;</button>
+                        <div class="projects-container">
+                            <h1 class="projects-title">
+                                <i class="fas fa-shield-halved"></i> Cybersecurity & Security Skills
+                            </h1>
+                            <p
+                                style="color: var(--text-secondary); margin-bottom: 30px; line-height: 1.6; border-left: 3px solid #00aeff; padding-left: 15px;">
+                                <strong style="color: #fff;">Certified in Cybersecurity (CC) by ISC2</strong><br>
+                                I have successfully completed the CC program, strengthening my foundation in key
+                                security domains including
+                                Security Principles, Incident Response, Access Control, Network Security, and Security
+                                Operations.
+                            </p>
+
+
+                            <div class="skills-overlay-grid">
+                                <div class="skills-category">
+                                    <h3 class="category-title"><i class="fas fa-shield-halved"></i> Core Security
+                                        Domains</h3>
+                                    <div id="cybersecurityCoreSkills">
+                                        <!-- Security Principles -->
+                                        <div class="skill-card">
+                                            <div class="skill-icon-box"><i class="fas fa-book-shield"></i></div>
+                                            <div class="skill-info-box">
+                                                <h4>Security Principles</h4>
+                                                <div class="skill-bar-container">
+                                                    <div class="skill-bar-fill" style="width: 65%;"></div>
+                                                </div>
+                                                <span class="skill-percentage">65%</span>
+                                            </div>
+                                        </div>
+                                        <!-- Incident Response, BC & DR -->
+                                        <div class="skill-card">
+                                            <div class="skill-icon-box"><i class="fas fa-file-medical-alt"></i></div>
+                                            <div class="skill-info-box">
+                                                <h4>Incident Response, BC & DR</h4>
+                                                <div class="skill-bar-container">
+                                                    <div class="skill-bar-fill" style="width: 62%;"></div>
+                                                </div>
+                                                <span class="skill-percentage">62%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="skills-category">
+                                    <h3 class="category-title"><i class="fas fa-bell"></i> Operations & Access Control
+                                    </h3>
+                                    <div id="cybersecurityOperationsSkills">
+                                        <!-- Security Operations -->
+                                        <div class="skill-card">
+                                            <div class="skill-icon-box"><i class="fas fa-cogs"></i></div>
+                                            <div class="skill-info-box">
+                                                <h4>Security Operations</h4>
+                                                <div class="skill-bar-container">
+                                                    <div class="skill-bar-fill" style="width: 60%;"></div>
+                                                </div>
+                                                <span class="skill-percentage">60%</span>
+                                            </div>
+                                        </div>
+                                        <!-- Access Control Concepts -->
+                                        <div class="skill-card">
+                                            <div class="skill-icon-box"><i class="fas fa-id-card-alt"></i></div>
+                                            <div class="skill-info-box">
+                                                <h4>Access Control Concepts</h4>
+                                                <div class="skill-bar-container">
+                                                    <div class="skill-bar-fill" style="width: 64%;"></div>
+                                                </div>
+                                                <span class="skill-percentage">64%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="skills-category">
+                                    <h3 class="category-title"><i class="fas fa-network-wired"></i> Network Security
+                                    </h3>
+                                    <div id="cybersecurityNetworkSkills">
+                                        <!-- Network Security -->
+                                        <div class="skill-card">
+                                            <div class="skill-icon-box"><i class="fas fa-wifi"></i></div>
+                                            <div class="skill-info-box">
+                                                <h4>Network Security</h4>
+                                                <div class="skill-bar-container">
+                                                    <div class="skill-bar-fill" style="width: 63%;"></div>
+                                                </div>
+                                                <span class="skill-percentage">63%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- About Me Overlay -->
+                    <div id="aboutOverlay" class="projects-overlay">
+                        <button class="close-btn" onclick="closeAbout()">&times;</button>
+                        <div class="projects-container">
+                            <h1 class="projects-title"><i class="fas fa-user-circle"></i> About Me</h1>
+                            <div class="about-overlay-content">
+                                <p class="about-intro">I am a passionate <strong>Full-Stack Developer</strong> and a
+                                    <strong>Quick
+                                        Learner</strong> who believes that the best way to master technology is by
+                                    building it.
+                                </p>
+
+                                <div class="about-grid">
+                                    <!-- Card 1: Innovation -->
+                                    <div class="about-card">
+                                        <div class="about-icon-container">
+                                            <i class="fas fa-sync-alt spin"></i>
+                                        </div>
+                                        <h3>Full Stack & Innovation</h3>
+                                        <p>I don't just write code; I architect scalable solutions. My expertise spans
+                                            the entire
+                                            development lifecycle:</p>
+                                        <ul class="clean-list" style="margin-top: 15px; text-align: left;">
+                                            <li><i class="fas fa-code"></i> <strong>Frontend:</strong> React, Next.js,
+                                                Tailwind,
+                                                Glassmorphism UI</li>
+                                            <li><i class="fas fa-server"></i> <strong>Backend:</strong> Node.js, Python,
+                                                Supabase,
+                                                SQL
+                                            </li>
+                                            <li><i class="fas fa-brain"></i> <strong>AI Integration:</strong> LLMs,
+                                                Automation,
+                                                Smart
+                                                Agents</li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Card 2: Security -->
+                                    <div class="about-card">
+                                        <div class="about-icon-container">
+                                            <i class="fas fa-user-shield pulse"></i>
+                                        </div>
+                                        <h3>Cyber Security Focus</h3>
+                                        <p>Transitioning from "working" apps to "unbreakable" apps. My security journey
+                                            includes:
+                                        </p>
+                                        <ul class="clean-list" style="margin-top: 15px; text-align: left;">
+                                            <li><i class="fas fa-bug"></i> <strong>Vulnerability Assessment:</strong>
+                                                Identifying
+                                                weak
+                                                points.</li>
+                                            <li><i class="fas fa-lock"></i> <strong>Secure Coding:</strong> OWASP Top 10
+                                                mitigation.
+                                            </li>
+                                            <li><i class="fas fa-certificate"></i> <strong>Certifications:</strong>
+                                                Pursuing
+                                                advanced
+                                                CyberSec credentials.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="about-footer-text">
+                                    <p>I leverage the power of advanced AI models to accelerate my development. By
+                                        integrating AI
+                                        into
+                                        my workflow, I save time on boilerplate and focus entirely on complex logic and
+                                        system
+                                        architecture.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Publications Overlay -->
+                    <div id="publicationsOverlay" class="projects-overlay">
+                        <button class="close-btn" onclick="closePublications()">&times;</button>
+                        <div class="projects-container">
+                            <h1 class="projects-title"><i class="fas fa-book-open"></i> My Publications</h1>
+                            <div class="pub-grid">
+                                <!-- Book 1 -->
+                                <div class="pub-card">
+                                    <img src="assets/images/The Pythonic Journey.png" alt="The Pythonic Journey"
+                                        class="pub-image" loading="lazy"
+                                        onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Python+Book'">
+                                    <div class="pub-content">
+                                        <h3 class="pub-title">The Pythonic Journey</h3>
+                                        <p class="pub-desc">A beginner's guide to mastering Python and building
+                                            real-world projects.
+                                            Perfect for those starting their coding journey.</p>
+                                        <a href="https://rajpratham1.github.io/THE-PYTHONIC-JOURNEY/The_Pythonic_Journey.pdf"
+                                            target="_blank" class="pub-btn">
+                                            <i class="fas fa-file-pdf"></i> Read Book
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- Book 2 -->
+                                <div class="pub-card">
+                                    <img src="assets/images/Radha rani.jpg" alt="Radhashruti (Hindi)" class="pub-image"
+                                        loading="lazy"
+                                        onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Book'">
+                                    <div class="pub-content">
+                                        <h3 class="pub-title">राधाश्रुति (Hindi)</h3>
+                                        <p class="pub-desc">A unique saga of Radha and Krishna's divine love, devotion,
+                                            and
+                                            separation,
+                                            explored through a spiritual lens.</p>
+                                        <a href="https://rajpratham1.github.io/Radhashruti/Radhashruti.pdf"
+                                            target="_blank" class="pub-btn">
+                                            <i class="fas fa-file-pdf"></i> Read Book
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- Book 3 -->
+                                <div class="pub-card">
+                                    <img src="assets/images/Radhajie.jpg" alt="Radhashruti (English)" class="pub-image"
+                                        loading="lazy"
+                                        onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Book'">
+                                    <div class="pub-content">
+                                        <h3 class="pub-title">Radhashruti (English)</h3>
+                                        <p class="pub-desc">The English translation of Radhashruti, detailing the
+                                            spiritual
+                                            transformation of Radha through love, devotion, and sacrifice.</p>
+                                        <a href="https://rajpratham1.github.io/Radhashruti1-1-/Radhashruti1%5B1%5D.pdf"
+                                            target="_blank" class="pub-btn">
+                                            <i class="fas fa-file-pdf"></i> Read Book
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Overlay -->
+                    <div id="contactOverlay" class="projects-overlay">
+                        <button class="close-btn" onclick="closeContact()">&times;</button>
+                        <div class="projects-container">
+                            <h1 class="projects-title"><i class="fas fa-address-card"></i> Connect With Me</h1>
+                            <div class="contact-scroll-container">
+
+                                <!-- LinkedIn Card -->
+                                <div class="contact-card">
+                                    <div class="contact-card-content">
+                                        <img src="assets/images/linkdin.png" alt="LinkedIn" loading="lazy"
+                                            onerror="this.style.display='none'">
+                                        <div class="contact-card-text">
+                                            <h3>LinkedIn</h3>
+                                            <p>Let's connect professionally! Check out my career journey, endorsements,
+                                                projects,
+                                                and
+                                                latest achievements. I regularly share insights on Full Stack
+                                                Development and
+                                                Cybersecurity.</p>
+                                            <a href="https://www.linkedin.com/in/pratham-kumar-2a4b151a7/"
+                                                target="_blank" class="contact-card-btn">Connect on LinkedIn</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- GitHub Card -->
+                                <div class="contact-card">
+                                    <div class="contact-card-content">
+                                        <img src="assets/images/github.png" alt="GitHub" loading="lazy"
+                                            onerror="this.style.display='none'">
+                                        <div class="contact-card-text">
+                                            <h3>GitHub</h3>
+                                            <p>Dive into my code! Explore my open-source repositories, personal
+                                                projects, and
+                                                contributions. I believe in transparent, collaborative development.</p>
+                                            <a href="https://github.com/rajpratham1" target="_blank"
+                                                class="contact-card-btn">Follow
+                                                on
+                                                GitHub</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- X (Twitter) Card -->
+                                <div class="contact-card">
+                                    <div class="contact-card-content">
+                                        <img src="assets/images/x.png" alt="X (Twitter)" loading="lazy"
+                                            onerror="this.style.display='none'">
+                                        <div class="contact-card-text">
+                                            <h3>X (Twitter)</h3>
+                                            <p>Follow me for daily tech updates, industry news, and quick thoughts on
+                                                the latest
+                                                trends
+                                                in AI and Software Engineering. Let's start a conversation!</p>
+                                            <a href="https://x.com/" target="_blank" class="contact-card-btn">Follow on
+                                                X</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Instagram Card -->
+                                <div class="contact-card">
+                                    <div class="contact-card-content">
+                                        <img src="assets/images/insta.jpeg" alt="Instagram" loading="lazy"
+                                            onerror="this.style.display='none'">
+                                        <div class="contact-card-text">
+                                            <h3>Instagram</h3>
+                                            <p>Get a glimpse of the person behind the code. I share moments from my
+                                                life, travels,
+                                                hobbies, and the lighter side of being a developer.</p>
+                                            <a href="https://www.instagram.com/" target="_blank"
+                                                class="contact-card-btn">Follow on
+                                                Instagram</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Facebook Card -->
+                                <div class="contact-card">
+                                    <div class="contact-card-content">
+                                        <img src="assets/images/facebook.jpeg" alt="Facebook" loading="lazy"
+                                            onerror="this.style.display='none'">
+                                        <div class="contact-card-text">
+                                            <h3>Facebook</h3>
+                                            <p>Stay in touch! A space for friends, family, and extended network to
+                                                connect and share
+                                                memorable life moments.</p>
+                                            <a href="https://www.facebook.com/" target="_blank"
+                                                class="contact-card-btn">Add
+                                                Friend</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- WhatsApp Card -->
+                                <div class="contact-card">
+                                    <div class="contact-card-content">
+                                        <i class="fab fa-whatsapp large-icon"></i>
+                                        <div class="contact-card-text">
+                                            <h3>WhatsApp</h3>
+                                            <p>Direct & instant messaging. Feel free to reach out for quick queries,
+                                                collaboration
+                                                discussions, or just to say hi!</p>
+                                            <a href="https://wa.me/918318089403" target="_blank"
+                                                class="contact-card-btn"
+                                                style="background: linear-gradient(90deg, #25D366, #128C7E);">Chat on
+                                                WhatsApp</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Gmail Card -->
+                                <div class="contact-card">
+                                    <div class="contact-card-content">
+                                        <i class="fas fa-envelope large-icon"></i>
+                                        <div class="contact-card-text">
+                                            <h3>Gmail</h3>
+                                            <p>Prefer email? Send me a detailed message about your project, job
+                                                opportunity, or
+                                                inquiry.
+                                                I typically respond within 24 hours.</p>
+                                            <a href="mailto:rajpratham40@gmail.com" target="_blank"
+                                                class="contact-card-btn"
+                                                style="background: linear-gradient(90deg, #EA4335, #D44638);">Send
+                                                Email</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Additional Contact Info -->
+                            <div class="overlay-footer">
+                                <p
+                                    style="text-align: center; color: var(--secondary-text); margin-top: 3rem; font-size: 1.1rem;">
+                                    <i class="fas fa-envelope"></i> rajpratham40@gmail.com &nbsp;|&nbsp; <i
+                                        class="fas fa-phone"></i>
+                                    +91 831-808-9403
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom Cursor -->
+                    <div class="cursor-dot" data-cursor-dot></div>
+                    <div class="cursor-outline" data-cursor-outline></div>
+
+                    <script src="script.js"></script>
+</body>
+
+</html>
