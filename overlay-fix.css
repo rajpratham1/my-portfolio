@@ -415,6 +415,70 @@
     border-color: #ff4757;
 }
 
-.cybersecurity-badge .click-hint {
-    color: #ff4757;
+
+/* Contact Card Styles - Forced Priority */
+.contact-scroll-container {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+    gap: 25px !important;
+    width: 100% !important;
+    padding: 20px 0 !important;
+}
+
+.contact-card {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 15px !important;
+    padding: 25px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    position: relative !important;
+    overflow: hidden !important;
+    backdrop-filter: blur(10px) !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.contact-card:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    transform: translateY(-5px) !important;
+    border-color: rgba(0, 174, 255, 0.3) !important;
+}
+
+.contact-card-content {
+    display: flex !important;
+    gap: 20px !important;
+    align-items: flex-start !important;
+}
+
+.contact-card-content img {
+    width: 60px !important;
+    height: 60px !important;
+    object-fit: contain !important;
+    display: block !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    padding: 5px !important;
+    border-radius: 10px !important;
+}
+
+.contact-card-text h3 {
+    font-size: 1.3rem !important;
+    color: #fff !important;
+    margin-bottom: 8px !important;
+}
+
+.contact-card-text p {
+    font-size: 0.9rem !important;
+    color: var(--text-secondary) !important;
+    margin-bottom: 15px !important;
+}
+
+.contact-card-btn {
+    display: inline-block !important;
+    padding: 8px 16px !important;
+    background: rgba(0, 174, 255, 0.1) !important;
+    color: #00aeff !important;
+    border: 1px solid rgba(0, 174, 255, 0.3) !important;
+    border-radius: 20px !important;
+    text-decoration: none !important;
 }
