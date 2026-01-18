@@ -6,17 +6,16 @@
 
 A premium, **Cybersecurity-themed** portfolio website featuring modern glassmorphism UI, interactive animations, and adaptive layouts optimized for all devices.
 
----
 
-## ✨ Features
+ ✨ Features
 
-### 🎨 Design & UI
+ 🎨 Design & UI
 - **Glassmorphism Effects** - Frosted glass cards with backdrop blur
 - **Dark Cyber Theme** - Navy/black with neon cyan/blue accents
 - **Animated Gradient Text** - Flowing gradients on headings
 - **Hover Glow Effects** - Cyan glow on interactive elements
 
-### 🎬 Animations & Effects
+ 🎬 Animations & Effects
 - **Page Loader** - Animated logo with progress bar
 - **Scroll Progress Bar** - Visual scroll position indicator
 - **3D Card Tilt** - Mouse-following 3D perspective on cards
