@@ -93,6 +93,9 @@
     <link rel="stylesheet" href="hire-me.css">
     <link rel="stylesheet" href="overlay-fix.css">
     <link rel="stylesheet" href="mobile-fixes.css">
+    <link rel="stylesheet" href="ai-tools-fix.css">
+    <link rel="stylesheet" href="security-sections.css">
+    <link rel="stylesheet" href="project-details.css">
 </head>
 
 <body>
@@ -113,9 +116,6 @@
                         class="fas fa-certificate"></i> Certificates</a>
                 <a href="assets/documents/raj-pratham cv.pdf" download class="nav-link"><i class="fas fa-file-pdf"></i>
                     Resume</a>
-                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
-                    <i class="fas fa-moon"></i>
-                </button>
             </nav>
 
             <!-- Mobile Menu Toggle -->
@@ -135,9 +135,6 @@
                     class="fas fa-certificate"></i> Certificates</a>
             <a href="assets/documents/raj-pratham cv.pdf" download class="nav-link"><i class="fas fa-file-pdf"></i>
                 Resume</a>
-            <button class="theme-toggle-mobile" onclick="toggleTheme()">
-                <i class="fas fa-moon"></i> Toggle Theme
-            </button>
         </nav>
     </header>
 
@@ -150,8 +147,8 @@
                 <p class="subtitle-wrapper">I am a <span id="primary-typing"></span><span class="typing-cursor"></span>
                 </p>
                 <p class="about-me">I'm a passionate Full-Stack Developer and quick learner who constantly builds new
-                    projects, focuses on secure and resilient development, and leverages AI to work smarter and innovate
-                    faster.</p>
+                    projects, focuses on secure and resilient development, and solves complex problems with clean code.
+                </p>
                 <p class="email"><i class="fa-solid fa-envelope"></i> rajpratham40@gmail.com</p>
 
                 <!-- Expertise Badges -->
@@ -161,8 +158,8 @@
                         <span>Cybersecurity Enthusiast</span>
                     </div>
                     <div class="expertise-badge">
-                        <i class="fas fa-brain"></i>
-                        <span>AI/ML Enthusiast</span>
+                        <i class="fas fa-code"></i>
+                        <span>Problem Solver</span>
                     </div>
                 </div>
 
@@ -383,6 +380,10 @@
                         <a href="https://privy-chat.onrender.com/" target="_blank" class="fav-btn">
                             <i class="fas fa-globe"></i> Visit Website
                         </a>
+                        <button class="view-details-btn"
+                            onclick="openProjectDetail('privychat'); event.stopPropagation();">
+                            <i class="fas fa-info-circle"></i> View Details
+                        </button>
                     </div>
                 </div>
 
@@ -404,6 +405,10 @@
                         <a href="https://billorax.vercel.app/" target="_blank" class="fav-btn">
                             <i class="fas fa-globe"></i> Visit Website
                         </a>
+                        <button class="view-details-btn"
+                            onclick="openProjectDetail('billorax'); event.stopPropagation();">
+                            <i class="fas fa-info-circle"></i> View Details
+                        </button>
                     </div>
                 </div>
 
@@ -426,6 +431,9 @@
                         <a href="https://viru-ptif.vercel.app/index.html" target="_blank" class="fav-btn">
                             <i class="fas fa-globe"></i> Visit Website
                         </a>
+                        <button class="view-details-btn" onclick="openProjectDetail('viru'); event.stopPropagation();">
+                            <i class="fas fa-info-circle"></i> View Details
+                        </button>
                     </div>
                 </div>
 
@@ -447,6 +455,9 @@
                         <a href="https://pravi-phi.vercel.app" target="_blank" class="fav-btn">
                             <i class="fas fa-globe"></i> Visit Website
                         </a>
+                        <button class="view-details-btn" onclick="openProjectDetail('pravi'); event.stopPropagation();">
+                            <i class="fas fa-info-circle"></i> View Details
+                        </button>
                     </div>
                 </div>
             </div>
@@ -603,9 +614,45 @@
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
+    <!-- ========== INTERACTIVE TERMINAL SECTION ========== -->
+    <section class="terminal-section" id="terminal">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-terminal"></i> Interactive Terminal
+            </h2>
+            <p class="section-subtitle" style="text-align: center; color: rgba(255,255,255,0.6); margin-bottom: 30px;">
+                Try some commands to explore my portfolio 🚀
+            </p>
+
+            <div class="terminal-container">
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="terminal-btn red"></div>
+                        <div class="terminal-btn yellow"></div>
+                        <div class="terminal-btn green"></div>
+                        <span class="terminal-title">pratham@portfolio: ~</span>
+                    </div>
+                    <div class="terminal-body" onclick="document.getElementById('terminal-input').focus()">
+                        <div id="terminal-output"></div>
+                        <div class="terminal-input-line">
+                            <span class="terminal-prompt">┌──(</span><span
+                                class="terminal-user">pratham@portfolio</span><span
+                                class="terminal-prompt">)-[</span><span class="terminal-path">~</span><span
+                                class="terminal-prompt">]</span>
+                        </div>
+                        <div class="terminal-input-line">
+                            <span class="terminal-prompt">└─$ </span>
+                            <input type="text" id="terminal-input" autocomplete="off" autofocus
+                                placeholder="Type 'help' for commands...">
+                        </div>
+                    </div>
+                </div>
+                <p class="terminal-hint">💡 Try: whoami, skills, projects, contact, help</p>
+            </div>
+        </div>
+    </section>
 
 
 
@@ -1974,6 +2021,57 @@
         </div>
     </footer>
 
+    <!-- Project Detail Modal -->
+    <div id="projectDetailModal" class="project-detail-modal">
+        <button class="detail-modal-close" onclick="closeProjectDetail()">&times;</button>
+        <div class="detail-modal-container">
+            <div class="detail-header">
+                <div class="detail-header-top">
+                    <div class="detail-logo">
+                        <i id="detailIcon" class="fas fa-code"></i>
+                    </div>
+                    <div class="detail-title-group">
+                        <h1 id="detailTitle"></h1>
+                        <p id="detailTagline" class="detail-tagline"></p>
+                    </div>
+                </div>
+                <div id="detailBadges" class="detail-badges"></div>
+            </div>
+            <div class="detail-body">
+                <div class="detail-section">
+                    <h3 class="detail-section-title"><i class="fas fa-info-circle"></i> Overview</h3>
+                    <p id="detailDescription" class="detail-section-content"></p>
+                </div>
+
+                <div class="detail-section">
+                    <h3 class="detail-section-title"><i class="fas fa-star"></i> Key Features</h3>
+                    <div id="detailFeatures" class="features-grid"></div>
+                </div>
+
+                <div class="detail-section">
+                    <h3 class="detail-section-title"><i class="fas fa-code"></i> Tech Stack</h3>
+                    <div id="detailTechStack" class="tech-stack-list"></div>
+                </div>
+
+                <div class="detail-section">
+                    <h3 class="detail-section-title"><i class="fas fa-shield-alt"></i> Security & Architecture</h3>
+                    <div class="security-block">
+                        <ul id="detailSecurity" class="security-list"></ul>
+                    </div>
+                </div>
+
+                <div class="detail-actions">
+                    <a id="detailLiveLink" href="#" target="_blank" class="detail-btn primary">
+                        <i class="fas fa-external-link-alt"></i> Visit Live Website
+                    </a>
+                    <a id="detailGithubLink" href="#" target="_blank" class="detail-btn secondary">
+                        <i class="fab fa-github"></i> View Source Code
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Custom Cursor -->
     <div class="cursor-dot" data-cursor-dot></div>
     <div class="cursor-outline" data-cursor-outline></div>
@@ -1983,6 +2081,8 @@
         <i class="fas fa-chevron-up"></i>
     </a>
 
+    <script src="project-details.js"></script>
+    <script src="terminal.js"></script>
     <script src="script.js"></script>
 
     <!-- Service Worker Registration for PWA -->

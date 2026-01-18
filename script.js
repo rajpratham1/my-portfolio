@@ -283,17 +283,34 @@ function initTheme() {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'light') {
         document.body.classList.add('light-theme');
+        updateThemeIcon(true);
     }
 }
-// Toggle is inline in HTML or handled via event listener if element exists
-document.querySelector('.theme-toggle')?.addEventListener('click', () => {
-    document.body.classList.toggle('light-theme');
-    const isLight = document.body.classList.contains('light-theme');
+
+// Global toggleTheme function for onclick in HTML
+window.toggleTheme = function () {
+    const body = document.body;
+    const isLight = body.classList.toggle('light-theme');
+
+    // Save preference
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
 
-    const icon = document.querySelector('.theme-toggle i');
-    if (icon) icon.className = isLight ? 'fas fa-moon' : 'fas fa-sun';
+    // Update icons
+    updateThemeIcon(isLight);
+}
+
+function updateThemeIcon(isLight) {
+    const icons = document.querySelectorAll('.theme-toggle i, .theme-toggle-mobile i');
+    icons.forEach(icon => {
+        icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+    });
+}
+
+// Also attach via event listener as fallback
+document.querySelector('.theme-toggle')?.addEventListener('click', () => {
+    window.toggleTheme();
 });
+
 
 
 // --- RENDER FUNCTIONS ---
@@ -1009,34 +1026,34 @@ function initLiveClock() {
     const clockElement = document.getElementById('liveClock');
     const dateElement = document.getElementById('clockDate');
     const statusElement = document.getElementById('clockStatus');
-    
+
     if (!clockElement) return;
 
     function updateClock() {
         const now = new Date();
-        
+
         // Format time (IST: UTC+5:30)
-        const options = { 
+        const options = {
             timeZone: 'Asia/Kolkata',
-            hour: '2-digit', 
-            minute: '2-digit', 
+            hour: '2-digit',
+            minute: '2-digit',
             second: '2-digit',
-            hour12: false 
+            hour12: false
         };
         const time = now.toLocaleTimeString('en-IN', options);
         clockElement.textContent = time;
-        
+
         // Format date
-        const dateOptions = { 
+        const dateOptions = {
             timeZone: 'Asia/Kolkata',
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
         };
         const date = now.toLocaleDateString('en-IN', dateOptions);
         dateElement.textContent = date;
-        
+
         // Update availability status based on time
         const hour = parseInt(time.split(':')[0]);
         if (hour >= 9 && hour < 22) {
@@ -1047,7 +1064,7 @@ function initLiveClock() {
             statusElement.style.color = '#fbbf24';
         }
     }
-    
+
     updateClock();
     setInterval(updateClock, 1000);
 }
@@ -1061,18 +1078,18 @@ const totalTestimonials = 3;
 function moveTestimonial(direction) {
     const track = document.getElementById('testimonialTrack');
     const dots = document.querySelectorAll('.carousel-dots .dot');
-    
+
     if (!track) return;
-    
+
     currentTestimonial += direction;
-    
+
     // Loop around
     if (currentTestimonial < 0) currentTestimonial = totalTestimonials - 1;
     if (currentTestimonial >= totalTestimonials) currentTestimonial = 0;
-    
+
     // Move track
     track.style.transform = `translateX(-${currentTestimonial * 100}%)`;
-    
+
     // Update dots
     dots.forEach((dot, index) => {
         dot.classList.toggle('active', index === currentTestimonial);
