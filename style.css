@@ -3841,42 +3841,42 @@
             color: #000;
         }
 
-/* ==========================================================================
+        /* ==========================================================================
    3D HERO SECTION (SPLINE)
    ========================================================================== */
-.hero-image.spline-wrapper {
-    width: 600px;
-    height: 500px;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    animation: floatSlow 6s ease-in-out infinite;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    z-index: 10;
-    /* Fallback and loading state */
-    background: url('assets/images/profile-photo.jpg.jpg') no-repeat center center;
-    background-size: cover;
-}
+        .hero-image.spline-wrapper {
+            width: 600px;
+            height: 500px;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            animation: floatSlow 6s ease-in-out infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+            /* Fallback and loading state */
+            background: url('assets/images/profile-photo.jpg.jpg') no-repeat center top;
+            background-size: cover;
+        }
 
-spline-viewer {
-    width: 100%;
-    height: 100%;
-}
+        spline-viewer {
+            width: 100%;
+            height: 100%;
+        }
 
-@media (max-width: 992px) {
-    .hero-image.spline-wrapper {
-        width: 100%;
-        max-width: 500px;
-        height: 400px;
-        margin: 0 auto;
-    }
-}
+        @media (max-width: 992px) {
+            .hero-image.spline-wrapper {
+                width: 100%;
+                max-width: 500px;
+                height: 400px;
+                margin: 0 auto;
+            }
+        }
 
-@media (max-width: 480px) {
-    .hero-image.spline-wrapper {
-        height: 300px;
-    }
-}
+        @media (max-width: 480px) {
+            .hero-image.spline-wrapper {
+                height: 300px;
+            }
+        }
