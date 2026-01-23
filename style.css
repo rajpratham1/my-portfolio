@@ -3877,6 +3877,8 @@
 
         @media (max-width: 480px) {
             .hero-image.spline-wrapper {
-                height: 300px;
+                height: 350px;
+                background-size: contain;
+                background-position: center bottom;
             }
         }
