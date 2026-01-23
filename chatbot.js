@@ -1,8 +1,6 @@
 // DOM Elements
 const chatbotToggler = document.querySelector(".chatbot-toggler");
-const chatbotWindow = document.querySelector(".chatbot-window"); // Use a separate class/ID for the window container if needed, script assumes structure
-// Actually, I need to check the HTML structure I haven't added yet.
-// I'll assume standard structure: toggler, window, close btn, chatbox, input.
+const chatbotWindow = document.querySelector(".chatbot-window");
 
 document.addEventListener('DOMContentLoaded', () => {
     const toggler = document.querySelector(".chatbot-toggler");
@@ -17,6 +15,58 @@ document.addEventListener('DOMContentLoaded', () => {
     // Toggle Chatbot
     toggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
 
+    // Knowledge Base Data
+    const knowledgeBase = {
+        identity: {
+            keywords: ["who are you", "what is this", "your name", "bot", "ai"],
+            response: "I'm **Pratham's AI Assistant**! 🤖 I was built to help you navigate this portfolio and answer questions about Pratham's skills, projects, and experience."
+        },
+        personal: {
+            keywords: ["who is pratham", "about pratham", "age", "location", "from", "bio", "background"],
+            response: "Pratham Kumar is a passionate **Full Stack Developer** & **Cybersecurity Enthusiast**. He loves building secure, scalable web applications and exploring AI technologies. He is always learning and innovating!"
+        },
+        skills: {
+            keywords: ["skill", "stack", "technology", "language", "coding", "programming", "react", "python", "node", "cyber"],
+            response: "Pratham is proficient in:<br>• **Frontend:** React, Next.js, HTML5, CSS3/Tailwind<br>• **Backend:** Node.js, Express, Python (Django/Flask)<br>• **Cybersecurity:** Network Defense, Ethical Hacking basics<br>• **AI:** Integrating LLMs like Gemini & OpenAI."
+        },
+        projects_general: {
+            keywords: ["project", "work", "portfolio", "built", "creation"],
+            response: "Pratham has built some amazing things! 🚀<br>Top projects include:<br>1. **PrivyChat** (Anonymous Chat)<br>2. **BilloraX** (Billing System)<br>3. **VIRU** (AI Assistant)<br>Ask me about any specific project!"
+        },
+        project_billorax: {
+            keywords: ["billorax", "billing", "inventory", "gst"],
+            response: "📊 **BilloraX** is a complete billing & inventory management solution for Indian businesses. It features GST reports, thermal printing, and an online store system.<br><a href='https://billorax.vercel.app/' target='_blank'>Visit BilloraX</a>"
+        },
+        project_privychat: {
+            keywords: ["privychat", "chat", "anonymous", "message"],
+            response: "🔒 **PrivyChat** is a secure, anonymous messaging platform. No logs, no tracking—just pure private communication.<br><a href='https://privy-chat.onrender.com/' target='_blank'>Visit PrivyChat</a>"
+        },
+        project_viru: {
+            keywords: ["viru", "ai assistant", "coding system"],
+            response: "🤖 **VIRU** is a custom autonomous coding system designed by Pratham. It combines privacy with superhuman coding capabilities.<br><a href='https://viru-ptif.vercel.app/' target='_blank'>Try VIRU</a>"
+        },
+        project_pravi: {
+            keywords: ["pravi", "marketplace", "buy website"],
+            response: "🛒 **Pravi** is a marketplace for buying and selling ready-made websites. It features secure payments and a robust admin dashboard."
+        },
+        contact: {
+            keywords: ["contact", "email", "mail", "hire", "phone", "reach"],
+            response: "📧 You can reach Pratham at: **rajpratham40@gmail.com**<br>Or connect on <a href='https://www.linkedin.com/in/pratham-kumar-2a4b151a7/' target='_blank'>LinkedIn</a>."
+        },
+        resume: {
+            keywords: ["resume", "cv", "download", "pdf"],
+            response: "📄 you can <a href='assets/documents/raj-pratham cv.pdf' download>Download the Resume here</a>."
+        },
+        fun: {
+            keywords: ["joke", "funny", "story", "trick", "secret"],
+            response: "Here's a secret: Try entering the **Konami Code** (Shift+Up+Down...) on the keyboard for a Matrix surprise! 🕶️"
+        },
+        greetings: {
+            keywords: ["hi", "hello", "hey", "sup", "yo", "greeting"],
+            response: "Hello there! 👋 How can I help you today? Ask me about my projects or skills!"
+        }
+    };
+
     // Create Chat List Item
     const createChatLi = (message, className) => {
         const chatLi = document.createElement("li");
@@ -27,37 +77,43 @@ document.addEventListener('DOMContentLoaded', () => {
             : `<div class="chat-avatar"><i class="fas fa-robot"></i></div><p></p>`;
 
         chatLi.innerHTML = chatContent;
-        chatLi.querySelector("p").textContent = message;
+        // Interpret HTML for links but be safe
+        chatLi.querySelector("p").innerHTML = message; 
         return chatLi;
     };
 
     // Generate Response
     const generateResponse = (incomingChatLi) => {
         const messageElement = incomingChatLi.querySelector("p");
+        const msg = userMessage.toLowerCase().trim();
+        
+        let response = "I'm not sure about that. 🤔<br>Try asking about **'Projects'**, **'Skills'**, **'Contact'**, or specific apps like **'BilloraX'**.";
 
-        // Simple Keywords Logic (Predefined)
-        const msg = userMessage.toLowerCase();
-        let response = "I'm not sure about that. Try asking about 'projects', 'skills', or 'contact'.";
-
-        if (msg.includes("hi") || msg.includes("hello") || msg.includes("hey")) {
-            response = "Hello! I'm Pratham's AI assistant. How can I help you today? 😊";
-        } else if (msg.includes("who are you")) {
-            response = "I'm a virtual assistant built by Pratham to showcase his skills!";
-        } else if (msg.includes("project") || msg.includes("work")) {
-            response = "Pratham has built amazing projects like PrivyChat, BilloraX, and VIRU. Check out the 'Featured Projects' section!";
-        } else if (msg.includes("skill") || msg.includes("stack")) {
-            response = "Pratham is an expert in Full Stack Dev (MERN), Python, and Cybersecurity.";
-        } else if (msg.includes("contact") || msg.includes("email") || msg.includes("hire")) {
-            response = "You can contact Pratham via the 'Let's Connect' button or email directly.";
-        } else if (msg.includes("resume") || msg.includes("cv")) {
-            response = "You can download the Resume from the 'Looking for Opportunities' section.";
+        // Smart Matching
+        let bestMatch = null;
+        
+        // Check Knowledge Base
+        for (const category in knowledgeBase) {
+            const data = knowledgeBase[category];
+            // Check if ANY keyword matches
+            const match = data.keywords.some(keyword => msg.includes(keyword));
+            if (match) {
+                bestMatch = data.response;
+                break; // Stop at first match (Priority determined by object order if needed, but this is simple)
+            }
         }
 
-        // Simulate Typing Delay
+        if (bestMatch) {
+            response = bestMatch;
+        }
+
+        // Simulate Typing Delay based on response length
+        const delay = Math.min(1000, Math.max(600, response.length * 20));
+
         setTimeout(() => {
-            messageElement.textContent = response;
+            messageElement.innerHTML = response;
             chatbox.scrollTo(0, chatbox.scrollHeight);
-        }, 600);
+        }, delay);
     };
 
     // Handle Chat
@@ -70,7 +126,10 @@ document.addEventListener('DOMContentLoaded', () => {
         chatInput.style.height = inputInitHeight;
 
         // Append User Message
-        chatbox.appendChild(createChatLi(userMessage, "chat-outgoing"));
+        // Use textContent for user input to prevent XSS
+        const userLi = createChatLi("", "chat-outgoing");
+        userLi.querySelector("p").textContent = userMessage;
+        chatbox.appendChild(userLi);
         chatbox.scrollTo(0, chatbox.scrollHeight);
 
         // Simulate "Thinking"

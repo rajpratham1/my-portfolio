@@ -224,13 +224,24 @@
 }
 
 /* Mobile Responsive */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
     .chatbot-window {
         right: 0;
         bottom: 0;
         width: 100%;
         height: 100%;
         border-radius: 0;
+        border: none;
+    }
+
+    .chatbot-window .chatbox {
+        height: calc(100% - 140px);
+        /* Fill available space minus header/input */
+        padding-bottom: 20px;
+    }
+
+    .chatbot-input {
+        padding: 10px 15px;
     }
 
     .chatbot-toggler {
