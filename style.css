@@ -3857,8 +3857,8 @@
             position: relative;
             z-index: 10;
             /* Fallback and loading state */
-            background: url('assets/images/profile-photo.jpg.jpg') no-repeat center top;
-            background-size: cover;
+            background: url('assets/images/profile-photo.jpg.jpg') no-repeat center bottom;
+            background-size: contain;
         }
 
         spline-viewer {
