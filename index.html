@@ -176,10 +176,12 @@
             }
         };
 
-        window.addEventListener('load', () => setTimeout(hidePreloader, 800));
+        // Faster load: Hide on DOM Ready + small buffer
+        document.addEventListener('DOMContentLoaded', () => setTimeout(hidePreloader, 800));
+        window.addEventListener('load', () => setTimeout(hidePreloader, 300));
 
-        // Safety Fallback (5 seconds)
-        setTimeout(hidePreloader, 5000);
+        // Safety Fallback (2.5 seconds)
+        setTimeout(hidePreloader, 2500);
     </script>
     <!-- Floating Action Menu -->
     <!-- Navigation Header -->
