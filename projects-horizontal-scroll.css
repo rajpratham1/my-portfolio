@@ -1,0 +1,61 @@
+/* Horizontal Scroll for Featured Projects Overlay */
+
+#projectsList {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    gap: 30px;
+    padding: 20px 10px 40px 10px;
+    /* Bottom padding for scrollbar */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+
+    /* Scroll Snapping */
+    scroll-snap-type: x mandatory;
+}
+
+/* Ensure Project Cards have fixed width and don't shrink */
+#projectsList .project-card {
+    min-width: 320px;
+    /* Fixed width for desktop */
+    max-width: 320px;
+    flex: 0 0 auto !important;
+    /* Prevent shrinking/growing */
+    margin: 0 !important;
+    /* Remove legacy margins if any */
+    scroll-snap-align: center;
+
+    /* Ensure they look good in horizontal strip */
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Mobile specific adjustments */
+@media (max-width: 768px) {
+    #projectsList .project-card {
+        min-width: 85vw;
+        /* Wider cards on mobile */
+        max-width: 85vw;
+    }
+}
+
+/* Custom Scrollbar for this section */
+#projectsList::-webkit-scrollbar {
+    height: 8px;
+}
+
+#projectsList::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+#projectsList::-webkit-scrollbar-thumb {
+    background: rgba(0, 174, 255, 0.5);
+    border-radius: 4px;
+}
+
+#projectsList::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 174, 255, 0.8);
+}

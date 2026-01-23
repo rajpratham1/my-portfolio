@@ -1,0 +1,510 @@
+/* ==========================================================================
+   PROJECT CASE STUDIES - Premium Portfolio Section
+   ========================================================================== */
+
+.case-studies-section {
+    padding: 100px 20px;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 174, 255, 0.02) 50%, transparent 100%);
+}
+
+.case-studies-section .section-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.1rem;
+    margin-bottom: 50px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Case Studies Grid */
+.case-studies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Individual Case Study Card */
+.case-study-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 174, 255, 0.15);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+.case-study-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(0, 174, 255, 0.4);
+    box-shadow: 0 25px 50px rgba(0, 174, 255, 0.15);
+}
+
+/* Card Preview Image */
+.case-study-preview {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.case-study-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.case-study-card:hover .case-study-preview img {
+    transform: scale(1.1);
+}
+
+.case-study-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.case-study-card:hover .case-study-overlay {
+    opacity: 1;
+}
+
+.view-case-study-btn {
+    background: linear-gradient(135deg, #00aeff 0%, #0077ff 100%);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.3s ease;
+}
+
+.view-case-study-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Card Content */
+.case-study-content {
+    padding: 25px;
+}
+
+.case-study-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 15px;
+}
+
+.case-study-badge.web-dev {
+    background: rgba(0, 174, 255, 0.2);
+    color: #00aeff;
+}
+
+.case-study-badge.security {
+    background: rgba(138, 43, 226, 0.2);
+    color: #a855f7;
+}
+
+.case-study-badge.fullstack {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+}
+
+.case-study-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.case-study-excerpt {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Tech Stack Tags */
+.case-study-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.tech-tag {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Impact Metrics */
+.case-study-metrics {
+    display: flex;
+    gap: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.metric {
+    text-align: center;
+}
+
+.metric-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #00aeff;
+    display: block;
+}
+
+.metric-label {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   CASE STUDY DETAIL MODAL
+   ========================================================================== */
+.case-study-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 10000;
+    display: none;
+    overflow-y: auto;
+    padding: 40px 20px;
+}
+
+.case-study-modal.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #0a0a0f;
+    border-radius: 24px;
+    border: 1px solid rgba(0, 174, 255, 0.2);
+    overflow: hidden;
+}
+
+.modal-close {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10001;
+}
+
+.modal-close:hover {
+    background: rgba(255, 0, 0, 0.3);
+    transform: rotate(90deg);
+}
+
+/* Modal Header */
+.modal-header {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+}
+
+.modal-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal-header-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 40px;
+    background: linear-gradient(180deg, transparent 0%, rgba(10, 10, 15, 1) 100%);
+}
+
+.modal-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.modal-subtitle {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.1rem;
+}
+
+/* Modal Body */
+.modal-body {
+    padding: 40px;
+}
+
+/* Section Blocks */
+.case-section {
+    margin-bottom: 40px;
+}
+
+.case-section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.case-section-title i {
+    color: #00aeff;
+    font-size: 1.1rem;
+}
+
+.case-section-content {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+.case-section-content p {
+    margin-bottom: 15px;
+}
+
+/* Problem/Solution Blocks */
+.problem-block,
+.solution-block {
+    padding: 25px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+}
+
+.problem-block {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.02) 100%);
+    border-left: 4px solid #ef4444;
+}
+
+.solution-block {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.02) 100%);
+    border-left: 4px solid #10b981;
+}
+
+/* Tech Stack Grid */
+.tech-stack-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.tech-stack-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tech-stack-item i {
+    font-size: 1.3rem;
+    color: #00aeff;
+}
+
+.tech-stack-item span {
+    color: #fff;
+    font-weight: 500;
+}
+
+/* Impact Cards */
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.impact-card {
+    background: linear-gradient(135deg, rgba(0, 174, 255, 0.1) 0%, rgba(0, 174, 255, 0.02) 100%);
+    border: 1px solid rgba(0, 174, 255, 0.2);
+    border-radius: 16px;
+    padding: 25px;
+    text-align: center;
+}
+
+.impact-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #00aeff;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.impact-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
+/* Lessons Learned */
+.lessons-list {
+    list-style: none;
+    padding: 0;
+}
+
+.lessons-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.lessons-list li:last-child {
+    border-bottom: none;
+}
+
+.lessons-list li i {
+    color: #10b981;
+    font-size: 1rem;
+    margin-top: 4px;
+}
+
+.lessons-list li span {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+}
+
+/* Project Links */
+.project-links {
+    display: flex;
+    gap: 15px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 25px;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.project-link.primary {
+    background: linear-gradient(135deg, #00aeff 0%, #0077ff 100%);
+    color: #fff;
+}
+
+.project-link.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.project-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 174, 255, 0.2);
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVE
+   ========================================================================== */
+@media (max-width: 768px) {
+    .case-studies-section {
+        padding: 60px 15px;
+    }
+
+    .case-studies-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .case-study-preview {
+        height: 180px;
+    }
+
+    .case-study-metrics {
+        justify-content: space-around;
+    }
+
+    .modal-header {
+        height: 200px;
+    }
+
+    .modal-title {
+        font-size: 1.8rem;
+    }
+
+    .modal-body {
+        padding: 25px;
+    }
+
+    .impact-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .project-links {
+        flex-direction: column;
+    }
+
+    .modal-close {
+        top: 10px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+    }
+}

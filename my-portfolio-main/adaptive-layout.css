@@ -1,0 +1,186 @@
+/* ==========================================================================
+   ADAPTIVE LAYOUT - Vertical on PC, Horizontal Scroll on Mobile
+   ========================================================================== */
+
+/* --- DESKTOP (Default: Vertical List) --- */
+#projectsList,
+#websitesList,
+.websites-grid,
+.pub-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+}
+
+/* --- MOBILE (Below 768px: Horizontal Scroll Carousel) --- */
+@media (max-width: 768px) {
+
+    #projectsList,
+    #websitesList,
+    .fav-websites-grid,
+    .websites-grid,
+    .pub-grid {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: hidden;
+        gap: 20px;
+        padding: 15px 5px 30px 5px;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+
+        /* Hide scrollbar but keep functionality */
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* IE/Edge */
+    }
+
+    #projectsList::-webkit-scrollbar,
+    #websitesList::-webkit-scrollbar,
+    .fav-websites-grid::-webkit-scrollbar,
+    .websites-grid::-webkit-scrollbar,
+    .pub-grid::-webkit-scrollbar {
+        display: none;
+        /* Chrome/Safari */
+    }
+
+    /* Fixed width cards on mobile for carousel effect */
+    #projectsList .project-card,
+    #websitesList .project-card,
+    .fav-websites-grid .fav-website-item,
+    .websites-grid .website-card,
+    .pub-grid .pub-card {
+        min-width: 85vw !important;
+        max-width: 85vw !important;
+        flex: 0 0 auto !important;
+        scroll-snap-align: center;
+    }
+}
+
+/* ==========================================================================
+   GLOBAL GLASSMORPHISM EFFECT
+   ========================================================================== */
+
+.project-card,
+.website-card,
+.pub-card,
+.about-card,
+.contact-card,
+.expertise-badges .expertise-badge,
+.skill-card,
+.cert-card {
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 16px;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* ==========================================================================
+   HOVER GLOW EFFECT (Cyan/Blue Theme)
+   ========================================================================== */
+
+.project-card:hover,
+.website-card:hover,
+.pub-card:hover,
+.about-card:hover,
+.contact-card:hover,
+.skill-card:hover,
+.cert-card:hover {
+    border-color: rgba(0, 174, 255, 0.5) !important;
+    box-shadow: 0 0 25px rgba(0, 174, 255, 0.25),
+        0 10px 40px rgba(0, 0, 0, 0.3) !important;
+    transform: translateY(-5px);
+}
+
+/* ==========================================================================
+   FRAME FIX - Prevent Overflow
+   ========================================================================== */
+
+.projects-container,
+.websites-section,
+.certificates-section,
+.about-container {
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .projects-container {
+        padding: 20px 10px !important;
+    }
+
+    .projects-title {
+        font-size: 1.5rem !important;
+        text-align: center;
+    }
+}
+
+/* ==========================================================================
+   INTERSECTION OBSERVER ANIMATION CLASSES
+   ========================================================================== */
+
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger animation for children */
+.animate-on-scroll:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.animate-on-scroll:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.animate-on-scroll:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.animate-on-scroll:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+.animate-on-scroll:nth-child(5) {
+    transition-delay: 0.5s;
+}
+
+.animate-on-scroll:nth-child(6) {
+    transition-delay: 0.6s;
+}
+
+/* ==========================================================================
+   OVERLAY Z-INDEX FIX
+   ========================================================================== */
+
+#fullstackOverlay,
+#cybersecurityOverlay,
+#projectsOverlay,
+#publicationsOverlay,
+#contactOverlay,
+#aboutOverlay {
+    z-index: 999999 !important;
+}
+
+#fullstackOverlay.show,
+#cybersecurityOverlay.show,
+#projectsOverlay.show,
+#publicationsOverlay.show,
+#contactOverlay.show,
+#aboutOverlay.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+}

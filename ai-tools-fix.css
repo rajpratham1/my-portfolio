@@ -1,0 +1,231 @@
+/* ==========================================================================
+   AI TOOLS SECTION - LAYOUT FIX
+   ========================================================================== */
+
+/* Desktop: 2-column grid with equal height cards */
+.skills-category {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.skills-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 25px !important;
+    width: 100% !important;
+    align-items: stretch !important;
+    /* Equal height cards */
+}
+
+/* All skill cards - uniform styling */
+.skill-item {
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(0, 174, 255, 0.2) !important;
+    border-radius: 16px !important;
+    padding: 25px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    transition: all 0.3s ease !important;
+}
+
+.skill-item:hover {
+    border-color: rgba(0, 174, 255, 0.5) !important;
+    box-shadow: 0 0 30px rgba(0, 174, 255, 0.15) !important;
+    transform: translateY(-3px) !important;
+}
+
+/* Skill header */
+.skill-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 15px !important;
+}
+
+.skill-info {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.skill-info i {
+    font-size: 1.5rem !important;
+    color: #00aeff !important;
+}
+
+.skill-name {
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    color: #fff !important;
+}
+
+.skill-percent {
+    color: #00aeff !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+}
+
+/* Progress bar */
+.skill-bar-container,
+.skill-progress {
+    height: 8px !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 4px !important;
+    overflow: hidden !important;
+    width: 100% !important;
+}
+
+.skill-bar-fill,
+.skill-fill {
+    height: 100% !important;
+    background: linear-gradient(90deg, #00aeff, #0077ff) !important;
+    border-radius: 4px !important;
+    transition: width 1s ease !important;
+    width: 85% !important;
+    /* Default width for VIRU */
+}
+
+/* VIRU Special Card */
+.viru-item {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.15) 0%, rgba(0, 174, 255, 0.1) 100%) !important;
+    border-color: rgba(138, 43, 226, 0.3) !important;
+}
+
+.viru-item:hover {
+    border-color: rgba(138, 43, 226, 0.6) !important;
+    box-shadow: 0 0 30px rgba(138, 43, 226, 0.2) !important;
+}
+
+.my-creation-badge {
+    background: linear-gradient(90deg, #ff6b6b, #ff8e53) !important;
+    color: #fff !important;
+    padding: 3px 10px !important;
+    border-radius: 12px !important;
+    font-size: 0.7rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    margin-left: 8px !important;
+}
+
+.viru-features {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    margin-top: 15px !important;
+}
+
+.viru-feature {
+    background: rgba(138, 43, 226, 0.2) !important;
+    color: #d4a5ff !important;
+    padding: 6px 12px !important;
+    border-radius: 20px !important;
+    font-size: 0.75rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+}
+
+.viru-link {
+    background: linear-gradient(135deg, #8b5cf6, #6366f1) !important;
+    color: #fff !important;
+    padding: 8px 16px !important;
+    border-radius: 20px !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    transition: all 0.3s ease !important;
+}
+
+.viru-link:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4) !important;
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVE - Horizontal Scroll
+   ========================================================================== */
+@media (max-width: 768px) {
+    .skills-category {
+        padding: 0 10px !important;
+    }
+
+    .skills-grid {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        gap: 15px !important;
+        padding: 10px 5px 20px 5px !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+    }
+
+    .skills-grid::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    .skill-item {
+        min-width: 280px !important;
+        max-width: 280px !important;
+        flex: 0 0 280px !important;
+        scroll-snap-align: start !important;
+    }
+}
+
+/* ==========================================================================
+   THEME TOGGLE FUNCTIONALITY
+   ========================================================================== */
+
+/* Light Theme */
+body.light-theme {
+    background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%) !important;
+}
+
+body.light-theme .main-header {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+}
+
+body.light-theme .logo,
+body.light-theme .nav-link {
+    color: #1a202c !important;
+}
+
+body.light-theme .hero-text h1,
+body.light-theme .section-title,
+body.light-theme h2,
+body.light-theme h3 {
+    color: #1a202c !important;
+}
+
+body.light-theme p,
+body.light-theme .hero-text p {
+    color: #4a5568 !important;
+}
+
+body.light-theme .skill-item,
+body.light-theme .about-card,
+body.light-theme .project-card,
+body.light-theme .hire-me-card {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-color: #e2e8f0 !important;
+}
+
+body.light-theme .skill-name {
+    color: #1a202c !important;
+}
+
+body.light-theme .mobile-nav {
+    background: rgba(255, 255, 255, 0.98) !important;
+}
+
+body.light-theme .mobile-nav .nav-link {
+    color: #1a202c !important;
+}

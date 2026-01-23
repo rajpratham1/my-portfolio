@@ -1,0 +1,403 @@
+/* ==========================================================================
+   PREMIUM ANIMATIONS & EFFECTS
+   ========================================================================== */
+
+/* ==========================================================================
+   1. ANIMATED GRADIENT TEXT
+   ========================================================================== */
+
+.gradient-text {
+    background: linear-gradient(90deg, #00aeff, #0077ff, #00d4ff, #00aeff);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradientFlow 4s ease infinite;
+}
+
+@keyframes gradientFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Apply to hero title and section titles */
+.hero-text h1,
+.section-title .title-line {
+    background: linear-gradient(90deg, #00aeff, #0077ff, #00d4ff, #00aeff);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradientFlow 4s ease infinite;
+}
+
+/* ==========================================================================
+   2. 3D CARD TILT EFFECT
+   ========================================================================== */
+
+.tilt-effect {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+}
+
+.project-card,
+.pub-card,
+.fav-website-item,
+.about-card,
+.contact-card {
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Tilt handled by JavaScript - this is the base */
+
+/* ==========================================================================
+   3. SCROLL PROGRESS BAR
+   ========================================================================== */
+
+.scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, #00aeff, #0077ff);
+    z-index: 99999;
+    transition: width 0.1s ease-out;
+    box-shadow: 0 0 10px rgba(0, 174, 255, 0.5);
+}
+
+/* ==========================================================================
+   4. STAGGERED REVEAL ANIMATION (Enhanced)
+   ========================================================================== */
+
+.stagger-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.stagger-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger delays */
+.stagger-reveal:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.stagger-reveal:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.stagger-reveal:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.stagger-reveal:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+.stagger-reveal:nth-child(5) {
+    transition-delay: 0.5s;
+}
+
+.stagger-reveal:nth-child(6) {
+    transition-delay: 0.6s;
+}
+
+.stagger-reveal:nth-child(7) {
+    transition-delay: 0.7s;
+}
+
+.stagger-reveal:nth-child(8) {
+    transition-delay: 0.8s;
+}
+
+/* ==========================================================================
+   5. PARALLAX BACKGROUND LAYERS
+   ========================================================================== */
+
+.parallax-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.parallax-slow {
+    transform: translateY(0);
+    transition: transform 0.1s ease-out;
+}
+
+/* ==========================================================================
+   6. BUTTON RIPPLE EFFECT
+   ========================================================================== */
+
+.ripple-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
+    opacity: 0;
+}
+
+.ripple-btn.rippling::after {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+}
+
+/* Apply to all buttons */
+.cta-button,
+.project-link,
+.pub-btn,
+.fav-btn,
+.contact-card-btn,
+.social-link {
+    position: relative;
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   7. FLOATING ANIMATION
+   ========================================================================== */
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes floatSlow {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-6px) rotate(2deg);
+    }
+}
+
+.float-effect {
+    animation: float 3s ease-in-out infinite;
+}
+
+.float-slow {
+    animation: floatSlow 4s ease-in-out infinite;
+}
+
+/* Apply to icons and badges */
+.hero-image img {
+    animation: floatSlow 4s ease-in-out infinite;
+}
+
+.icon-container i,
+.fav-star i {
+    animation: float 2.5s ease-in-out infinite;
+}
+
+.card-badge {
+    animation: float 3s ease-in-out infinite;
+    animation-delay: 0.5s;
+}
+
+/* ==========================================================================
+   8. PAGE LOAD ANIMATION
+   ========================================================================== */
+
+.page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0a0a0a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.page-loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-content {
+    text-align: center;
+}
+
+.loader-logo {
+    font-size: 4rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #00aeff, #0077ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+.loader-bar {
+    width: 200px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    margin: 20px auto 0;
+    overflow: hidden;
+}
+
+.loader-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #00aeff, #0077ff);
+    border-radius: 2px;
+    animation: loadingBar 1.5s ease-in-out forwards;
+}
+
+@keyframes loadingBar {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+/* ==========================================================================
+   9. HOVER GLOW PULSE
+   ========================================================================== */
+
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(0, 174, 255, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(0, 174, 255, 0.6);
+    }
+}
+
+.glow-on-hover:hover {
+    animation: glowPulse 1.5s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   10. SMOOTH UNDERLINE ANIMATION
+   ========================================================================== */
+
+.animated-underline {
+    position: relative;
+}
+
+.animated-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(90deg, #00aeff, #0077ff);
+    transition: width 0.3s ease;
+}
+
+.animated-underline:hover::after {
+    width: 100%;
+}
+
+/* Apply to nav links */
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(90deg, #00aeff, #0077ff);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* ==========================================================================
+   11. SCALE UP ON HOVER (Cards)
+   ========================================================================== */
+
+.scale-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.scale-hover:hover {
+    transform: scale(1.03);
+}
+
+/* ==========================================================================
+   PERFORMANCE: Reduce motion for users who prefer it
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

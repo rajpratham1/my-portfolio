@@ -1,0 +1,484 @@
+/* Fix for Overlay Content Visibility */
+/* Adding base overlay styles that appear to be missing from global CSS */
+.projects-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(10, 22, 40, 0.98) !important;
+    z-index: 2147483647 !important;
+    /* Max Z-Index to ensure it's on top of EVERYTHING */
+    display: none;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    overflow-y: auto !important;
+    padding: 20px !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease, visibility 0.3s ease !important;
+}
+
+.projects-overlay.show {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
+.projects-overlay.show .projects-container {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: scale(1) !important;
+    display: block !important;
+    /* Ensure it's not hidden */
+}
+
+.projects-container {
+    background: var(--header-bg, #0a1628);
+    width: 100%;
+    max-width: 1000px;
+    /* Adjust as needed */
+    border-radius: 20px;
+    padding: 40px;
+    border: 1px solid rgba(0, 174, 255, 0.2);
+    box-shadow: 0 0 50px rgba(0, 174, 255, 0.1);
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+    margin: auto;
+    /* Center in flex container */
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10001;
+}
+
+.close-btn:hover {
+    background: #ff4757;
+    transform: rotate(90deg);
+}
+
+.projects-title {
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* These styles are extracted to ensure they apply globally and are not trapped in media queries */
+
+.project-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    opacity: 1 !important;
+    /* Force visibility */
+    visibility: visible !important;
+}
+
+.project-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(0, 174, 255, 0.3);
+}
+
+.project-content {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+@media (max-width: 768px) {
+    .project-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+.project-content img {
+    width: 100%;
+    height: 200px;
+    /* object-fit: cover; */
+    /* Removed to ensure image displays even if ratio is off */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    display: block;
+    /* Ensure it's not hidden */
+}
+
+.project-card:hover img {
+    transform: scale(1.02);
+}
+
+.project-info h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.light-theme .project-info h3 {
+    color: #333;
+}
+
+.project-info p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge.lead {
+    background: rgba(255, 215, 0, 0.2);
+    color: #FFD700;
+    border: 1px solid rgba(255, 215, 0, 0.5);
+}
+
+.badge.current {
+    background: rgba(0, 255, 136, 0.2);
+    color: #00FF88;
+    border: 1px solid rgba(0, 255, 136, 0.5);
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tech-stack span {
+    background: rgba(0, 174, 255, 0.1);
+    color: #00aeff;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    border: 1px solid rgba(0, 174, 255, 0.3);
+    color: #ffffff;
+    /* Explicit color */
+}
+
+.project-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.project-link.primary {
+    background: linear-gradient(45deg, #00aeff, #0088cc);
+    color: white;
+    box-shadow: 0 5px 15px rgba(0, 174, 255, 0.3);
+}
+
+.project-link.secondary {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+.project-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.project-link.secondary:hover {
+    border-color: #00aeff;
+    color: #00aeff;
+}
+
+/* --- CERTIFICATE CARD STYLES (Added for Static Overlay Content) --- */
+.pub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 10px 0;
+}
+
+.pub-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: all 0.3s ease;
+}
+
+.pub-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(0, 174, 255, 0.3);
+}
+
+.pub-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.pub-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.pub-title {
+    font-size: 1.2rem;
+    color: #fff;
+    line-height: 1.4;
+}
+
+.light-theme .pub-title {
+    color: #333;
+}
+
+.pub-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.pub-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(0, 174, 255, 0.1);
+    color: #00aeff;
+    border: 1px solid rgba(0, 174, 255, 0.3);
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    align-self: flex-start;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.pub-btn:hover {
+    background: #00aeff;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 174, 255, 0.3);
+}
+
+/* Tab Content Visibility */
+.cert-section {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.cert-section.active {
+    display: block;
+    /* Grid is properly handled by .pub-grid inside */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* --- SKILLS & EXPERTISE BADGES (Missing Styles) --- */
+.expertise-badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.fullstack-badge {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(0, 174, 255, 0.2);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    z-index: 99999 !important;
+    /* Nuclear option: absolute top */
+    pointer-events: all !important;
+    /* Force interaction */
+    overflow: hidden;
+    transition: all 0.4s ease;
+    display: flex;
+    /* Ensure it takes up space */
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.fullstack-badge:hover {
+    transform: translateY(-5px);
+    background: rgba(0, 174, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 174, 255, 0.2);
+    border-color: #00aeff;
+}
+
+.fullstack-badge i {
+    font-size: 3rem;
+    color: #00aeff;
+    margin-bottom: 10px;
+}
+
+.fullstack-badge h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin: 0;
+}
+
+.fullstack-badge p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.click-hint {
+    margin-top: 15px;
+    font-size: 0.8rem;
+    color: #00aeff;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Specific style for Cybersecurity badge if needed */
+.cybersecurity-badge {
+    border-color: rgba(255, 71, 87, 0.2);
+}
+
+.cybersecurity-badge i {
+    color: #ff4757;
+}
+
+.cybersecurity-badge:hover {
+    background: rgba(255, 71, 87, 0.1);
+    box-shadow: 0 10px 30px rgba(255, 71, 87, 0.2);
+    border-color: #ff4757;
+}
+
+
+/* Contact Card Styles - Forced Priority */
+.contact-scroll-container {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+    gap: 25px !important;
+    width: 100% !important;
+    padding: 20px 0 !important;
+}
+
+.contact-card {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 15px !important;
+    padding: 25px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    position: relative !important;
+    overflow: hidden !important;
+    backdrop-filter: blur(10px) !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.contact-card:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    transform: translateY(-5px) !important;
+    border-color: rgba(0, 174, 255, 0.3) !important;
+}
+
+.contact-card-content {
+    display: flex !important;
+    gap: 20px !important;
+    align-items: flex-start !important;
+}
+
+.contact-card-content img {
+    width: 60px !important;
+    height: 60px !important;
+    object-fit: contain !important;
+    display: block !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    padding: 5px !important;
+    border-radius: 10px !important;
+}
+
+.contact-card-text h3 {
+    font-size: 1.3rem !important;
+    color: #fff !important;
+    margin-bottom: 8px !important;
+}
+
+.contact-card-text p {
+    font-size: 0.9rem !important;
+    color: var(--text-secondary) !important;
+    margin-bottom: 15px !important;
+}
+
+.contact-card-btn {
+    display: inline-block !important;
+    padding: 8px 16px !important;
+    background: rgba(0, 174, 255, 0.1) !important;
+    color: #00aeff !important;
+    border: 1px solid rgba(0, 174, 255, 0.3) !important;
+    border-radius: 20px !important;
+    text-decoration: none !important;
+}
