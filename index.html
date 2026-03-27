@@ -604,7 +604,7 @@
             <!-- Expertise Badges Grid -->
             <div class="expertise-badges-grid">
                 <div id="btn-fullstack" class="fullstack-badge"
-                    onclick="document.getElementById('fullstackOverlay').classList.add('show'); document.body.style.overflow='hidden';"
+                    onclick="openFullStackSkills()"
                     style="cursor: pointer; pointer-events: auto;">
                     <i class="fas fa-layer-group"></i>
                     <h3>Full Stack Developer</h3>
@@ -613,7 +613,7 @@
                 </div>
 
                 <div id="btn-cybersecurity" class="fullstack-badge cybersecurity-badge"
-                    onclick="document.getElementById('cybersecurityOverlay').classList.add('show'); document.body.style.overflow='hidden';"
+                    onclick="openCybersecuritySkills()"
                     style="cursor: pointer; pointer-events: auto;">
                     <i class="fas fa-shield-halved"></i>
                     <h3>Cybersecurity Enthusiast</h3>
@@ -1213,120 +1213,8 @@
             <h1 class="projects-title">
                 <i class="fas fa-rocket"></i> My Projects
             </h1>
-            <div id="projectsList">
-                <!-- Smoke Detector Sensor -->
-                <div class="project-card">
-                    <div class="project-content">
-                        <img loading="lazy" src="assets/images/project-smoke.jpg.jpg" alt="Smoke Detector Sensor"
-                            onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Smoke+Detector'">
-                        <div class="project-info">
-                            <div
-                                style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                                <h3>Smoke Detector Sensor</h3>
-                                <span class="badge lead">Team Lead</span>
-                            </div>
-                            <p>A comprehensive fire safety solution using advanced sensor technology. This IoT-based
-                                system provides real-time smoke detection and alerts to prevent fire hazards.</p>
-                            <div class="tech-stack">
-                                <span>Arduino</span><span>IoT</span><span>C++</span><span>Safety Systems</span>
-                            </div>
-                            <div class="project-buttons">
-                                <a href="assets/documents/Smoke detector sensor.pdf" target="_blank"
-                                    class="project-link primary"><i class="fas fa-file-powerpoint"></i> View
-                                    Presentation</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Retail Sales Analytics -->
-                <div class="project-card">
-                    <div class="project-content">
-                        <img loading="lazy" src="assets/images/retailsales.jpg.png" alt="Retail Sales Analytics"
-                            onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Retail+Analytics'">
-                        <div class="project-info">
-                            <div
-                                style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                                <h3>Retail Sales Analytics</h3>
-                                <span class="badge current">Current</span>
-                            </div>
-                            <p>A powerful data analysis project using machine learning to predict sales trends and
-                                optimize inventory management. Implements linear regression models.</p>
-                            <div class="tech-stack">
-                                <span>Python</span><span>Pandas</span><span>Scikit-learn</span><span>Data
-                                    Visualization</span><span>ML</span>
-                            </div>
-                            <div class="project-buttons">
-                                <a href="assets/documents/Retail-Sales_Analytics.pdf" target="_blank"
-                                    class="project-link primary"><i class="fas fa-file-powerpoint"></i> View
-                                    Presentation</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Smart Agriculture System -->
-                <div class="project-card">
-                    <div class="project-content">
-                        <img loading="lazy" src="assets/images/project-smartagriculture.jpg.webp"
-                            alt="Smart Agriculture System"
-                            onerror="this.src='https://placehold.co/600x400/1e1e1e/00aeff?text=Smart+Agriculture'">
-                        <div class="project-info">
-                            <div
-                                style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                                <h3>Smart Agriculture System</h3>
-                            </div>
-                            <p>An IoT-based agricultural solution that monitors environmental conditions and automates
-                                farming processes. Features include soil moisture monitoring.</p>
-                            <div class="tech-stack">
-                                <span>Raspberry
-                                    Pi</span><span>Python</span><span>IoT</span><span>Sensors</span><span>Automation</span>
-                            </div>
-                            <div class="project-buttons">
-                                <a href="assets/documents/Smart Agriculture (2).pdf" target="_blank"
-                                    class="project-link primary"><i class="fas fa-file-powerpoint"></i> View
-                                    Presentation</a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Full Stack Skills Overlay -->
-                </div>
-
-                <!-- Card 2: Security -->
-                <div class="about-card">
-                    <div class="about-icon-container">
-                        <i class="fas fa-user-shield pulse"></i>
-                    </div>
-                    <h3>Cyber Security Focus</h3>
-                    <p>Transitioning from "working" apps to "unbreakable" apps. My security journey
-                        includes:
-                    </p>
-                    <ul class="clean-list" style="margin-top: 15px; text-align: left;">
-                        <li><i class="fas fa-bug"></i> <strong>Vulnerability Assessment:</strong>
-                            Identifying
-                            weak
-                            points.</li>
-                        <li><i class="fas fa-lock"></i> <strong>Secure Coding:</strong> OWASP Top 10
-                            mitigation.
-                        </li>
-                        <li><i class="fas fa-certificate"></i> <strong>Certifications:</strong>
-                            Pursuing
-                            advanced
-                            CyberSec credentials.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="about-footer-text">
-                <p>I leverage the power of advanced AI models to accelerate my development. By
-                    integrating AI
-                    into
-                    my workflow, I save time on boilerplate and focus entirely on complex logic and
-                    system
-                    architecture.</p>
-            </div>
+            <div id="projectsList"></div>
         </div>
-    </div>
     </div>
 
     <!-- Publications Overlay -->
@@ -2179,7 +2067,21 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/my-portfolio/service-worker.js')
+                const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+
+                if (isLocalhost) {
+                    navigator.serviceWorker.getRegistrations()
+                        .then((registrations) => Promise.all(registrations.map((registration) => registration.unregister())))
+                        .then(() => {
+                            console.log('Development mode: service workers unregistered for localhost.');
+                        })
+                        .catch((error) => {
+                            console.log('Service worker cleanup failed:', error);
+                        });
+                    return;
+                }
+
+                navigator.serviceWorker.register('./service-worker.js')
                     .then((registration) => {
                         console.log('✅ Service Worker registered:', registration.scope);
                     })

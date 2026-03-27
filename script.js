@@ -456,39 +456,105 @@ function renderAllSkills() {
 
 
 // --- OVERLAY INTERACTION FUNCTIONS ---
+let lenisInstance = null;
+
+function hasActiveOverlay() {
+    return Boolean(
+        document.querySelector('.projects-overlay.show') ||
+        document.querySelector('.project-detail-modal.active')
+    );
+}
+
+function syncPageScrollLock() {
+    const mobileMenuOpen = document.querySelector('.main-header')?.classList.contains('mobile-menu-open');
+    const shouldLock = hasActiveOverlay() || mobileMenuOpen;
+
+    document.body.classList.toggle('scroll-locked', shouldLock);
+
+    if (lenisInstance) {
+        if (shouldLock) {
+            lenisInstance.stop();
+        } else {
+            lenisInstance.start();
+        }
+    }
+}
+
+function resetOverlayScroll(overlay) {
+    if (!overlay) return;
+
+    overlay.scrollTop = 0;
+    const panel = overlay.querySelector('.projects-container, .detail-modal-container');
+    if (panel) {
+        panel.scrollTop = 0;
+    }
+}
+
+function getActiveOverlayScrollPanel() {
+    const detailModal = document.querySelector('.project-detail-modal.active');
+    if (detailModal) {
+        return detailModal.querySelector('.detail-modal-container') || detailModal;
+    }
+
+    const overlay = document.querySelector('.projects-overlay.show');
+    if (!overlay) return null;
+
+    return overlay.querySelector('.projects-container') || overlay;
+}
+
+function openOverlayById(id, options = {}) {
+    const overlay = document.getElementById(id);
+    if (!overlay) return;
+
+    overlay.classList.add('show');
+    resetOverlayScroll(overlay);
+
+    if (options.blur) {
+        toggleBlur(true);
+    }
+
+    syncPageScrollLock();
+}
+
+function closeOverlayById(id, options = {}) {
+    const overlay = document.getElementById(id);
+    if (!overlay) return;
+
+    overlay.classList.remove('show');
+
+    if (options.blur) {
+        toggleBlur(false);
+    }
+
+    syncPageScrollLock();
+}
 
 // Projects
 window.openProjects = function () {
     console.log('Opening Projects Overlay...');
     renderAllProjects(); // Content is now dynamically rendered from projectsData
-    document.getElementById('projectsOverlay').classList.add('show');
-    document.body.style.overflow = 'hidden';
+    openOverlayById('projectsOverlay');
 };
 window.closeProjects = function () {
-    document.getElementById('projectsOverlay').classList.remove('show');
-    document.body.style.overflow = 'auto';
+    closeOverlayById('projectsOverlay');
 };
 
 // Websites
 window.openWebsites = function () {
     console.log('Opening Websites Overlay...');
     // renderWebsites(); // Content is now static HTML
-    document.getElementById('websitesOverlay').classList.add('show');
-    document.body.style.overflow = 'hidden';
+    openOverlayById('websitesOverlay');
 };
 window.closeWebsites = function () {
-    document.getElementById('websitesOverlay').classList.remove('show');
-    document.body.style.overflow = 'auto';
+    closeOverlayById('websitesOverlay');
 };
 
 // Certificates
 window.openCertificates = function () {
-    document.getElementById('certificatesOverlay').classList.add('show');
-    document.body.style.overflow = 'hidden';
+    openOverlayById('certificatesOverlay');
 };
 window.closeCertificates = function () {
-    document.getElementById('certificatesOverlay').classList.remove('show');
-    document.body.style.overflow = 'auto';
+    closeOverlayById('certificatesOverlay');
 };
 window.showCertTab = function (type) {
     // 1. Remove 'active' class from all tabs
@@ -510,60 +576,43 @@ window.showCertTab = function (type) {
 // Full Stack Skills
 window.openFullStackSkills = function () {
     console.log('FUNC: openFullStackSkills CALLED');
-    document.getElementById('fullstackOverlay').classList.add('show');
-    document.body.style.overflow = 'hidden';
+    openOverlayById('fullstackOverlay');
 };
 window.closeFullStackSkills = function () {
-    document.getElementById('fullstackOverlay').classList.remove('show');
-    document.body.style.overflow = 'auto';
+    closeOverlayById('fullstackOverlay');
 };
 
 // Cybersecurity Skills
 window.openCybersecuritySkills = function () {
     console.log('FUNC: openCybersecuritySkills CALLED');
-    document.getElementById('cybersecurityOverlay').classList.add('show');
-    document.body.style.overflow = 'hidden';
+    openOverlayById('cybersecurityOverlay');
 };
 window.closeCybersecuritySkills = function () {
-    document.getElementById('cybersecurityOverlay').classList.remove('show');
-    document.body.style.overflow = 'auto';
-    toggleBlur(false);
+    closeOverlayById('cybersecurityOverlay');
 };
 
 // About (Already exists in HTML onclick="openAbout()")
 window.openAbout = function () {
-    document.getElementById('aboutOverlay').classList.add('show');
-    document.body.style.overflow = 'hidden';
-    toggleBlur(true);
+    openOverlayById('aboutOverlay', { blur: true });
 };
 window.closeAbout = function () {
-    document.getElementById('aboutOverlay').classList.remove('show');
-    document.body.style.overflow = 'auto';
-    toggleBlur(false);
+    closeOverlayById('aboutOverlay', { blur: true });
 };
 
 // Publications
 window.openPublications = function () {
-    document.getElementById('publicationsOverlay').classList.add('show');
-    document.body.style.overflow = 'hidden';
-    toggleBlur(true);
+    openOverlayById('publicationsOverlay', { blur: true });
 };
 window.closePublications = function () {
-    document.getElementById('publicationsOverlay').classList.remove('show');
-    document.body.style.overflow = 'auto';
-    toggleBlur(false);
+    closeOverlayById('publicationsOverlay', { blur: true });
 };
 
 // Contact
 window.openContact = function () {
-    document.getElementById('contactOverlay').classList.add('show');
-    document.body.style.overflow = 'hidden';
-    toggleBlur(true);
+    openOverlayById('contactOverlay', { blur: true });
 };
 window.closeContact = function () {
-    document.getElementById('contactOverlay').classList.remove('show');
-    document.body.style.overflow = 'auto';
-    toggleBlur(false);
+    closeOverlayById('contactOverlay', { blur: true });
 };
 
 // Close all on ESC
@@ -571,9 +620,24 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         const overlays = document.querySelectorAll('.projects-overlay');
         overlays.forEach(o => o.classList.remove('show'));
-        document.body.style.overflow = 'auto';
+        toggleBlur(false);
+        syncPageScrollLock();
     }
 });
+
+document.addEventListener('wheel', (e) => {
+    const panel = getActiveOverlayScrollPanel();
+    if (!panel) return;
+
+    const isInsideOverlay = e.target.closest('.projects-overlay.show, .project-detail-modal.active');
+    if (!isInsideOverlay) return;
+
+    const canScroll = panel.scrollHeight > panel.clientHeight;
+    if (!canScroll) return;
+
+    e.preventDefault();
+    panel.scrollTop += e.deltaY;
+}, { passive: false });
 
 
 // --- OTHER GRAPHICS & LOGIC ---
@@ -589,12 +653,12 @@ function toggleMobileMenu() {
     if (header.classList.contains('mobile-menu-open')) {
         icon.classList.remove('fa-ellipsis-v');
         icon.classList.add('fa-times');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
     } else {
         icon.classList.remove('fa-times');
         icon.classList.add('fa-ellipsis-v');
-        document.body.style.overflow = 'auto'; // Restore scrolling
     }
+
+    syncPageScrollLock();
 }
 
 function toggleBlur(active) {
@@ -1122,7 +1186,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function initSmoothScroll() {
     // Initialize Lenis for smooth scrolling
     if (typeof Lenis !== 'undefined') {
-        const lenis = new Lenis({
+        lenisInstance = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             direction: 'vertical',
@@ -1131,14 +1195,19 @@ function initSmoothScroll() {
             mouseMultiplier: 1,
             smoothTouch: false,
             touchMultiplier: 2,
+            prevent: (node) => Boolean(
+                node.closest('.projects-overlay') ||
+                node.closest('.project-detail-modal')
+            ),
         });
 
         function raf(time) {
-            lenis.raf(time);
+            lenisInstance.raf(time);
             requestAnimationFrame(raf);
         }
 
         requestAnimationFrame(raf);
+        syncPageScrollLock();
     }
 }
 

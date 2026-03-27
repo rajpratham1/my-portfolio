@@ -303,7 +303,12 @@
 
         // Show modal
         modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        modal.scrollTop = 0;
+        const container = modal.querySelector('.detail-modal-container');
+        if (container) {
+            container.scrollTop = 0;
+        }
+        document.body.classList.add('scroll-locked');
     };
 
     // Close Modal
@@ -311,7 +316,9 @@
         const modal = document.getElementById('projectDetailModal');
         if (modal) {
             modal.classList.remove('active');
-            document.body.style.overflow = '';
+            const mobileMenuOpen = document.querySelector('.main-header')?.classList.contains('mobile-menu-open');
+            const hasActiveOverlay = document.querySelector('.projects-overlay.show');
+            document.body.classList.toggle('scroll-locked', Boolean(mobileMenuOpen || hasActiveOverlay));
         }
     };
 
