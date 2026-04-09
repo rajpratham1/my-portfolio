@@ -1064,11 +1064,65 @@ document.addEventListener('DOMContentLoaded', () => {
     initRippleEffect();
     initStaggeredReveal();
     initSkillBarsAnimation();
+    initThemeToggle();
 });
 
 // ==========================================================================
 // ANIMATED SKILLS PROGRESS BARS
 // ==========================================================================
+function initThemeToggle() {
+    const themeBtnDesktops = document.querySelectorAll('.theme-toggle-btn');
+    if (themeBtnDesktops.length === 0) return;
+
+    // States: 'system', 'light', 'dark'
+    let currentTheme = localStorage.getItem('theme') || 'system';
+
+    const getSystemTheme = () => window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+
+    const applyTheme = (theme) => {
+        const resolvedTheme = theme === 'system' ? getSystemTheme() : theme;
+        if (resolvedTheme === 'light') {
+            document.body.classList.add('light-theme');
+        } else {
+            document.body.classList.remove('light-theme');
+        }
+        updateIcons(theme);
+    };
+
+    const updateIcons = (theme) => {
+        let iconHtml = '<i class="fas fa-desktop"></i> System';
+        if (theme === 'light') iconHtml = '<i class="fas fa-sun"></i> Light';
+        if (theme === 'dark') iconHtml = '<i class="fas fa-moon"></i> Dark';
+
+        themeBtnDesktops.forEach(btn => {
+            btn.innerHTML = iconHtml;
+        });
+    };
+
+    const toggleTheme = () => {
+        if (currentTheme === 'system') currentTheme = 'light';
+        else if (currentTheme === 'light') currentTheme = 'dark';
+        else currentTheme = 'system';
+
+        localStorage.setItem('theme', currentTheme);
+        applyTheme(currentTheme);
+    };
+
+    themeBtnDesktops.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleTheme();
+        });
+    });
+
+    // Listen for OS theme changes if in system mode
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+        if (currentTheme === 'system') applyTheme('system');
+    });
+
+    // Initial Apply
+    applyTheme(currentTheme);
+}
 function initSkillBarsAnimation() {
     const skillBars = document.querySelectorAll('.skill-progress');
 

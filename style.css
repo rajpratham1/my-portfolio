@@ -3882,3 +3882,47 @@
                 background-position: center bottom;
             }
         }
+/* ==========================================================================
+   LIGHT THEME OVERRIDES (Solving hardcoded colors)
+   ========================================================================== */
+.light-theme .contact-card h3,
+.light-theme .contact-card-text h3,
+.light-theme .project-description,
+.light-theme .project-info p,
+.light-theme .contact-card p,
+.light-theme .about-me,
+.light-theme .email,
+.light-theme .expertise-badge span,
+.light-theme .about-card h3,
+.light-theme .about-card p,
+.light-theme .category-title,
+.light-theme .skill-info-box h4,
+.light-theme .pub-desc,
+.light-theme #terminal-output,
+.light-theme .detail-tagline,
+.light-theme .detail-section-content,
+.light-theme .social-link.twitter i {
+    color: var(--text-primary) !important;
+}
+
+.light-theme .global-preloader,
+.light-theme .page-loader {
+    background: var(--bg-gradient) !important;
+}
+
+.light-theme .mobile-nav,
+.light-theme .main-header,
+.light-theme .projects-overlay {
+    background: var(--header-bg) !important;
+}
+
+/* Fix inputs and terminal dark bgs */
+.light-theme .form-input,
+.light-theme .form-textarea,
+.light-theme .contact-form,
+.light-theme #terminal-input {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text-primary);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
