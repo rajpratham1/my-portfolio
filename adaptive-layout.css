@@ -25,18 +25,16 @@
         flex-direction: row !important;
         flex-wrap: nowrap !important;
         overflow-x: auto !important;
-        overflow-y: hidden;
+        overflow-y: visible !important;
         gap: 20px;
         padding: 15px 5px 30px 5px;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x mandatory;
+        touch-action: pan-x pan-y !important;
 
-        /* Hide scrollbar but keep functionality */
-        scrollbar-width: none;
-        /* Firefox */
-        -ms-overflow-style: none;
-        /* IE/Edge */
+        /* Show scrollbar */
+        scrollbar-width: thin;
+        -ms-overflow-style: auto;
     }
 
     #projectsList::-webkit-scrollbar,
@@ -44,8 +42,19 @@
     .fav-websites-grid::-webkit-scrollbar,
     .websites-grid::-webkit-scrollbar,
     .pub-grid::-webkit-scrollbar {
-        display: none;
-        /* Chrome/Safari */
+        display: block;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 4px;
+    }
+    
+    #projectsList::-webkit-scrollbar-thumb,
+    #websitesList::-webkit-scrollbar-thumb,
+    .fav-websites-grid::-webkit-scrollbar-thumb,
+    .websites-grid::-webkit-scrollbar-thumb,
+    .pub-grid::-webkit-scrollbar-thumb {
+        background: rgba(0, 174, 255, 0.5);
+        border-radius: 4px;
     }
 
     /* Fixed width cards on mobile for carousel effect */
@@ -57,7 +66,6 @@
         min-width: 85vw !important;
         max-width: 85vw !important;
         flex: 0 0 auto !important;
-        scroll-snap-align: center;
     }
 }
 
@@ -78,7 +86,23 @@
     -webkit-backdrop-filter: blur(15px) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 16px;
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+}
+
+/* Popping 3D Content Effect inside Cards */
+.project-card .project-info, 
+.project-card img,
+.website-card .website-content,
+.about-card h4,
+.about-card p {
+    transform: translateZ(30px);
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-info, 
+.project-card:hover img {
+    transform: translateZ(50px);
 }
 
 /* ==========================================================================
@@ -95,7 +119,7 @@
     border-color: rgba(0, 174, 255, 0.5) !important;
     box-shadow: 0 0 25px rgba(0, 174, 255, 0.25),
         0 10px 40px rgba(0, 0, 0, 0.3) !important;
-    transform: translateY(-5px);
+    transform: translateY(-8px) scale(1.01);
 }
 
 /* ==========================================================================
@@ -107,7 +131,7 @@
 .certificates-section,
 .about-container {
     max-width: 100%;
-    overflow-x: hidden;
+    overflow-x: visible !important;
     box-sizing: border-box;
 }
 

@@ -24,7 +24,7 @@ body.scroll-locked {
     transition: opacity 0.3s ease, visibility 0.3s ease !important;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
-    touch-action: pan-y;
+    touch-action: pan-x pan-y;
 }
 
 .projects-overlay.show {
@@ -58,7 +58,7 @@ body.scroll-locked {
     /* Center in flex container */
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
-    touch-action: pan-y;
+    touch-action: pan-x pan-y;
     scrollbar-gutter: stable;
 }
 

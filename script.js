@@ -913,23 +913,39 @@ function initScrollProgressBar() {
 // 3D CARD TILT EFFECT
 // ==========================================================================
 function initTiltEffect() {
-    const cards = document.querySelectorAll('.project-card, .pub-card, .fav-website-item, .about-card');
+    const cards = document.querySelectorAll('.project-card, .pub-card, .fav-website-item, .about-card, .contact-card');
 
     cards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
+            // Remove transition for true hardware 1:1 mouse tracking
+            card.style.transition = 'none';
+
             const rect = card.getBoundingClientRect();
+            // Get precise mouse coordinates relative to card
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = (y - centerY) / 20;
-            const rotateY = (centerX - x) / 20;
+            
+            // Calculate percentage from center (-1 to 1)
+            const xPct = (x / rect.width - 0.5) * 2;
+            const yPct = (y / rect.height - 0.5) * 2;
+            
+            // X rotation comes from Y movement, Y rotation from X (Limit tilt to 12 degrees)
+            const rotateX = -yPct * 12; 
+            const rotateY = xPct * 12;
 
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            // Apply premium 3D transformation with a scale pop
+            card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
         });
 
         card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+            // Re-apply smooth floating transition when mouse leaves
+            card.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease';
+            card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+        
+        card.addEventListener('mouseenter', () => {
+             // Initial smooth scale when entering
+             card.style.transition = 'transform 0.2s cubic-bezier(0.25, 1, 0.5, 1)';
         });
     });
 }
@@ -1043,7 +1059,6 @@ function initStaggeredReveal() {
 // INITIALIZE ALL ANIMATIONS
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', () => {
-    initPageLoader();
     initScrollProgressBar();
     initTiltEffect();
     initRippleEffect();
@@ -1252,49 +1267,7 @@ function initMagneticButtons() {
 // ==========================================================================
 
 function initAudioEffects() {
-    let audioCtx = null;
-
-    // Create oscillator beep
-    const playTone = (freq, type, duration) => {
-        if (!audioCtx) return;
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-
-        osc.type = type;
-        osc.frequency.value = freq;
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-
-        osc.start();
-        gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
-        osc.stop(audioCtx.currentTime + duration);
-    };
-
-    // Init Context on interaction
-    const enableAudio = () => {
-        if (!audioCtx) {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-        }
-        window.removeEventListener('click', enableAudio);
-        window.removeEventListener('keydown', enableAudio);
-    };
-
-    window.addEventListener('click', enableAudio);
-    window.addEventListener('keydown', enableAudio);
-
-    // Hover Sound effects (Blip)
-    document.querySelectorAll('a, button, .project-card, .hire-me-card, .fav-website-item').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            playTone(800, 'sine', 0.05); // High blip
-        });
-
-        el.addEventListener('click', () => {
-            playTone(600, 'square', 0.1); // Click sound
-        });
-    });
+    // Audio effects disabled as requested.
 }
 
 function initKonamiCode() {
