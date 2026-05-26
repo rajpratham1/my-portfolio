@@ -710,8 +710,8 @@
             padding: 40px;
             margin-bottom: 50px;
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.6s ease;
+            transform: translateY(40px);
+            transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .project-card.visible {
@@ -722,6 +722,7 @@
         .project-card:hover {
             border-color: #00aeff;
             box-shadow: 0 10px 40px rgba(0, 174, 255, 0.3);
+            will-change: transform;
         }
 
         .project-content {
@@ -807,7 +808,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            transition: 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .project-btn.primary {
@@ -858,13 +859,14 @@
             border-radius: 20px;
             padding: 30px;
             position: relative;
-            transition: all 0.4s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
         .fav-website-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(0, 174, 255, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 174, 255, 0.35);
             border-color: #00c3ff;
+            will-change: transform;
         }
 
         .fav-star {
@@ -873,7 +875,10 @@
             right: 20px;
             font-size: 2rem;
             color: #f39c12;
-            animation: pulse 2s infinite;
+        }
+
+        .fav-website-item:hover .fav-star {
+            animation: pulse 1.5s ease-in-out infinite;
         }
 
         .fav-site-image {
@@ -3925,4 +3930,45 @@
     color: var(--text-primary);
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+/* ========================================
+   PERFORMANCE OPTIMIZATIONS
+   ======================================== */
+
+/* Isolate overlay rendering to its own layer */
+.projects-overlay {
+    contain: layout style;
+}
+
+/* Promote canvas to own GPU layer */
+#tech-canvas {
+    transform: translateZ(0);
+    will-change: auto;
+}
+
+/* Respect user's motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Consistent stagger-reveal animation */
+.stagger-reveal {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+}
+.stagger-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+
+
 
