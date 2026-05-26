@@ -4700,3 +4700,101 @@
 .performance-saver .spotlight-card::after {
     display: none !important;
 }
+
+/* ==========================================================================
+   PROJECTS FILTER BAR & CAPTCHA SHAKE ANIMATIONS
+   ========================================================================== */
+.projects-filter-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 25px 0 35px 0;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 10;
+}
+
+.filter-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 174, 255, 0.2);
+    color: rgba(255, 255, 255, 0.85);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.filter-btn:hover {
+    background: rgba(0, 174, 255, 0.1);
+    border-color: #00aeff;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 174, 255, 0.2);
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, #00aeff 0%, #0077ff 100%);
+    border-color: #00aeff;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 174, 255, 0.3);
+}
+
+/* Card entry fade animation for filtering */
+.project-card {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.project-card.fade-out {
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+    pointer-events: none;
+}
+
+.project-card.fade-in {
+    animation: cardFadeIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Captcha shake warning indicators */
+.captcha-shake {
+    animation: captchaShake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    border-color: #ff4757 !important;
+    box-shadow: 0 0 12px rgba(255, 71, 87, 0.35) !important;
+}
+
+@keyframes captchaShake {
+    10%, 90% { transform: translate3d(-1.5px, 0, 0); }
+    20%, 80% { transform: translate3d(3px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4.5px, 0, 0); }
+    40%, 60% { transform: translate3d(4.5px, 0, 0); }
+}
+
+.captcha-error-text {
+    color: #ff4757;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    animation: fadeIn 0.3s ease;
+}
+

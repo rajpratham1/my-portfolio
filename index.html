@@ -5,6 +5,10 @@
 <head>
     <meta name="google-site-verification" content="google410e9a3399195645.html" />
     <meta charset="UTF-8">
+    <!-- Permanent Cache Control for Cache Busting -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pratham Kumar | Full Stack Developer & Cybersecurity Enthusiast</title>
 
@@ -1540,6 +1544,15 @@
             <h1 class="projects-title">
                 <i class="fas fa-rocket"></i> My Projects
             </h1>
+            
+            <!-- Dynamic Projects Category Filter Bar -->
+            <div class="projects-filter-bar">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="ai-ml">AI & Machine Learning</button>
+                <button class="filter-btn" data-filter="web-fullstack">Web & Full Stack</button>
+                <button class="filter-btn" data-filter="iot">IoT & Sensors</button>
+            </div>
+
             <div id="projectsList"></div>
         </div>
     </div>
@@ -2384,11 +2397,11 @@
         <i class="fas fa-chevron-up"></i>
     </a>
 
-    <script src="project-details.js"></script>
-    <script src="terminal.js"></script>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-    <script src="script.js"></script>
-    <script src="chatbot.js"></script>
+    <script type="module" src="./project-details.js"></script>
+    <script type="module" src="./terminal.js"></script>
+    <script type="module" src="./script.js"></script>
+    <script type="module" src="./chatbot.js"></script>
 
     <!-- Service Worker Registration for PWA -->
     <script>

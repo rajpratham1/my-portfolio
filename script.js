@@ -253,6 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderAllCertificates();// For the Certificates Overlay
     renderAllSkills();      // For Full Stack & Cyber Overlays
     initScrollReveal();
+    initProjectsFilter();
 
     // Contact Form & Captcha
     const contactForm = document.getElementById('contactForm');
@@ -387,8 +388,8 @@ function renderWebsites() {
     }
 }
 
-function renderAllProjects() {
-    console.log('renderAllProjects called');
+function renderAllProjects(filter = 'all') {
+    console.log('renderAllProjects called with filter:', filter);
     const container = document.getElementById('projectsList');
     if (!container) {
         console.error('CRITICAL: projectsList container NOT found!');
@@ -404,8 +405,31 @@ function renderAllProjects() {
         return;
     }
 
-    const html = projects.map(([name, project]) => {
-        // console.log('Rendering project:', name); // Optional: detailed log
+    // Filter projects based on techStack tags and description keywords
+    const filteredProjects = projects.filter(([name, project]) => {
+        if (filter === 'all') return true;
+        
+        const stack = project.techStack.map(s => s.toLowerCase());
+        const desc = project.description.toLowerCase();
+        
+        if (filter === 'iot') {
+            return stack.includes('iot') || stack.includes('arduino') || stack.includes('raspberry pi') || stack.includes('sensors');
+        }
+        if (filter === 'ai-ml') {
+            return stack.includes('ml') || stack.includes('ai/ml') || stack.includes('machine learning') || stack.includes('face recognition') || stack.includes('healthcare ai') || stack.includes('gemini ai') || desc.includes('machine learning') || desc.includes('ai-powered');
+        }
+        if (filter === 'web-fullstack') {
+            return stack.includes('full stack') || stack.includes('web development') || stack.includes('react') || stack.includes('vite') || stack.includes('fastapi') || stack.includes('flask') || stack.includes('web app') || stack.includes('javascript') || stack.includes('sqlite') || desc.includes('full-stack') || desc.includes('web platform');
+        }
+        return true;
+    });
+
+    if (filteredProjects.length === 0) {
+        container.innerHTML = `<div class="terminal-response" style="color: #ff6b6b; text-align: center; padding: 20px; width: 100%;">No projects found under this category.</div>`;
+        return;
+    }
+
+    const html = filteredProjects.map(([name, project]) => {
         return `
         <div class="project-card">
             <div class="project-content">
@@ -432,7 +456,38 @@ function renderAllProjects() {
     `}).join('');
 
     container.innerHTML = html;
-    console.log('Projects rendered successfully into container.');
+    
+    // Bind interaction effects (3D tilt & spotlight glow) to the newly rendered cards
+    if (typeof initCardInteractiveEffects === 'function') {
+        initCardInteractiveEffects();
+    }
+}
+
+function initProjectsFilter() {
+    const filterButtons = document.querySelectorAll('.projects-filter-bar .filter-btn');
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            filterButtons.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            const filterValue = this.getAttribute('data-filter');
+            const projectsList = document.getElementById('projectsList');
+            if (projectsList) {
+                // Fade out existing cards
+                projectsList.querySelectorAll('.project-card').forEach(card => {
+                    card.classList.add('fade-out');
+                });
+                
+                // Re-render and fade in new cards
+                setTimeout(() => {
+                    renderAllProjects(filterValue);
+                    projectsList.querySelectorAll('.project-card').forEach(card => {
+                        card.classList.add('fade-in');
+                    });
+                }, 300);
+            }
+        });
+    });
 }
 
 function renderAllCertificates() {
@@ -938,12 +993,32 @@ function generateMathQuestion() {
 
 function handleContactSubmit(e) {
     e.preventDefault();
-    const userAns = parseInt(document.getElementById('math-answer').value);
+    const mathInput = document.getElementById('math-answer');
+    const userAns = parseInt(mathInput.value);
+    
     if (userAns !== captchaAnswer) {
-        alert("Incorrect math answer.");
+        const captchaContainer = mathInput.closest('.form-group');
+        const existingError = captchaContainer.querySelector('.captcha-error-text');
+        if (existingError) existingError.remove();
+
+        const err = document.createElement('div');
+        err.className = 'captcha-error-text';
+        err.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Incorrect answer, please try again!';
+        captchaContainer.appendChild(err);
+
+        captchaContainer.classList.add('captcha-shake');
+        setTimeout(() => {
+            captchaContainer.classList.remove('captcha-shake');
+        }, 400);
+
         generateMathQuestion();
+        mathInput.value = '';
         return;
     }
+
+    const captchaContainer = mathInput.closest('.form-group');
+    const existingError = captchaContainer.querySelector('.captcha-error-text');
+    if (existingError) existingError.remove();
 
     const btn = this.querySelector('.send-btn');
     const originalContent = btn.innerHTML;

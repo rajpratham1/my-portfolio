@@ -17,6 +17,11 @@
 <span class="terminal-response">  projects  - View my projects</span>
 <span class="terminal-response">  contact   - Get in touch with me</span>
 <span class="terminal-response">  social    - My social links</span>
+<span class="terminal-response">  hack      - Execute decryption hacking sequence</span>
+<span class="terminal-response">  matrix    - Toggle digital rain theme</span>
+<span class="terminal-response">  sudo      - Administrator execute</span>
+<span class="terminal-response">  joke      - Tell a random developer joke</span>
+<span class="terminal-response">  coffee    - Try to brew a cup of coffee</span>
 <span class="terminal-response">  clear     - Clear terminal</span>
 <span class="terminal-response">  help      - Show this help message</span>`;
             }
@@ -97,6 +102,46 @@
 <span class="terminal-response">🐦 Twitter   : @rajpratham_dev</span>`;
             }
         },
+        hack: {
+            description: 'Execute fake decryption hacking sequence',
+            execute: () => {
+                setTimeout(runFakeHack, 500);
+                return `<span class="terminal-response warning">Initializing connection protocol...</span>`;
+            }
+        },
+        matrix: {
+            description: 'Toggle digital rain matrix theme',
+            execute: () => {
+                document.body.classList.toggle('matrix-mode');
+                return `<span class="terminal-response success">Matrix code sequence activated. Follow the white rabbit...</span>`;
+            }
+        },
+        sudo: {
+            description: 'Run administrative command',
+            execute: () => {
+                return `<span class="terminal-response error">Permission denied: user "pratham" does not have root administrative permissions to neural interface.</span>`;
+            }
+        },
+        joke: {
+            description: 'Output developer humor',
+            execute: () => {
+                const jokes = [
+                    "Why do programmers wear glasses? Because they can't C#!",
+                    "There are 10 types of people in this world: Those who understand binary, and those who don't.",
+                    "How many programmers does it take to change a light bulb? None, that's a hardware problem.",
+                    "['hip', 'hip'] (hip hip array!)",
+                    "A SQL query goes into a bar, walks up to two tables and asks, 'Can I join you?'"
+                ];
+                const r = Math.floor(Math.random() * jokes.length);
+                return `<span class="terminal-response info">${jokes[r]}</span>`;
+            }
+        },
+        coffee: {
+            description: 'Brew coffee',
+            execute: () => {
+                return `<span class="terminal-response error">Error 418: I'm a teapot. Coffee brewing not supported on local IoT loop.</span>`;
+            }
+        },
         clear: {
             description: 'Clear terminal',
             execute: () => {
@@ -108,10 +153,36 @@
     // Welcome message
     const welcomeMessage = `
 <span class="terminal-response info">╔══════════════════════════════════════════════════════════════╗</span>
-<span class="terminal-response info">║  Welcome to Pratham's Interactive Terminal v1.0              ║</span>
+<span class="terminal-response info">║  Welcome to Pratham's Interactive Terminal v1.1              ║</span>
 <span class="terminal-response info">║  Type 'help' to see available commands                       ║</span>
 <span class="terminal-response info">╚══════════════════════════════════════════════════════════════╝</span>
 `;
+
+    function runFakeHack() {
+        const terminalOutput = document.getElementById('terminal-output');
+        if (!terminalOutput) return;
+
+        const lines = [
+            'CONNECTING TO SECURE MAINFRAME...',
+            'BYPASSING FIREWALL PROTOCOLS...',
+            'DECRYPTING CRYPTO KEYS...',
+            'SUCCESS: SYSTEM CONTROL ACQUIRED!',
+            'PRATHAM PORTFOLIO VER v1.1 ACCESS GRANTED.'
+        ];
+
+        let index = 0;
+        function printLine() {
+            if (index < lines.length) {
+                const color = index === 3 ? '#2ecc71' : (index === 4 ? '#00aeff' : '#f1c40f');
+                terminalOutput.innerHTML += `<div class="terminal-response" style="color: ${color};">${lines[index]}</div>`;
+                index++;
+                const terminalBody = document.querySelector('.terminal-body');
+                if (terminalBody) terminalBody.scrollTop = terminalBody.scrollHeight;
+                setTimeout(printLine, 600);
+            }
+        }
+        printLine();
+    }
 
     // Initialize terminal
     function initTerminal() {
@@ -123,12 +194,59 @@
         // Show welcome message
         terminalOutput.innerHTML = welcomeMessage;
 
+        let history = [];
+        let historyIndex = -1;
+
+        function handleAutocomplete(inputEl) {
+            const inputVal = inputEl.value.trim().toLowerCase();
+            if (!inputVal) return;
+
+            const matches = Object.keys(commands).filter(c => c.startsWith(inputVal));
+            if (matches.length === 1) {
+                inputEl.value = matches[0];
+            } else if (matches.length > 1) {
+                const list = matches.join('   ');
+                terminalOutput.innerHTML += `
+<div class="terminal-line">
+    <span class="terminal-prompt">┌──(</span><span class="terminal-user">pratham@portfolio</span><span class="terminal-prompt">)-[</span><span class="terminal-path">~</span><span class="terminal-prompt">]</span>
+</div>
+<div class="terminal-line">
+    <span class="terminal-prompt">└─$ </span><span class="terminal-command">${escapeHtml(inputEl.value)} [Tab]</span>
+</div>
+<div class="terminal-response-block" style="color: #95a5a6;">${list}</div>`;
+                const terminalBody = document.querySelector('.terminal-body');
+                if (terminalBody) terminalBody.scrollTop = terminalBody.scrollHeight;
+            }
+        }
+
         // Handle input
         terminalInput.addEventListener('keydown', function (e) {
             if (e.key === 'Enter') {
                 const command = this.value.trim().toLowerCase();
-                processCommand(command);
+                if (command) {
+                    history.push(command);
+                    historyIndex = history.length;
+                    processCommand(command);
+                }
                 this.value = '';
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (history.length > 0 && historyIndex > 0) {
+                    historyIndex--;
+                    this.value = history[historyIndex];
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (history.length > 0 && historyIndex < history.length - 1) {
+                    historyIndex++;
+                    this.value = history[historyIndex];
+                } else {
+                    historyIndex = history.length;
+                    this.value = '';
+                }
+            } else if (e.key === 'Tab') {
+                e.preventDefault();
+                handleAutocomplete(this);
             }
         });
 
@@ -140,11 +258,8 @@
 
     function processCommand(input) {
         const terminalOutput = document.getElementById('terminal-output');
-        const terminalInput = document.getElementById('terminal-input');
+        if (!input || !terminalOutput) return;
 
-        if (!input) return;
-
-        // Add command to output
         const commandLine = `
 <div class="terminal-line">
     <span class="terminal-prompt">┌──(</span><span class="terminal-user">pratham@portfolio</span><span class="terminal-prompt">)-[</span><span class="terminal-path">~</span><span class="terminal-prompt">]</span>
