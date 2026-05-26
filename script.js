@@ -129,8 +129,33 @@ const projectsData = {
             { text: 'Visit Website', url: 'https://crimeportal-mu.vercel.app/team', icon: 'fa-globe', type: 'secondary' },
             { text: 'View Presentation', url: 'assets/documents/JAVA.pdf', icon: 'fa-file-powerpoint', type: 'primary' }
         ]
+    },
+    'Face Recognition Attendance': {
+        image: 'assets/images/face.png',
+        title: 'Face Recognition Attendance System',
+        badge: { text: 'Team AstraTech', class: 'lead' },
+        description: 'AI-powered attendance system for Invertis University. Combines face verification (128-dim edge biometrics), strict GPS geofencing, real-time session tracking, gamified streaks, and smart attendance predictions. Features a premium Glassmorphism UI with multi-role dashboards for Students, Teachers, and Admins.',
+        techStack: ['Python Flask', 'Face Recognition', 'AI/ML', 'SQLite', 'JavaScript'],
+        links: [
+            { text: 'Visit Website', url: 'https://face-recognition-attendance-system-xztu.onrender.com/', icon: 'fa-globe', type: 'secondary' },
+            { text: 'GitHub Repo', url: 'https://github.com/rajpratham1/Face-Recognition-Attendance-System', icon: 'fa-brands fa-github', type: 'secondary' },
+            { text: 'Presentation', url: 'assets/documents/FaceRecognition_Attendance_SectionC.pdf', icon: 'fa-file-powerpoint', type: 'primary' }
+        ]
+    },
+    'EcoVerse': {
+        image: 'assets/images/ECO.png',
+        title: 'EcoVerse Web Platform',
+        badge: { text: 'Full Stack', class: 'current' },
+        description: 'A full-stack eco-gamification platform with a React + Vite frontend and FastAPI backend. Features student and admin dashboards, live leaderboard, eco missions, XP rewards, campus community hub, Eco Lens carbon calculator, and real-time Firebase sync.',
+        techStack: ['React', 'Vite', 'FastAPI', 'Firebase', 'Gemini AI'],
+        links: [
+            { text: 'Visit Website', url: 'https://eco-verse-eight.vercel.app/', icon: 'fa-globe', type: 'secondary' },
+            { text: 'GitHub Repo', url: 'https://github.com/rajpratham1/ECO_VERSE', icon: 'fa-brands fa-github', type: 'secondary' },
+            { text: 'Presentation', url: 'assets/documents/EcoVerse F.pdf', icon: 'fa-file-powerpoint', type: 'primary' }
+        ]
     }
 };
+
 
 // --- DATA : CERTIFICATES ---
 const certificatesData = [
@@ -578,6 +603,7 @@ window.openFullStackSkills = function () {
     console.log('FUNC: openFullStackSkills CALLED');
     openOverlayById('fullstackOverlay');
 };
+
 window.closeFullStackSkills = function () {
     closeOverlayById('fullstackOverlay');
 };
@@ -752,9 +778,12 @@ function typeRole() {
 function initScrollReveal() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('visible');
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target); // Fire once, then stop
+            }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
     document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 }
 
@@ -830,35 +859,6 @@ if (scrollTopBtn) {
     });
 }
 
-// ==========================================================================
-// INTERSECTION OBSERVER - Fade-in Animations on Scroll
-// ==========================================================================
-const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-};
-
-const fadeInObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            // Optional: Stop observing after animation triggers
-            // fadeInObserver.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-// Observe all elements with animate-on-scroll class
-document.querySelectorAll('.animate-on-scroll').forEach(el => {
-    fadeInObserver.observe(el);
-});
-
-// Also observe project cards, website cards, and pub cards for dynamic content
-document.querySelectorAll('.project-card, .website-card, .pub-card, .about-card').forEach(el => {
-    el.classList.add('animate-on-scroll');
-    fadeInObserver.observe(el);
-});
 
 // ==========================================================================
 // CANVAS MOBILE OPTIMIZATION - Reduce particles for 60FPS
@@ -913,39 +913,41 @@ function initScrollProgressBar() {
 // 3D CARD TILT EFFECT
 // ==========================================================================
 function initTiltEffect() {
+    // Disable tilt on touch/mobile devices - causes jank
+    if (window.matchMedia('(hover: none)').matches) return;
+
     const cards = document.querySelectorAll('.project-card, .pub-card, .fav-website-item, .about-card, .contact-card');
 
     cards.forEach(card => {
+        let rafId = null;
+        let lastX = 0, lastY = 0;
+
         card.addEventListener('mousemove', (e) => {
-            // Remove transition for true hardware 1:1 mouse tracking
-            card.style.transition = 'none';
+            lastX = e.clientX;
+            lastY = e.clientY;
 
-            const rect = card.getBoundingClientRect();
-            // Get precise mouse coordinates relative to card
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            // Calculate percentage from center (-1 to 1)
-            const xPct = (x / rect.width - 0.5) * 2;
-            const yPct = (y / rect.height - 0.5) * 2;
-            
-            // X rotation comes from Y movement, Y rotation from X (Limit tilt to 12 degrees)
-            const rotateX = -yPct * 12; 
-            const rotateY = xPct * 12;
-
-            // Apply premium 3D transformation with a scale pop
-            card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
+            if (rafId) return; // Already scheduled — skip this event
+            rafId = requestAnimationFrame(() => {
+                rafId = null;
+                const rect = card.getBoundingClientRect();
+                const x = lastX - rect.left;
+                const y = lastY - rect.top;
+                const xPct = (x / rect.width - 0.5) * 2;
+                const yPct = (y / rect.height - 0.5) * 2;
+                const rotateX = -yPct * 8;
+                const rotateY = xPct * 8;
+                card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
         });
 
         card.addEventListener('mouseleave', () => {
-            // Re-apply smooth floating transition when mouse leaves
-            card.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease';
+            if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+            card.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
             card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
         });
-        
+
         card.addEventListener('mouseenter', () => {
-             // Initial smooth scale when entering
-             card.style.transition = 'transform 0.2s cubic-bezier(0.25, 1, 0.5, 1)';
+            card.style.transition = 'transform 0.15s ease';
         });
     });
 }
@@ -1035,14 +1037,15 @@ function initPageLoader() {
 function initStaggeredReveal() {
     const observerOptions = {
         root: null,
-        rootMargin: '0px',
-        threshold: 0.1
+        rootMargin: '0px 0px -40px 0px',
+        threshold: 0.08
     };
 
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                revealObserver.unobserve(entry.target); // Stop watching once animated
             }
         });
     }, observerOptions);
@@ -1050,7 +1053,7 @@ function initStaggeredReveal() {
     // Add stagger-reveal class to all cards
     document.querySelectorAll('.project-card, .pub-card, .fav-website-item, .about-card, .contact-card').forEach((el, index) => {
         el.classList.add('stagger-reveal');
-        el.style.transitionDelay = `${index * 0.1}s`;
+        el.style.transitionDelay = `${Math.min(index * 0.08, 0.5)}s`; // Cap max delay at 0.5s
         revealObserver.observe(el);
     });
 }
