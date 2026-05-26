@@ -1,0 +1,15 @@
+{
+  "name": "my-portfolio",
+  "version": "1.1.0",
+  "description": "Premium portfolio website with Vite optimization.",
+  "main": "index.html",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.2.0"
+  }
+}
