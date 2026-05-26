@@ -198,6 +198,7 @@
                     Websites</a>
                 <a href="#" onclick="openCertificates(); return false;" class="nav-link"><i
                         class="fas fa-certificate"></i> Certificates</a>
+                <a href="#" onclick="openApps(); return false;" class="nav-link"><i class="fas fa-mobile-alt"></i> Apps</a>
                 <a href="assets/documents/raj-pratham cv.pdf" download class="nav-link"><i class="fas fa-file-pdf"></i>
                     Resume</a>
                 <a href="#" class="nav-link theme-toggle-btn" title="Toggle Theme"><i class="fas fa-desktop"></i> System</a>
@@ -218,6 +219,7 @@
                     class="fas fa-globe"></i> Websites</a>
             <a href="#" onclick="openCertificates(); toggleMobileMenu(); return false;" class="nav-link"><i
                     class="fas fa-certificate"></i> Certificates</a>
+            <a href="#" onclick="openApps(); toggleMobileMenu(); return false;" class="nav-link"><i class="fas fa-mobile-alt"></i> Apps</a>
             <a href="assets/documents/raj-pratham cv.pdf" download class="nav-link"><i class="fas fa-file-pdf"></i>
                 Resume</a>
             <a href="#" class="nav-link theme-toggle-btn" title="Toggle Theme"><i class="fas fa-desktop"></i> System</a>
@@ -597,6 +599,203 @@
             </div>
         </div>
     </section>
+
+    <!-- Applications Section -->
+    <section class="apps-showcase-section animate-on-scroll slide-from-left">
+        <div class="container">
+            <div class="apps-section-header">
+                <div class="apps-section-icon"><i class="fas fa-mobile-alt"></i></div>
+                <div class="apps-section-text">
+                    <h2>My Applications</h2>
+                    <p>Native &amp; cross-platform mobile apps built with Flutter, Firebase &amp; modern architectures.</p>
+                </div>
+                <button class="apps-view-all-btn" onclick="openApps()">
+                    <i class="fas fa-th-large"></i> View All Apps
+                </button>
+            </div>
+
+            <div class="apps-cards-grid">
+                <!-- EcoVerse APK Card -->
+                <div class="app-card app-card--eco">
+                    <div class="app-card__glow"></div>
+                    <div class="app-card__header">
+                        <div class="app-card__icon">
+                            <img src="assets/images/ECO.png" alt="EcoVerse" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                            <i class="fas fa-leaf" style="display:none;"></i>
+                        </div>
+                        <div class="app-card__meta">
+                            <h3>EcoVerse</h3>
+                            <span class="app-platform-badge"><i class="fab fa-android"></i> Flutter App</span>
+                        </div>
+                        <div class="app-card__status">Live</div>
+                    </div>
+                    <p class="app-card__desc">Student-facing eco-gamification app connected to Firebase. Features eco missions, leaderboard, AI Eco Lens, QR eco-zone scanning, Botanical Wiki, and campus hub.</p>
+                    <div class="app-tech-pills">
+                        <span>Flutter</span><span>Dart</span><span>Firebase</span><span>Riverpod</span><span>go_router</span>
+                    </div>
+                    <div class="app-card__stats">
+                        <div class="app-stat"><i class="fas fa-code-branch"></i><span>Feature-Based Arch</span></div>
+                        <div class="app-stat"><i class="fas fa-database"></i><span>Realtime DB</span></div>
+                        <div class="app-stat"><i class="fas fa-qrcode"></i><span>QR Scanning</span></div>
+                    </div>
+                    <div class="app-card__actions">
+                        <a href="https://drive.usercontent.google.com/download?id=1c4MVS3AsYYptrDsFcHyzaMQzmHfJ2cQg&amp;export=download" target="_blank" class="app-download-btn">
+                            <i class="fab fa-android"></i> Download APK
+                        </a>
+                        <a href="https://github.com/rajpratham1/EcoVerse_Apk" target="_blank" class="app-github-btn">
+                            <i class="fab fa-github"></i> Source
+                        </a>
+                    </div>
+                </div>
+
+                <!-- BilloraX APK Card -->
+                <div class="app-card app-card--billorax">
+                    <div class="app-card__glow"></div>
+                    <div class="app-card__header">
+                        <div class="app-card__icon">
+                            <img src="assets/images/billorax.png.jpeg" alt="BilloraX" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                            <i class="fas fa-store" style="display:none;"></i>
+                        </div>
+                        <div class="app-card__meta">
+                            <h3>BilloraX</h3>
+                            <span class="app-platform-badge"><i class="fab fa-android"></i> Flutter App</span>
+                        </div>
+                        <div class="app-card__status app-card__status--orange">Live</div>
+                    </div>
+                    <p class="app-card__desc">Premium offline-first POS &amp; inventory management for Indian shopkeepers. Features AI voice billing assistant, thermal printing, GST compliance, and Bluetooth barcode scanning.</p>
+                    <div class="app-tech-pills">
+                        <span>Flutter</span><span>Firebase</span><span>Hive</span><span>Provider</span><span>ESC/POS</span>
+                    </div>
+                    <div class="app-card__stats">
+                        <div class="app-stat"><i class="fas fa-microphone"></i><span>Voice Assistant</span></div>
+                        <div class="app-stat"><i class="fas fa-wifi-slash"></i><span>Offline-First</span></div>
+                        <div class="app-stat"><i class="fas fa-print"></i><span>Thermal Print</span></div>
+                    </div>
+                    <div class="app-card__actions">
+                        <a href="https://billorax.vercel.app/" target="_blank" class="app-download-btn app-download-btn--orange">
+                            <i class="fas fa-external-link-alt"></i> Get App
+                        </a>
+                        <a href="https://github.com/rajpratham1/Billorax.apk" target="_blank" class="app-github-btn">
+                            <i class="fab fa-github"></i> Source
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Apps Overlay -->
+    <div id="appsOverlay" class="projects-overlay">
+        <button class="close-btn" onclick="closeApps()">&times;</button>
+        <div class="projects-container">
+            <h1 class="projects-title"><i class="fas fa-mobile-alt"></i> My Applications</h1>
+            <p class="apps-overlay-subtitle">Cross-platform mobile applications built with Flutter &amp; modern architectures</p>
+
+            <div class="apps-overlay-grid">
+                <!-- EcoVerse Detail -->
+                <div class="apps-detail-card apps-detail--eco">
+                    <div class="apps-detail-top">
+                        <div class="apps-detail-icon apps-icon--eco"><i class="fas fa-leaf"></i></div>
+                        <div>
+                            <h2>EcoVerse Flutter App</h2>
+                            <p class="apps-detail-tagline">Student mobile companion for the EcoVerse eco-gamification platform</p>
+                            <div class="apps-detail-badges">
+                                <span class="adb adb--green"><i class="fab fa-android"></i> Android</span>
+                                <span class="adb adb--blue"><i class="fab fa-apple"></i> iOS</span>
+                                <span class="adb adb--purple"><i class="fas fa-globe"></i> Web</span>
+                                <span class="adb adb--teal">Flutter 3</span>
+                                <span class="adb adb--live">Live</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="apps-detail-desc">The student-facing mobile app for EcoVerse that connects to Firebase for live data and uses the EcoVerse AI backend. Features a feature-based architecture with dedicated modules for authentication, dashboard, missions, education, games, leaderboard, social, and admin support.</p>
+
+                    <div class="apps-features-grid">
+                        <div class="apps-feature-item"><i class="fas fa-user-check"></i><div><strong>Firebase Auth</strong><p>Secure login, registration &amp; profile sync</p></div></div>
+                        <div class="apps-feature-item"><i class="fas fa-tasks"></i><div><strong>Eco Missions</strong><p>Course-aware mission feed with XP rewards</p></div></div>
+                        <div class="apps-feature-item"><i class="fas fa-trophy"></i><div><strong>Leaderboard</strong><p>Live ranking with friend activity feed</p></div></div>
+                        <div class="apps-feature-item"><i class="fas fa-eye"></i><div><strong>Eco Lens AI</strong><p>AI action verification &amp; carbon footprint calc</p></div></div>
+                        <div class="apps-feature-item"><i class="fas fa-qrcode"></i><div><strong>QR Eco Zones</strong><p>Scan campus eco-zones to earn points</p></div></div>
+                        <div class="apps-feature-item"><i class="fas fa-book"></i><div><strong>Botanical Wiki</strong><p>Firebase-powered eco library &amp; daily tips</p></div></div>
+                        <div class="apps-feature-item"><i class="fas fa-users"></i><div><strong>Campus Hub</strong><p>Forums, study circles, marketplace</p></div></div>
+                        <div class="apps-feature-item"><i class="fas fa-robot"></i><div><strong>AI Assistant</strong><p>Chat assistant powered by the EcoVerse backend</p></div></div>
+                    </div>
+
+                    <div class="apps-tech-row">
+                        <span><i class="fas fa-code"></i> Flutter</span>
+                        <span><i class="fas fa-code"></i> Dart</span>
+                        <span><i class="fas fa-fire"></i> Firebase Auth</span>
+                        <span><i class="fas fa-database"></i> Realtime DB</span>
+                        <span><i class="fas fa-layer-group"></i> Riverpod</span>
+                        <span><i class="fas fa-route"></i> go_router</span>
+                        <span><i class="fas fa-qrcode"></i> mobile_scanner</span>
+                        <span><i class="fas fa-cloud"></i> Firebase Storage</span>
+                    </div>
+
+                    <div class="apps-detail-actions">
+                        <a href="https://drive.usercontent.google.com/download?id=1c4MVS3AsYYptrDsFcHyzaMQzmHfJ2cQg&amp;export=download" target="_blank" class="apps-dl-btn apps-dl-btn--eco">
+                            <i class="fab fa-android"></i> Download APK
+                        </a>
+                        <a href="https://github.com/rajpratham1/EcoVerse_Apk" target="_blank" class="apps-dl-btn apps-dl-btn--ghost">
+                            <i class="fab fa-github"></i> GitHub Repo
+                        </a>
+                        <a href="https://eco-verse-eight.vercel.app/" target="_blank" class="apps-dl-btn apps-dl-btn--ghost">
+                            <i class="fas fa-globe"></i> Web Platform
+                        </a>
+                    </div>
+                </div>
+
+                <!-- BilloraX Detail -->
+                <div class="apps-detail-card apps-detail--billorax">
+                    <div class="apps-detail-top">
+                        <div class="apps-detail-icon apps-icon--billorax"><i class="fas fa-store"></i></div>
+                        <div>
+                            <h2>BilloraX POS App</h2>
+                            <p class="apps-detail-tagline">Premium offline-first billing &amp; inventory app for Indian shopkeepers</p>
+                            <div class="apps-detail-badges">
+                                <span class="adb adb--green"><i class="fab fa-android"></i> Android</span>
+                                <span class="adb adb--orange">GST Compliant</span>
+                                <span class="adb adb--teal">Offline-First</span>
+                                <span class="adb adb--live">Live</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="apps-detail-desc">A premium high-performance POS and inventory management ecosystem for Indian shopkeepers. Features an Offline-First architecture with Hive local caching, ensuring business continuity without internet. Includes thermal printing (ESC/POS), barcode scanning, AI voice billing, and GST-compliant invoicing.</p>
+
+                    <div class="apps-features-grid">
+                        <div class="apps-feature-item"><i class="fas fa-microphone"></i><div><strong>AI Voice Billing</strong><p>Say "Add 2kg Sugar" to auto-update cart</p></div></div>
+                        <div class="apps-feature-item"><i class="fas fa-wifi-slash"></i><div><strong>Offline-First</strong><p>Hive local queue syncs to Firestore automatically</p></div></div>
+                        <div class="apps-feature-item"><i class="fas fa-print"></i><div><strong>Thermal Printing</strong><p>58mm/80mm via Bluetooth &amp; USB ESC/POS</p></div></div>
+                        <div class="apps-feature-item"><i class="fas fa-barcode"></i><div><strong>Barcode Scanning</strong><p>Real-time product lookup and cart update</p></div></div>
+                        <div class="apps-feature-item"><i class="fas fa-receipt"></i><div><strong>GST Invoicing</strong><p>Auto SGST/CGST split by HSN tax bracket</p></div></div>
+                        <div class="apps-feature-item"><i class="fas fa-boxes"></i><div><strong>Inventory Alerts</strong><p>Low stock notifications with minQuantity threshold</p></div></div>
+                        <div class="apps-feature-item"><i class="fas fa-chart-line"></i><div><strong>Profit Analytics</strong><p>Sales trends, dead stock, Excel GST export</p></div></div>
+                        <div class="apps-feature-item"><i class="fas fa-users"></i><div><strong>Customer Udhaar</strong><p>Track credit balances, WhatsApp reminders</p></div></div>
+                    </div>
+
+                    <div class="apps-tech-row">
+                        <span><i class="fas fa-code"></i> Flutter</span>
+                        <span><i class="fas fa-fire"></i> Firebase Firestore</span>
+                        <span><i class="fas fa-database"></i> Hive (Offline)</span>
+                        <span><i class="fas fa-layer-group"></i> Provider</span>
+                        <span><i class="fas fa-file-pdf"></i> PDF Export</span>
+                        <span><i class="fas fa-print"></i> ESC/POS Protocol</span>
+                        <span><i class="fas fa-barcode"></i> Barcode Scanner</span>
+                        <span><i class="fas fa-microphone"></i> Voice Parsing</span>
+                    </div>
+
+                    <div class="apps-detail-actions">
+                        <a href="https://billorax.vercel.app/" target="_blank" class="apps-dl-btn apps-dl-btn--billorax">
+                            <i class="fas fa-external-link-alt"></i> Get App
+                        </a>
+                        <a href="https://github.com/rajpratham1/Billorax.apk" target="_blank" class="apps-dl-btn apps-dl-btn--ghost">
+                            <i class="fab fa-github"></i> GitHub Repo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Skills & Expertise Section -->
     <section class="skills-section">
