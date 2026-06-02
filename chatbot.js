@@ -64,6 +64,10 @@ document.addEventListener('DOMContentLoaded', () => {
         greetings: {
             keywords: ["hi", "hello", "hey", "sup", "yo", "greeting"],
             response: "Hello there! 👋 How can I help you today? Ask me about my projects or skills!"
+        },
+        hackathons: {
+            keywords: ["hackathon", "hackbhoomi", "sih", "iit", "roorkee", "cognizance", "astratech", "coderush", "eurekahacks", "bitbybit", "ecoverse", "trustflow", "rank", "winner", "competition"],
+            response: "🏆 Pratham has an impressive hackathon journey!<br>• <b>#4 Rank</b> – HackBhoomi (Internal SIH 2025) as Team Leader<br>• <b>Top 5</b> – CodeRush Hackathon (Team AstraTech) — built PrivyChat<br>• <b>Top 20</b> – EurekaHacks Hackathon (Team AstraTech)<br>• <b>#6 / 850+ Teams</b> – BitByBit, Cognizance 2026 at IIT Roorkee — built TrustFlow AI<br>Check the <b>Certificates → Hackathons</b> tab for more details!"
         }
     };
 

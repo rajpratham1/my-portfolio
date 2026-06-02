@@ -3864,7 +3864,7 @@
             position: relative;
             z-index: 10;
             /* Fallback and loading state */
-            background: url('assets/images/profile-photo.jpg.jpg') no-repeat center bottom;
+            background: url('./public/assets/images/profile-photo.jpg.jpg') no-repeat center bottom;
             background-size: contain;
         }
 
@@ -4798,3 +4798,89 @@
     animation: fadeIn 0.3s ease;
 }
 
+/* ==========================================================================
+   GLOWING BACKGROUND BOKEH BLOBS
+   ========================================================================== */
+.glowing-blobs-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+    pointer-events: none;
+    background: transparent;
+}
+
+.glowing-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(140px);
+    opacity: 0.15;
+    mix-blend-mode: screen;
+    will-change: transform;
+    transition: transform 1.2s cubic-bezier(0.1, 0.8, 0.2, 1);
+}
+
+.blob-1 {
+    top: -10%;
+    left: -10%;
+    width: 50vw;
+    height: 50vw;
+    background: radial-gradient(circle, rgba(0, 174, 255, 0.8) 0%, transparent 70%);
+}
+
+.blob-2 {
+    bottom: 10%;
+    right: -10%;
+    width: 45vw;
+    height: 45vw;
+    background: radial-gradient(circle, rgba(0, 255, 150, 0.7) 0%, transparent 70%);
+}
+
+.blob-3 {
+    top: 40%;
+    left: 30%;
+    width: 35vw;
+    height: 35vw;
+    background: radial-gradient(circle, rgba(162, 0, 255, 0.6) 0%, transparent 70%);
+}
+
+.light-theme .glowing-blob {
+    opacity: 0.08;
+    mix-blend-mode: multiply;
+}
+
+/* ==========================================================================
+   SLIDING NAVIGATION INDICATOR
+   ========================================================================== */
+.desktop-nav {
+    position: relative;
+}
+
+.nav-indicator-line {
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: linear-gradient(90deg, #00aeff, #0077ff);
+    border-radius: 2px;
+    transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 0 8px rgba(0, 174, 255, 0.5);
+    pointer-events: none;
+    opacity: 0;
+    will-change: left, width, opacity;
+}
+
+.desktop-nav:hover .nav-indicator-line {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   MAGNETIC physics and hover transitions
+   ========================================================================== */
+.hire-btn, .fav-btn, .skill-progress {
+    transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}

@@ -494,3 +494,207 @@ body.scroll-locked {
     border-radius: 20px !important;
     text-decoration: none !important;
 }
+
+/* ====================================================
+   HACKATHON CARD STYLES
+   ==================================================== */
+
+.hackathon-card {
+    position: relative;
+    overflow: hidden;
+    border-color: rgba(0, 212, 255, 0.15);
+    background: linear-gradient(135deg, rgba(10, 10, 26, 0.9), rgba(0, 30, 60, 0.6));
+    transition: all 0.35s ease;
+}
+
+.hackathon-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #00d4ff, #0088cc);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.hackathon-card:hover::before {
+    opacity: 1;
+}
+
+.hackathon-card:hover {
+    border-color: rgba(0, 212, 255, 0.4);
+    box-shadow: 0 15px 40px rgba(0, 212, 255, 0.15);
+    transform: translateY(-6px);
+}
+
+/* Rank Badges */
+.hackathon-rank-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, #00d4ff, #0066aa);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    z-index: 5;
+    box-shadow: 0 3px 10px rgba(0, 212, 255, 0.4);
+}
+
+.hackathon-rank-badge--gold {
+    background: linear-gradient(135deg, #ffd700, #b8860b);
+    box-shadow: 0 3px 10px rgba(255, 215, 0, 0.4);
+}
+
+.hackathon-rank-badge--green {
+    background: linear-gradient(135deg, #00c851, #007a30);
+    box-shadow: 0 3px 10px rgba(0, 200, 81, 0.4);
+}
+
+.hackathon-rank-badge--purple {
+    background: linear-gradient(135deg, #a855f7, #6b21a8);
+    box-shadow: 0 3px 10px rgba(168, 85, 247, 0.4);
+}
+
+/* Event Meta Row */
+.hackathon-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.hackathon-event {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.hackathon-event i {
+    font-size: 0.7rem;
+    opacity: 0.7;
+}
+
+/* Event Tags */
+.hackathon-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+    background: rgba(0, 212, 255, 0.12);
+    color: #00d4ff;
+    border: 1px solid rgba(0, 212, 255, 0.25);
+}
+
+.hackathon-tag--sih {
+    background: rgba(0, 212, 255, 0.12);
+    color: #00d4ff;
+    border-color: rgba(0, 212, 255, 0.3);
+}
+
+.hackathon-tag--gold {
+    background: rgba(255, 165, 0, 0.12);
+    color: #ffa500;
+    border-color: rgba(255, 165, 0, 0.3);
+}
+
+.hackathon-tag--green {
+    background: rgba(0, 200, 81, 0.12);
+    color: #00c851;
+    border-color: rgba(0, 200, 81, 0.3);
+}
+
+.hackathon-tag--purple {
+    background: rgba(168, 85, 247, 0.12);
+    color: #a855f7;
+    border-color: rgba(168, 85, 247, 0.3);
+}
+
+/* Highlights Row */
+.hackathon-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.hackathon-highlights span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.78rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3px 10px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+
+.hackathon-highlights span i {
+    font-size: 0.72rem;
+    opacity: 0.8;
+}
+
+.hackathon-card:hover .hackathon-highlights span {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Hackathon Button Variants */
+.hackathon-btn {
+    background: rgba(0, 212, 255, 0.1);
+    color: #00d4ff;
+    border-color: rgba(0, 212, 255, 0.3);
+}
+
+.hackathon-btn:hover {
+    background: #00d4ff;
+    color: #000;
+    box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+}
+
+.hackathon-btn--gold {
+    background: rgba(255, 165, 0, 0.1);
+    color: #ffa500;
+    border-color: rgba(255, 165, 0, 0.3);
+}
+
+.hackathon-btn--gold:hover {
+    background: #ffa500;
+    color: #000;
+    box-shadow: 0 5px 20px rgba(255, 165, 0, 0.4);
+}
+
+.hackathon-btn--green {
+    background: rgba(0, 200, 81, 0.1);
+    color: #00c851;
+    border-color: rgba(0, 200, 81, 0.3);
+}
+
+.hackathon-btn--green:hover {
+    background: #00c851;
+    color: #fff;
+    box-shadow: 0 5px 20px rgba(0, 200, 81, 0.4);
+}
+
+.hackathon-btn--purple {
+    background: rgba(168, 85, 247, 0.1);
+    color: #a855f7;
+    border-color: rgba(168, 85, 247, 0.3);
+}
+
+.hackathon-btn--purple:hover {
+    background: #a855f7;
+    color: #fff;
+    box-shadow: 0 5px 20px rgba(168, 85, 247, 0.4);
+}
