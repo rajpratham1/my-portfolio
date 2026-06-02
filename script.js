@@ -200,6 +200,38 @@ const certificatesData = [
         date: "2024",
         type: "working",
         image: "https://placehold.co/600x400/1e1e1e/00aeff?text=Internship"
+    },
+    {
+        title: "HackBhoomi – Internal SIH 2025",
+        issuer: "Invertis University · #4 Rank · Team Leader",
+        date: "2025",
+        type: "hackathons",
+        image: "https://placehold.co/600x400/0a0a1a/00d4ff?text=HackBhoomi+2025",
+        url: "https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_hackbhoomi-smartindiahackathon-backenddevelopment-activity-7376190388509986816-v0jS?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+    },
+    {
+        title: "AstraTech Hackathon Journey",
+        issuer: "CodeRush (Top 5) & EurekaHacks (Top 20)",
+        date: "2025",
+        type: "hackathons",
+        image: "https://placehold.co/600x400/0a0a1a/ffa500?text=AstraTech+Journey",
+        url: "https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_astratech-hackathonjourney-coderush-activity-7440264837080920064-1pj5?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+    },
+    {
+        title: "EcoVerse – Environmental Gamification Platform",
+        issuer: "College Hackathon · PS ID: SIH25009",
+        date: "2025",
+        type: "hackathons",
+        image: "https://placehold.co/600x400/0a0a1a/00c851?text=EcoVerse+SIH",
+        url: "https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_buildinpublic-studentinnovation-sustainability-activity-7450167379734528000-pxRK?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+    },
+    {
+        title: "BitByBit – Cognizance 2026, IIT Roorkee",
+        issuer: "Team Error404 · #6 out of 850+ Teams",
+        date: "2026",
+        type: "hackathons",
+        image: "https://placehold.co/600x400/0a0a1a/a855f7?text=IIT+Roorkee",
+        url: "https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_cognizance2026-iitroorkee-bitbybit-activity-7467459542486904832-m46t?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
     }
 ];
 
@@ -323,9 +355,15 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+// --- SAFE LOCALSTORAGE HELPER (Tracking Prevention safe) ---
+const safeStorage = {
+    getItem(key) { try { return localStorage.getItem(key); } catch(e) { return null; } },
+    setItem(key, val) { try { localStorage.setItem(key, val); } catch(e) {} }
+};
+
 // --- THEME LOGIC ---
 function initTheme() {
-    const savedTheme = localStorage.getItem('theme');
+    const savedTheme = safeStorage.getItem('theme');
     if (savedTheme === 'light') {
         document.body.classList.add('light-theme');
         updateThemeIcon(true);
@@ -337,8 +375,8 @@ window.toggleTheme = function () {
     const body = document.body;
     const isLight = body.classList.toggle('light-theme');
 
-    // Save preference
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    // Save preference (safe: Tracking Prevention may block localStorage)
+    safeStorage.setItem('theme', isLight ? 'light' : 'dark');
 
     // Update icons
     updateThemeIcon(isLight);
@@ -608,6 +646,13 @@ function openOverlayById(id, options = {}) {
     overlay.classList.add('show');
     resetOverlayScroll(overlay);
 
+    // Scramble overlay title texts for premium cybersecurity look
+    overlay.querySelectorAll('.projects-title, .skills-title, .certificates-title').forEach(title => {
+        if (typeof scrambleText === 'function') {
+            scrambleText(title);
+        }
+    });
+
     if (options.blur) {
         toggleBlur(true);
     }
@@ -743,9 +788,20 @@ document.addEventListener('wheel', (e) => {
     const canScroll = panel.scrollHeight > panel.clientHeight;
     if (!canScroll) return;
 
-    e.preventDefault();
+    // Only prevent default on cancelable events (avoids touchmove intervention spam)
+    if (e.cancelable) e.preventDefault();
     panel.scrollTop += e.deltaY;
 }, { passive: false });
+
+// Passive touch handler for overlay scroll on mobile
+document.addEventListener('touchmove', (e) => {
+    const isInsideOverlay = e.target.closest('.projects-overlay.show, .project-detail-modal.active');
+    if (!isInsideOverlay) return;
+    const panel = getActiveOverlayScrollPanel();
+    if (panel && e.touches.length === 1) {
+        // Let native scroll handle it — do NOT preventDefault here
+    }
+}, { passive: true });
 
 
 // --- OTHER GRAPHICS & LOGIC ---
@@ -795,7 +851,7 @@ function initParticles() {
     let animationFrameId = null;
 
     // Mouse position tracking for particle gravity
-    let mouse = { x: null, y: null, radius: 150 };
+    let mouse = { x: null, y: null, radius: 250 };
 
     window.addEventListener('mousemove', (e) => {
         mouse.x = e.clientX;
@@ -821,8 +877,8 @@ function initParticles() {
 
     // Optimize settings based on user screen width
     const isMobile = window.innerWidth < 768;
-    const particleCount = isMobile ? 25 : 55;
-    const maxDistance = 90;
+    const particleCount = isMobile ? 30 : 75;
+    const maxDistance = 80;
 
     // Toggleable performance saver
     let performanceSaverActive = false;
@@ -839,51 +895,101 @@ function initParticles() {
         constructor() {
             this.x = Math.random() * width;
             this.y = Math.random() * height;
-            this.vx = (Math.random() - 0.5) * 0.4;
-            this.vy = (Math.random() - 0.5) * 0.4;
-            this.size = Math.random() * 2 + 1;
-            this.color = `rgba(0, 174, 255, ${Math.random() * 0.4 + 0.1})`;
+            // Random direction and baseline drift speed
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
             this.baseVx = this.vx;
             this.baseVy = this.vy;
+            // Twinkling properties
+            this.size = Math.random() * 2.2 + 0.8;
+            this.baseAlpha = Math.random() * 0.5 + 0.25;
+            this.alpha = this.baseAlpha;
+            this.twinkleSpeed = Math.random() * 0.02 + 0.005;
+            this.angle = Math.random() * Math.PI * 2;
+            
+            // Theme colors: cyan/blue tones
+            const hues = [195, 205, 215, 225];
+            this.hue = hues[Math.floor(Math.random() * hues.length)];
         }
         update() {
+            // Twinkle effect (sine wave modulation of alpha)
+            this.angle += this.twinkleSpeed;
+            this.alpha = this.baseAlpha + Math.sin(this.angle) * 0.2;
+            if (this.alpha < 0.1) this.alpha = 0.1;
+            if (this.alpha > 0.85) this.alpha = 0.85;
+
+            // Star gathering physics ("all in the touch of cursor")
             if (mouse.x !== null && !isScrolling && !isMobile) {
                 const dx = mouse.x - this.x;
                 const dy = mouse.y - this.y;
                 const dist = Math.hypot(dx, dy);
-                if (dist < mouse.radius) {
-                    const force = (mouse.radius - dist) / mouse.radius * 0.12;
-                    this.vx += (dx / dist) * force;
-                    this.vy += (dy / dist) * force;
+
+                if (dist > 15) {
+                    // Global gravity pull towards cursor: stronger force as they get closer
+                    const pull = Math.min(0.22, (180 / dist) * 0.07 + 0.015);
+                    this.vx += (dx / dist) * pull;
+                    this.vy += (dy / dist) * pull;
+
+                    // Subtle perpendicular swirl/vortex force around mouse coordinates
+                    const swirl = 0.035;
+                    this.vx += (-dy / dist) * swirl;
+                    this.vy += (dx / dist) * swirl;
                 } else {
-                    this.vx += (this.baseVx - this.vx) * 0.05;
-                    this.vy += (this.baseVy - this.vy) * 0.05;
+                    // Soft jitter when extremely close to the cursor to create shimmering effect
+                    this.vx += (Math.random() - 0.5) * 0.12;
+                    this.vy += (Math.random() - 0.5) * 0.12;
                 }
+
+                // smooth deceleration
+                this.vx *= 0.94;
+                this.vy *= 0.94;
             } else {
-                this.vx += (this.baseVx - this.vx) * 0.05;
-                this.vy += (this.baseVy - this.vy) * 0.05;
+                // Return to baseline random drift velocity when mouse leaves/scrolls
+                this.vx += (this.baseVx - this.vx) * 0.04;
+                this.vy += (this.baseVy - this.vy) * 0.04;
+                this.vx *= 0.99;
+                this.vy *= 0.99;
             }
 
-            const speedLimit = 1.5;
-            const currentSpeed = Math.hypot(this.vx, this.vy);
-            if (currentSpeed > speedLimit) {
-                this.vx = (this.vx / currentSpeed) * speedLimit;
-                this.vy = (this.vy / currentSpeed) * speedLimit;
+            // Cap velocity
+            const maxSpeed = mouse.x !== null ? 3.8 : 1.2;
+            const speed = Math.hypot(this.vx, this.vy);
+            if (speed > maxSpeed) {
+                this.vx = (this.vx / speed) * maxSpeed;
+                this.vy = (this.vy / speed) * maxSpeed;
             }
 
             this.x += this.vx;
             this.y += this.vy;
 
+            // Bounce off screen boundaries
             if (this.x < 0) { this.x = 0; this.vx *= -1; this.baseVx *= -1; }
             if (this.x > width) { this.x = width; this.vx *= -1; this.baseVx *= -1; }
             if (this.y < 0) { this.y = 0; this.vy *= -1; this.baseVy *= -1; }
             if (this.y > height) { this.y = height; this.vy *= -1; this.baseVy *= -1; }
         }
         draw() {
-            ctx.fillStyle = this.color;
+            ctx.save();
+            
+            // Soft glow for larger stars to maintain high performance
+            if (this.size > 1.8) {
+                ctx.shadowBlur = this.size * 2.5;
+                ctx.shadowColor = `hsla(${this.hue}, 100%, 70%, ${this.alpha})`;
+            }
+            
+            ctx.fillStyle = `hsla(${this.hue}, 100%, 80%, ${this.alpha})`;
+            
+            // Draw 4-pointed sparkle star shape
             ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.moveTo(this.x, this.y - this.size * 2.2);
+            ctx.quadraticCurveTo(this.x, this.y, this.x + this.size * 2.2, this.y);
+            ctx.quadraticCurveTo(this.x, this.y, this.x, this.y + this.size * 2.2);
+            ctx.quadraticCurveTo(this.x, this.y, this.x - this.size * 2.2, this.y);
+            ctx.quadraticCurveTo(this.x, this.y, this.x, this.y - this.size * 2.2);
+            ctx.closePath();
             ctx.fill();
+            
+            ctx.restore();
         }
     }
 
@@ -899,6 +1005,7 @@ function initParticles() {
             p.draw();
         });
 
+        // Subtly connect stars in close proximity to draw modern constellations
         if (!isScrolling && !isMobile) {
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
@@ -909,9 +1016,9 @@ function initParticles() {
                     const dist = Math.hypot(dx, dy);
 
                     if (dist < maxDistance) {
-                        const alpha = (1 - dist / maxDistance) * 0.15;
+                        const alpha = (1 - dist / maxDistance) * 0.08;
                         ctx.strokeStyle = `rgba(0, 174, 255, ${alpha})`;
-                        ctx.lineWidth = 0.55;
+                        ctx.lineWidth = 0.4;
                         ctx.beginPath();
                         ctx.moveTo(p1.x, p1.y);
                         ctx.lineTo(p2.x, p2.y);
@@ -1346,6 +1453,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initSkillBarsAnimation();
     initThemeToggle();
     initPerformanceGuard();
+    initScrollScramble();
+    initBackgroundBlobsParallax();
+    initNavIndicator();
 });
 
 // ==========================================================================
@@ -1535,6 +1645,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function initSmoothScroll() {
     // Initialize Lenis for smooth scrolling
+    // smoothTouch MUST remain false — enabling it causes passive listener violations
+    // (browser fires 100s of "Ignored attempt to cancel a touchmove" interventions)
     if (typeof Lenis !== 'undefined') {
         lenisInstance = new Lenis({
             duration: 1.2,
@@ -1543,8 +1655,8 @@ function initSmoothScroll() {
             gestureDirection: 'vertical',
             smooth: true,
             mouseMultiplier: 1,
-            smoothTouch: false,
-            touchMultiplier: 2,
+            smoothTouch: false,   // Keep false — touch uses native scroll (no passive violations)
+            touchMultiplier: 0,   // Disable touch multiplier to avoid passive event conflicts
             prevent: (node) => Boolean(
                 node.closest('.projects-overlay') ||
                 node.closest('.project-detail-modal')
@@ -1659,6 +1771,136 @@ function initDynamicTitle() {
         } else {
             document.title = originalTitle;
         }
+    });
+}
+
+// ==========================================================================
+// INTERACTIVE TEXT DECRYPTION (SCRAMBLE EFFECT)
+// ==========================================================================
+function scrambleText(element) {
+    if (!element || element.dataset.scrambling === 'true') return;
+    
+    element.dataset.scrambling = 'true';
+    const originalText = element.dataset.original || element.textContent.trim();
+    element.dataset.original = originalText;
+    
+    const chars = '!@#$%^&*()_+{}:"<>?|[];\',./~`0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const duration = 25; // Speed of animation (frames per character)
+    let frame = 0;
+    
+    function updateText() {
+        let output = '';
+        let complete = true;
+        
+        for (let i = 0; i < originalText.length; i++) {
+            if (originalText[i] === ' ') {
+                output += ' ';
+                continue;
+            }
+            
+            const charDelay = i * 1.5;
+            const progress = (frame - charDelay) / duration;
+            
+            if (progress >= 1) {
+                output += originalText[i];
+            } else if (progress > 0) {
+                complete = false;
+                output += chars[Math.floor(Math.random() * chars.length)];
+            } else {
+                complete = false;
+                output += originalText[i];
+            }
+        }
+        
+        element.textContent = output;
+        
+        if (!complete && frame < originalText.length * 1.5 + duration) {
+            frame++;
+            requestAnimationFrame(updateText);
+        } else {
+            element.textContent = originalText;
+            element.dataset.scrambling = 'false';
+        }
+    }
+    
+    updateText();
+}
+
+function initScrollScramble() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                scrambleText(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    
+    document.querySelectorAll('.section-title .title-line').forEach(title => {
+        observer.observe(title);
+    });
+}
+
+// ==========================================================================
+// GLOWING BACKGROUND BOKEH BLOBS PARALLAX
+// ==========================================================================
+function initBackgroundBlobsParallax() {
+    if (window.matchMedia('(hover: none)').matches) return;
+
+    const blobs = document.querySelectorAll('.glowing-blob');
+    if (blobs.length === 0) return;
+
+    let mouseX = 0, mouseY = 0;
+    let currentX = 0, currentY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth - 0.5);
+        mouseY = (e.clientY / window.innerHeight - 0.5);
+    });
+
+    function updateParallax() {
+        currentX += (mouseX - currentX) * 0.05;
+        currentY += (mouseY - currentY) * 0.05;
+
+        blobs.forEach((blob, index) => {
+            const factor = (index + 1) * 35;
+            const tx = currentX * factor;
+            const ty = currentY * factor;
+            
+            blob.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
+        });
+
+        requestAnimationFrame(updateParallax);
+    }
+
+    requestAnimationFrame(updateParallax);
+}
+
+// ==========================================================================
+// SLIDING NAVIGATION UNDERLINE INDICATOR
+// ==========================================================================
+function initNavIndicator() {
+    const nav = document.querySelector('.desktop-nav');
+    const indicator = document.querySelector('.nav-indicator-line');
+    if (!nav || !indicator) return;
+
+    const links = nav.querySelectorAll('.nav-link');
+
+    links.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            const rect = link.getBoundingClientRect();
+            const navRect = nav.getBoundingClientRect();
+            const left = rect.left - navRect.left;
+            
+            indicator.style.left = `${left}px`;
+            indicator.style.width = `${rect.width}px`;
+            indicator.style.opacity = '1';
+        });
+    });
+
+    nav.addEventListener('mouseleave', () => {
+        indicator.style.width = '0px';
+        indicator.style.opacity = '0';
     });
 }
 
