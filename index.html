@@ -90,11 +90,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-  <script type="module" crossorigin src="./assets/index-CmrjznjP.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-1a30rNwV.css">
+  <script type="module" crossorigin src="./assets/index-CaI9yqc5.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-E_pe98MF.css">
 </head>
 
 <body>
+    <!-- Glowing background blobs -->
+    <div class="glowing-blobs-container">
+        <div class="glowing-blob blob-1"></div>
+        <div class="glowing-blob blob-2"></div>
+        <div class="glowing-blob blob-3"></div>
+    </div>
+
     <!-- Global Preloader -->
     <div id="global-preloader">
         <div class="loader-content">
@@ -196,6 +203,7 @@
                 <a href="assets/documents/raj-pratham cv.pdf" download class="nav-link"><i class="fas fa-file-pdf"></i>
                     Resume</a>
                 <a href="#" class="nav-link theme-toggle-btn" title="Toggle Theme"><i class="fas fa-desktop"></i> System</a>
+                <div class="nav-indicator-line"></div>
             </nav>
 
             <!-- Mobile Menu Toggle -->
@@ -576,15 +584,16 @@
                     <div class="icon-container">
                         <i class="fas fa-certificate"></i>
                     </div>
-                    <div class="card-badge">16 Certifications</div>
+                    <div class="card-badge">20+ Achievements</div>
                 </div>
                 <div class="split-content">
                     <h2>Professional Certifications</h2>
                     <p>Validation of my skills and continuous learning journey.</p>
                     <ul class="clean-list">
-                        <li><i class="fas fa-check-circle"></i> Learning & Development</li>
-                        <li><i class="fas fa-check-circle"></i> Soft Skills & Leadership</li>
+                        <li><i class="fas fa-check-circle"></i> Learning &amp; Development</li>
+                        <li><i class="fas fa-check-circle"></i> Soft Skills &amp; Leadership</li>
                         <li><i class="fas fa-check-circle"></i> Professional Experience</li>
+                        <li><i class="fas fa-check-circle"></i> Hackathons &amp; Innovations</li>
                     </ul>
                     <div class="cta-text">
                         <i class="fas fa-mouse-pointer"></i> Click card to view all
@@ -961,6 +970,9 @@
                 <button class="cert-tab" onclick="showCertTab('working')">
                     <i class="fas fa-briefcase"></i> Working Experience
                 </button>
+                <button class="cert-tab" onclick="showCertTab('hackathons')">
+                    <i class="fas fa-trophy"></i> Hackathons
+                </button>
             </div>
 
             <!-- Tab Content: Learning Certificates -->
@@ -1194,6 +1206,113 @@
                                 target="_blank" class="pub-btn"><i class="fab fa-linkedin"></i> View Post</a>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Hackathons -->
+            <div id="cert-hackathons" class="cert-section">
+                <div class="pub-grid">
+
+                    <!-- HackBhoomi 2025 -->
+                    <div class="pub-card hackathon-card">
+                        <div class="hackathon-rank-badge">#4 Rank</div>
+                        <img loading="lazy" src="https://placehold.co/600x400/0a0a1a/00d4ff?text=HackBhoomi+2025"
+                            alt="HackBhoomi Hackathon 2025" class="pub-image">
+                        <div class="pub-content">
+                            <div class="hackathon-meta">
+                                <span class="hackathon-event"><i class="fas fa-map-marker-alt"></i> Invertis University, Bareilly</span>
+                                <span class="hackathon-tag hackathon-tag--sih">Smart India Hackathon 2025</span>
+                            </div>
+                            <h3 class="pub-title">HackBhoomi – Internal SIH 2025</h3>
+                            <p class="pub-desc">Secured 4th rank as Team Leader. Responsibilities included backend development, system integration, managing deployment via Render, and maintaining codebase on GitHub.</p>
+                            <div class="hackathon-highlights">
+                                <span><i class="fas fa-code"></i> Backend Dev</span>
+                                <span><i class="fas fa-plug"></i> Integration</span>
+                                <span><i class="fas fa-cloud-upload-alt"></i> Deployment</span>
+                                <span><i class="fas fa-crown"></i> Team Leader</span>
+                            </div>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_hackbhoomi-smartindiahackathon-backenddevelopment-activity-7376190388509986816-v0jS?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn hackathon-btn">
+                                <i class="fab fa-linkedin"></i> View LinkedIn Post
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- AstraTech – CodeRush & EurekaHacks -->
+                    <div class="pub-card hackathon-card">
+                        <div class="hackathon-rank-badge hackathon-rank-badge--gold">Top 5 & Top 20</div>
+                        <img loading="lazy" src="https://placehold.co/600x400/0a0a1a/ffa500?text=AstraTech+Journey"
+                            alt="AstraTech Hackathon Journey" class="pub-image">
+                        <div class="pub-content">
+                            <div class="hackathon-meta">
+                                <span class="hackathon-event"><i class="fas fa-users"></i> Team AstraTech</span>
+                                <span class="hackathon-tag hackathon-tag--gold">CodeRush &amp; EurekaHacks</span>
+                            </div>
+                            <h3 class="pub-title">AstraTech Hackathon Journey</h3>
+                            <p class="pub-desc">Top 5 Finalist at CodeRush Hackathon and Top 20 at EurekaHacks. Built two real-world products: End-to-End Secure Chat and PrivyChat — a privacy-first communication platform with video calling, audio calling, and Ghost Mode.</p>
+                            <div class="hackathon-highlights">
+                                <span><i class="fas fa-trophy"></i> Top 5 CodeRush</span>
+                                <span><i class="fas fa-medal"></i> Top 20 EurekaHacks</span>
+                                <span><i class="fas fa-lock"></i> PrivyChat</span>
+                                <span><i class="fas fa-video"></i> Video Calling</span>
+                            </div>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_astratech-hackathonjourney-coderush-activity-7440264837080920064-1pj5?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn hackathon-btn hackathon-btn--gold">
+                                <i class="fab fa-linkedin"></i> View LinkedIn Post
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- EcoVerse SIH PS -->
+                    <div class="pub-card hackathon-card">
+                        <div class="hackathon-rank-badge hackathon-rank-badge--green">Full Build</div>
+                        <img loading="lazy" src="https://placehold.co/600x400/0a0a1a/00c851?text=EcoVerse+SIH"
+                            alt="EcoVerse Hackathon Project" class="pub-image">
+                        <div class="pub-content">
+                            <div class="hackathon-meta">
+                                <span class="hackathon-event"><i class="fas fa-leaf"></i> PS ID: SIH25009</span>
+                                <span class="hackathon-tag hackathon-tag--green">College Hackathon</span>
+                            </div>
+                            <h3 class="pub-title">EcoVerse – Environmental Gamification Platform</h3>
+                            <p class="pub-desc">Built a complete end-to-end ecosystem for the PS: a gamified platform for environmental learning with leaderboards, eco rewards, progress tracking, and achievement badges. Delivered a full-stack web platform, Flutter mobile app, and admin panel.</p>
+                            <div class="hackathon-highlights">
+                                <span><i class="fas fa-globe"></i> Full Stack</span>
+                                <span><i class="fab fa-flutter"></i> Mobile App</span>
+                                <span><i class="fas fa-chess-king"></i> Admin Panel</span>
+                                <span><i class="fas fa-gamepad"></i> Gamification</span>
+                            </div>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_buildinpublic-studentinnovation-sustainability-activity-7450167379734528000-pxRK?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn hackathon-btn hackathon-btn--green">
+                                <i class="fab fa-linkedin"></i> View LinkedIn Post
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Cognizance 2026 IIT Roorkee -->
+                    <div class="pub-card hackathon-card">
+                        <div class="hackathon-rank-badge hackathon-rank-badge--purple">#6 / 850+ Teams</div>
+                        <img loading="lazy" src="https://placehold.co/600x400/0a0a1a/a855f7?text=IIT+Roorkee"
+                            alt="Cognizance 2026 IIT Roorkee" class="pub-image">
+                        <div class="pub-content">
+                            <div class="hackathon-meta">
+                                <span class="hackathon-event"><i class="fas fa-university"></i> IIT Roorkee</span>
+                                <span class="hackathon-tag hackathon-tag--purple">Cognizance 2026</span>
+                            </div>
+                            <h3 class="pub-title">BitByBit – Cognizance 2026, IIT Roorkee</h3>
+                            <p class="pub-desc">Secured 6th place out of 850+ teams as Team Lead of Error404. Built TrustFlow AI — an autonomous freelancer ecosystem combining AI agents, predictive risk analysis, smart escrow mechanisms, and a soulbound reputation system.</p>
+                            <div class="hackathon-highlights">
+                                <span><i class="fas fa-robot"></i> AI Agents</span>
+                                <span><i class="fas fa-shield-alt"></i> Smart Escrow</span>
+                                <span><i class="fas fa-crown"></i> Team Lead</span>
+                                <span><i class="fas fa-star"></i> #6 of 850+</span>
+                            </div>
+                            <a href="https://www.linkedin.com/posts/pratham-kumar-2a4b151a7_cognizance2026-iitroorkee-bitbybit-activity-7467459542486904832-m46t?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBlqFwBp-8Ow2dQH3PGfT4PPn6g6A_J_S4"
+                                target="_blank" class="pub-btn hackathon-btn hackathon-btn--purple">
+                                <i class="fab fa-linkedin"></i> View LinkedIn Post
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
