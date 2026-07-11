@@ -808,7 +808,7 @@ document.addEventListener('touchmove', (e) => {
 
 // --- UI INTERACTION FUNCTIONS ---
 
-function toggleMobileMenu() {
+window.toggleMobileMenu = function toggleMobileMenu() {
     const header = document.querySelector('.main-header');
     header.classList.toggle('mobile-menu-open');
 
