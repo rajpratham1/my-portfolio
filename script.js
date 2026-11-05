@@ -1929,4 +1929,62 @@ function initNavIndicator() {
     });
 }
 
+// Lightweight polish effects shared by the static sections. Values are
+// updated only while the pointer is moving, keeping idle pages at zero work.
+function initMotionPolish() {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const canHover = window.matchMedia('(hover: hover)').matches;
+
+    if (!reduceMotion) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('motion-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -35px' });
+
+        document.querySelectorAll('.section-title, .apps-section-header, .terminal-section > .container > .section-subtitle')
+            .forEach((element, index) => {
+                element.classList.add('motion-reveal');
+                element.style.setProperty('--motion-delay', `${Math.min(index * 70, 280)}ms`);
+                revealObserver.observe(element);
+            });
+    }
+
+    if (canHover && !reduceMotion) {
+        document.querySelectorAll('.split-section, .expertise-badge, .skill-item, .social-link, .cta-button')
+            .forEach(element => {
+                let frame = null;
+                let x = 0;
+                let y = 0;
+
+                element.addEventListener('pointermove', event => {
+                    const rect = element.getBoundingClientRect();
+                    x = event.clientX - rect.left;
+                    y = event.clientY - rect.top;
+                    if (!frame) {
+                        frame = requestAnimationFrame(() => {
+                            element.style.setProperty('--pointer-x', `${x}px`);
+                            element.style.setProperty('--pointer-y', `${y}px`);
+                            frame = null;
+                        });
+                    }
+                }, { passive: true });
+            });
+    }
+
+    let scrollFrame = null;
+    window.addEventListener('scroll', () => {
+        if (scrollFrame) return;
+        scrollFrame = requestAnimationFrame(() => {
+            document.documentElement.style.setProperty('--page-scroll', `${window.scrollY}px`);
+            document.body.classList.toggle('page-scrolled', window.scrollY > 24);
+            scrollFrame = null;
+        });
+    }, { passive: true });
+}
+
+document.addEventListener('DOMContentLoaded', initMotionPolish);
 
