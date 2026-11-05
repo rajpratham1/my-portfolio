@@ -55,7 +55,7 @@
 .about-card,
 .contact-card {
     transform-style: preserve-3d;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
 /* Tilt handled by JavaScript - this is the base */
@@ -141,6 +141,26 @@
 .parallax-slow {
     transform: translateY(0);
     transition: transform 0.1s ease-out;
+}
+
+.cursor-dot,
+.cursor-outline,
+.glowing-blob,
+.scroll-progress-bar {
+    will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-text h1,
+    .section-title .title-line,
+    .float-effect,
+    .float-slow,
+    .hero-image img,
+    .icon-container i,
+    .fav-star i,
+    .card-badge {
+        animation: none;
+    }
 }
 
 /* ==========================================================================

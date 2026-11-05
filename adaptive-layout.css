@@ -82,11 +82,11 @@
 .skill-card,
 .cert-card {
     background: rgba(255, 255, 255, 0.03) !important;
-    backdrop-filter: blur(15px) !important;
-    -webkit-backdrop-filter: blur(15px) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 16px;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     transform-style: preserve-3d;
 }
 
@@ -159,6 +159,28 @@
 .animate-on-scroll.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .project-card,
+    .website-card,
+    .pub-card,
+    .about-card,
+    .contact-card,
+    .expertise-badges .expertise-badge,
+    .skill-card,
+    .cert-card {
+        backdrop-filter: blur(6px) !important;
+        -webkit-backdrop-filter: blur(6px) !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-on-scroll {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
 }
 
 /* Stagger animation for children */

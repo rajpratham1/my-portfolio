@@ -877,8 +877,10 @@ function initParticles() {
 
     // Optimize settings based on user screen width
     const isMobile = window.innerWidth < 768;
-    const particleCount = isMobile ? 30 : 75;
+    const particleCount = isMobile ? 20 : 48;
     const maxDistance = 80;
+    let frame = 0;
+    let canvasVisible = true;
 
     // Toggleable performance saver
     let performanceSaverActive = false;
@@ -996,7 +998,10 @@ function initParticles() {
     for (let i = 0; i < particleCount; i++) particles.push(new Particle());
 
     function animate() {
-        if (performanceSaverActive) return;
+        if (performanceSaverActive || document.hidden || !canvasVisible) {
+            animationFrameId = null;
+            return;
+        }
 
         ctx.clearRect(0, 0, width, height);
 
@@ -1006,7 +1011,9 @@ function initParticles() {
         });
 
         // Subtly connect stars in close proximity to draw modern constellations
-        if (!isScrolling && !isMobile) {
+        // Connection lines are the most expensive part of the effect. Drawing
+        // them every other frame keeps the motion smooth without changing the look.
+        if (!isScrolling && !isMobile && frame % 2 === 0) {
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const p1 = particles[i];
@@ -1028,6 +1035,7 @@ function initParticles() {
             }
         }
 
+        frame++;
         animationFrameId = requestAnimationFrame(animate);
     }
 
@@ -1045,11 +1053,23 @@ function initParticles() {
     }
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+        canvasVisible = entry.isIntersecting;
+        if (canvasVisible && !animationFrameId && !performanceSaverActive) {
+            animate();
+        }
+    }, { threshold: 0 });
+    visibilityObserver.observe(canvas);
     animate();
 
+    let resizeFrame = null;
     window.addEventListener('resize', () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
+        if (resizeFrame) cancelAnimationFrame(resizeFrame);
+        resizeFrame = requestAnimationFrame(() => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            resizeFrame = null;
+        });
     });
 }
 
@@ -1852,13 +1872,18 @@ function initBackgroundBlobsParallax() {
 
     let mouseX = 0, mouseY = 0;
     let currentX = 0, currentY = 0;
+    let animationFrameId = null;
+    let hasPointerInput = false;
 
     window.addEventListener('mousemove', (e) => {
         mouseX = (e.clientX / window.innerWidth - 0.5);
         mouseY = (e.clientY / window.innerHeight - 0.5);
+        hasPointerInput = true;
+        if (!animationFrameId) updateParallax();
     });
 
     function updateParallax() {
+        animationFrameId = null;
         currentX += (mouseX - currentX) * 0.05;
         currentY += (mouseY - currentY) * 0.05;
 
@@ -1870,10 +1895,10 @@ function initBackgroundBlobsParallax() {
             blob.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
         });
 
-        requestAnimationFrame(updateParallax);
+        if (hasPointerInput && (Math.abs(mouseX - currentX) > 0.001 || Math.abs(mouseY - currentY) > 0.001)) {
+            animationFrameId = requestAnimationFrame(updateParallax);
+        }
     }
-
-    requestAnimationFrame(updateParallax);
 }
 
 // ==========================================================================
@@ -1903,6 +1928,5 @@ function initNavIndicator() {
         indicator.style.opacity = '0';
     });
 }
-
 
 
