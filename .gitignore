@@ -1,0 +1,10 @@
+node_modules/
+.npm/
+
+# Local Vite output is generated during deployment.
+dist/
+
+# Local environment files
+.env
+.env.*
+!.env.example
