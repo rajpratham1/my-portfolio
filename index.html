@@ -91,8 +91,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-  <script type="module" crossorigin src="./assets/index-DWFVPWk5.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-E_pe98MF.css">
+  <script type="module" crossorigin src="./assets/index-DbE0jzJK.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BDLcbArB.css">
 </head>
 
 <body>
@@ -178,12 +178,12 @@
             }
         };
 
-        // Faster load: Hide on DOM Ready + small buffer
-        document.addEventListener('DOMContentLoaded', () => setTimeout(hidePreloader, 800));
-        window.addEventListener('load', () => setTimeout(hidePreloader, 300));
+        // Keep the transition visible without delaying the first interaction.
+        document.addEventListener('DOMContentLoaded', () => setTimeout(hidePreloader, 250));
+        window.addEventListener('load', () => setTimeout(hidePreloader, 150));
 
-        // Safety Fallback (2.5 seconds)
-        setTimeout(hidePreloader, 2500);
+        // Safety fallback for slow connections or blocked resources.
+        setTimeout(hidePreloader, 1500);
     </script>
     <!-- Floating Action Menu -->
     <!-- Navigation Header -->
